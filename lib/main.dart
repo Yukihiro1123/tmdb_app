@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 void main() {
-  runApp(const MyApp());
+  final devicePreview = DevicePreview(builder: (_) => const MyApp());
+  runApp(devicePreview);
 }
 
 class MyApp extends StatelessWidget {
