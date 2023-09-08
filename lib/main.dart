@@ -5,6 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:tmdb_app/src/config/app_router.dart';
 
 void main() {
+  const flavor = String.fromEnvironment('flavor');
   final devicePreview =
       DevicePreview(builder: (_) => const ProviderScope(child: MyApp()));
   runApp(devicePreview);
@@ -23,6 +24,8 @@ class MyApp extends ConsumerWidget {
       designSize: const Size(390, 844),
       builder: (context, child) {
         return MaterialApp.router(
+          debugShowCheckedModeBanner:
+              const String.fromEnvironment('flavor') == 'dev',
           routerConfig: router,
           title: 'Flutter Demo',
           locale: DevicePreview.locale(context),

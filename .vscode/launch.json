@@ -1,0 +1,77 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "テスト環境",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "debug",
+            "args": [
+                "--dart-define-from-file=scripts/flavors/dev.json",
+            ]
+        },
+        {
+            "name": "検証用環境",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "debug",
+            "args": [
+                "--dart-define-from-file=scripts/flavors/stg.json",
+            ]
+        },
+        {
+            "name": "本番環境",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "debug",
+            "args": [
+                "--dart-define-from-file=scripts/flavors/prod.json",
+            ]
+        },
+        {
+            "name": "テスト環境(web)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "debug",
+            "args": [
+                "--dart-define-from-file=scripts/flavors/dev.json",
+                "-d",
+                "chrome",
+                "--web-port",
+                "5000",
+                "--web-renderer",
+                "html",
+            ]
+        },
+        {
+            "name": "検証用環境(web)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "debug",
+            "args": [
+                "--dart-define-from-file=scripts/flavors/stg.json",
+                "-d",
+                "chrome",
+                "--web-port",
+                "5000",
+                "--web-renderer",
+                "html",
+            ]
+        },
+        {
+            "name": "本番環境(web)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "debug",
+            "args": [
+                "--dart-define-from-file=scripts/flavors/prod.json",
+                "-d",
+                "chrome",
+                "--web-port",
+                "5000",
+                "--web-renderer",
+                "html",
+            ]
+        }
+    ]
+}
