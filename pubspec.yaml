@@ -54,6 +54,7 @@ dependencies:
   device_preview:
   shimmer:
   intl:
+  dio:
 
 
 dev_dependencies:

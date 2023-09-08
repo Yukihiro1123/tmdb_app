@@ -1,5 +1,5 @@
 import 'package:go_router/go_router.dart';
-import 'package:tmdb_app/src/config/router_utils.dart';
+import 'package:tmdb_app/src/routing/router_utils.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:tmdb_app/src/features/movies/views/movie_list_page.dart';
 part 'app_router.g.dart';
