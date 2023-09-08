@@ -1,12 +1,17 @@
 import 'package:dio/dio.dart';
+import 'package:tmdb_app/env.dart';
 import 'package:tmdb_app/src/features/movies/data_model/movie/movie.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import 'package:tmdb_app/src/features/movies/data_model/movie_response.dart';
+import 'package:tmdb_app/src/utils/dio_provider.dart';
+part 'movie_repository.g.dart';
 
-class MoviesRepository {
-  MoviesRepository({required this.client, required this.apiKey});
-  final Dio client;
-  final String apiKey;
+@riverpod
+class MovieRepository extends _$MovieRepository {
+  @override
+  Dio build() {
+    return ref.read(dioProvider);
+  }
 
   Future<List<Movie>> getNowPlayingMovies({required int page}) async {
     final String url = Uri(
@@ -14,13 +19,17 @@ class MoviesRepository {
       host: 'api.themoviedb.org',
       path: '3/movie/now_playing',
       queryParameters: {
-        'api_key': apiKey,
+        'language': 'ja-JP',
+        'with_original_language': 'ja',
+        'api_key': Env.apiKey,
         'include_adult': 'false',
         'page': '$page',
       },
     ).toString();
-    final response = await client.get(url);
-    final movies = MovieResponse.fromJson(response.data);
-    return movies.results;
+    final response = await state.get(url);
+    final List<dynamic> results = response.data["results"];
+    return results
+        .map((item) => Movie.fromJson(item as Map<String, dynamic>))
+        .toList();
   }
 }
