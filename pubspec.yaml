@@ -55,6 +55,10 @@ dependencies:
   shimmer:
   intl:
   dio:
+  drift:
+  sqlite3_flutter_libs:
+  path_provider:
+  path:
 
 
 dev_dependencies:
@@ -70,6 +74,7 @@ dev_dependencies:
   json_serializable:
   freeze:
   build_runner:
+  drift_dev:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
