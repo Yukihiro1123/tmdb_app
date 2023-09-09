@@ -3,11 +3,12 @@
 part of 'database.dart';
 
 // ignore_for_file: type=lint
-class $MovieTable extends Movie with TableInfo<$MovieTable, MovieData> {
+class $MovieRecordsTable extends MovieRecords
+    with TableInfo<$MovieRecordsTable, MovieRecord> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $MovieTable(this.attachedDatabase, [this._alias]);
+  $MovieRecordsTable(this.attachedDatabase, [this._alias]);
   static const VerificationMeta _movieIdMeta =
       const VerificationMeta('movieId');
   @override
@@ -101,11 +102,11 @@ class $MovieTable extends Movie with TableInfo<$MovieTable, MovieData> {
         isVideo
       ];
   @override
-  String get aliasedName => _alias ?? 'movie';
+  String get aliasedName => _alias ?? 'movie_records';
   @override
-  String get actualTableName => 'movie';
+  String get actualTableName => 'movie_records';
   @override
-  VerificationContext validateIntegrity(Insertable<MovieData> instance,
+  VerificationContext validateIntegrity(Insertable<MovieRecord> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
@@ -197,9 +198,9 @@ class $MovieTable extends Movie with TableInfo<$MovieTable, MovieData> {
   @override
   Set<GeneratedColumn> get $primaryKey => const {};
   @override
-  MovieData map(Map<String, dynamic> data, {String? tablePrefix}) {
+  MovieRecord map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return MovieData(
+    return MovieRecord(
       movieId: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}movie_id'])!,
       title: attachedDatabase.typeMapping
@@ -228,12 +229,12 @@ class $MovieTable extends Movie with TableInfo<$MovieTable, MovieData> {
   }
 
   @override
-  $MovieTable createAlias(String alias) {
-    return $MovieTable(attachedDatabase, alias);
+  $MovieRecordsTable createAlias(String alias) {
+    return $MovieRecordsTable(attachedDatabase, alias);
   }
 }
 
-class MovieData extends DataClass implements Insertable<MovieData> {
+class MovieRecord extends DataClass implements Insertable<MovieRecord> {
   final String movieId;
   final String title;
   final String overview;
@@ -246,7 +247,7 @@ class MovieData extends DataClass implements Insertable<MovieData> {
   final String posterPath;
   final bool isAdult;
   final bool isVideo;
-  const MovieData(
+  const MovieRecord(
       {required this.movieId,
       required this.title,
       required this.overview,
@@ -277,8 +278,8 @@ class MovieData extends DataClass implements Insertable<MovieData> {
     return map;
   }
 
-  MovieCompanion toCompanion(bool nullToAbsent) {
-    return MovieCompanion(
+  MovieRecordsCompanion toCompanion(bool nullToAbsent) {
+    return MovieRecordsCompanion(
       movieId: Value(movieId),
       title: Value(title),
       overview: Value(overview),
@@ -294,10 +295,10 @@ class MovieData extends DataClass implements Insertable<MovieData> {
     );
   }
 
-  factory MovieData.fromJson(Map<String, dynamic> json,
+  factory MovieRecord.fromJson(Map<String, dynamic> json,
       {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
-    return MovieData(
+    return MovieRecord(
       movieId: serializer.fromJson<String>(json['movieId']),
       title: serializer.fromJson<String>(json['title']),
       overview: serializer.fromJson<String>(json['overview']),
@@ -331,7 +332,7 @@ class MovieData extends DataClass implements Insertable<MovieData> {
     };
   }
 
-  MovieData copyWith(
+  MovieRecord copyWith(
           {String? movieId,
           String? title,
           String? overview,
@@ -344,7 +345,7 @@ class MovieData extends DataClass implements Insertable<MovieData> {
           String? posterPath,
           bool? isAdult,
           bool? isVideo}) =>
-      MovieData(
+      MovieRecord(
         movieId: movieId ?? this.movieId,
         title: title ?? this.title,
         overview: overview ?? this.overview,
@@ -360,7 +361,7 @@ class MovieData extends DataClass implements Insertable<MovieData> {
       );
   @override
   String toString() {
-    return (StringBuffer('MovieData(')
+    return (StringBuffer('MovieRecord(')
           ..write('movieId: $movieId, ')
           ..write('title: $title, ')
           ..write('overview: $overview, ')
@@ -394,7 +395,7 @@ class MovieData extends DataClass implements Insertable<MovieData> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      (other is MovieData &&
+      (other is MovieRecord &&
           other.movieId == this.movieId &&
           other.title == this.title &&
           other.overview == this.overview &&
@@ -409,7 +410,7 @@ class MovieData extends DataClass implements Insertable<MovieData> {
           other.isVideo == this.isVideo);
 }
 
-class MovieCompanion extends UpdateCompanion<MovieData> {
+class MovieRecordsCompanion extends UpdateCompanion<MovieRecord> {
   final Value<String> movieId;
   final Value<String> title;
   final Value<String> overview;
@@ -423,7 +424,7 @@ class MovieCompanion extends UpdateCompanion<MovieData> {
   final Value<bool> isAdult;
   final Value<bool> isVideo;
   final Value<int> rowid;
-  const MovieCompanion({
+  const MovieRecordsCompanion({
     this.movieId = const Value.absent(),
     this.title = const Value.absent(),
     this.overview = const Value.absent(),
@@ -438,7 +439,7 @@ class MovieCompanion extends UpdateCompanion<MovieData> {
     this.isVideo = const Value.absent(),
     this.rowid = const Value.absent(),
   });
-  MovieCompanion.insert({
+  MovieRecordsCompanion.insert({
     required String movieId,
     required String title,
     required String overview,
@@ -464,7 +465,7 @@ class MovieCompanion extends UpdateCompanion<MovieData> {
         posterPath = Value(posterPath),
         isAdult = Value(isAdult),
         isVideo = Value(isVideo);
-  static Insertable<MovieData> custom({
+  static Insertable<MovieRecord> custom({
     Expression<String>? movieId,
     Expression<String>? title,
     Expression<String>? overview,
@@ -496,7 +497,7 @@ class MovieCompanion extends UpdateCompanion<MovieData> {
     });
   }
 
-  MovieCompanion copyWith(
+  MovieRecordsCompanion copyWith(
       {Value<String>? movieId,
       Value<String>? title,
       Value<String>? overview,
@@ -510,7 +511,7 @@ class MovieCompanion extends UpdateCompanion<MovieData> {
       Value<bool>? isAdult,
       Value<bool>? isVideo,
       Value<int>? rowid}) {
-    return MovieCompanion(
+    return MovieRecordsCompanion(
       movieId: movieId ?? this.movieId,
       title: title ?? this.title,
       overview: overview ?? this.overview,
@@ -574,7 +575,7 @@ class MovieCompanion extends UpdateCompanion<MovieData> {
 
   @override
   String toString() {
-    return (StringBuffer('MovieCompanion(')
+    return (StringBuffer('MovieRecordsCompanion(')
           ..write('movieId: $movieId, ')
           ..write('title: $title, ')
           ..write('overview: $overview, ')
@@ -593,13 +594,13 @@ class MovieCompanion extends UpdateCompanion<MovieData> {
   }
 }
 
-abstract class _$MyDatabase extends GeneratedDatabase {
-  _$MyDatabase(QueryExecutor e) : super(e);
-  late final $MovieTable movie = $MovieTable(this);
-  late final MovieDao movieDao = MovieDao(this as MyDatabase);
+abstract class _$LocalDatabase extends GeneratedDatabase {
+  _$LocalDatabase(QueryExecutor e) : super(e);
+  late final $MovieRecordsTable movieRecords = $MovieRecordsTable(this);
+  late final MovieDao movieDao = MovieDao(this as LocalDatabase);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
-  List<DatabaseSchemaEntity> get allSchemaEntities => [movie];
+  List<DatabaseSchemaEntity> get allSchemaEntities => [movieRecords];
 }

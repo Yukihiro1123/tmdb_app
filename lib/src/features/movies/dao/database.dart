@@ -9,7 +9,7 @@ import 'dao.dart';
 
 part "database.g.dart";
 
-class Movie extends Table {
+class MovieRecords extends Table {
   TextColumn get movieId => text()();
   TextColumn get title => text()();
   TextColumn get overview => text()();
@@ -24,10 +24,10 @@ class Movie extends Table {
   BoolColumn get isVideo => boolean()();
 }
 
-@DriftDatabase(tables: [Movie], daos: [MovieDao])
-class MyDatabase extends _$MyDatabase {
+@DriftDatabase(tables: [MovieRecords], daos: [MovieDao])
+class LocalDatabase extends _$LocalDatabase {
   //create functionでopenConnectionを作成
-  MyDatabase() : super(_openConnection());
+  LocalDatabase() : super(_openConnection());
 
   @override
   int get schemaVersion => 1;
