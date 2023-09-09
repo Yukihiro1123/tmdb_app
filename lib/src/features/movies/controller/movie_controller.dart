@@ -1,6 +1,7 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:tmdb_app/src/features/movies/data_model/movie/movie.dart';
+import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie/movie.dart';
+import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie_response.dart';
 import 'package:tmdb_app/src/features/movies/repository/movie_repository.dart';
 
 part 'movie_controller.g.dart';
@@ -14,7 +15,7 @@ class MovieController extends _$MovieController {
 }
 
 @riverpod
-Future<List<Movie>> watchNowPlayingMoviesController(
+Future<MovieResponse> watchNowPlayingMoviesController(
   WatchNowPlayingMoviesControllerRef ref,
   page,
 ) async {

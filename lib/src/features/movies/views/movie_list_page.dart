@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:tmdb_app/src/features/movies/controller/movie_controller.dart';
-import 'package:tmdb_app/src/features/movies/data_model/movie/movie.dart';
+import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie_response.dart';
 
 class MovieListPage extends HookConsumerWidget {
   const MovieListPage({super.key});
@@ -20,13 +20,13 @@ class MovieListPage extends HookConsumerWidget {
               skipLoadingOnReload: true,
               skipLoadingOnRefresh: true,
               loading: () => const CircularProgressIndicator(),
-              data: (List<Movie> movies) {
+              data: (MovieResponse response) {
                 return Expanded(
                   child: ListView.builder(
-                    itemCount: movies.length,
+                    itemCount: response.results.length,
                     itemBuilder: (context, index) {
                       return ListTile(
-                        title: Text(movies[index].title),
+                        title: Text(response.results[index].title),
                       );
                     },
                   ),
