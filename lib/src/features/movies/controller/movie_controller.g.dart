@@ -164,7 +164,7 @@ class _WatchNowPlayingMoviesControllerProviderElement
   dynamic get page => (origin as WatchNowPlayingMoviesControllerProvider).page;
 }
 
-String _$movieControllerHash() => r'a4afc05fa55b8f911d08d4b86de135c36e34aa62';
+String _$movieControllerHash() => r'eac11d275886d1e436a63a50267331af9d4857e0';
 
 /// See also [MovieController].
 @ProviderFor(MovieController)
