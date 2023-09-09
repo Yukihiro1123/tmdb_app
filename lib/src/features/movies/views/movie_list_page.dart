@@ -15,21 +15,21 @@ class MovieListPage extends HookConsumerWidget {
         children: [
           ref.watch(watchNowPlayingMoviesControllerProvider(page.value)).when(
               error: (error, stackTrace) {
-                print(error);
-                print(stackTrace);
                 return Text('公開中の映画データ取得時にエラーが発生しました: $error');
               },
+              skipLoadingOnReload: true,
+              skipLoadingOnRefresh: true,
               loading: () => const CircularProgressIndicator(),
               data: (List<Movie> movies) {
-                print(movies);
-                return ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: movies.length,
-                  itemBuilder: (context, index) {
-                    return ListTile(
-                      leading: Text(movies[index].title),
-                    );
-                  },
+                return Expanded(
+                  child: ListView.builder(
+                    itemCount: movies.length,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        title: Text(movies[index].title),
+                      );
+                    },
+                  ),
                 );
               })
         ],
