@@ -12,6 +12,18 @@ class MovieController extends _$MovieController {
   AsyncValue build() {
     return const AsyncData(null);
   }
+
+  Future<MovieResponse> getNowPlayingMovies({
+    required int page,
+  }) async {
+    try {
+      return await ref
+          .read(movieRepositoryProvider.notifier)
+          .getNowPlayingMovies(page: page);
+    } catch (e) {
+      rethrow;
+    }
+  }
 }
 
 @riverpod
