@@ -7,7 +7,7 @@ part of 'movie_controller.dart';
 // **************************************************************************
 
 String _$watchNowPlayingMoviesControllerHash() =>
-    r'e9f4349041c40bf0123b64912312d550aa433814';
+    r'f388223a0f210a2dc86d7a124c5b151ae78034d1';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -37,7 +37,7 @@ const watchNowPlayingMoviesControllerProvider =
 
 /// See also [watchNowPlayingMoviesController].
 class WatchNowPlayingMoviesControllerFamily
-    extends Family<AsyncValue<List<Movie>>> {
+    extends Family<AsyncValue<MovieResponse>> {
   /// See also [watchNowPlayingMoviesController].
   const WatchNowPlayingMoviesControllerFamily();
 
@@ -76,7 +76,7 @@ class WatchNowPlayingMoviesControllerFamily
 
 /// See also [watchNowPlayingMoviesController].
 class WatchNowPlayingMoviesControllerProvider
-    extends AutoDisposeFutureProvider<List<Movie>> {
+    extends AutoDisposeFutureProvider<MovieResponse> {
   /// See also [watchNowPlayingMoviesController].
   WatchNowPlayingMoviesControllerProvider(
     dynamic page,
@@ -111,7 +111,8 @@ class WatchNowPlayingMoviesControllerProvider
 
   @override
   Override overrideWith(
-    FutureOr<List<Movie>> Function(WatchNowPlayingMoviesControllerRef provider)
+    FutureOr<MovieResponse> Function(
+            WatchNowPlayingMoviesControllerRef provider)
         create,
   ) {
     return ProviderOverride(
@@ -129,7 +130,7 @@ class WatchNowPlayingMoviesControllerProvider
   }
 
   @override
-  AutoDisposeFutureProviderElement<List<Movie>> createElement() {
+  AutoDisposeFutureProviderElement<MovieResponse> createElement() {
     return _WatchNowPlayingMoviesControllerProviderElement(this);
   }
 
@@ -149,13 +150,13 @@ class WatchNowPlayingMoviesControllerProvider
 }
 
 mixin WatchNowPlayingMoviesControllerRef
-    on AutoDisposeFutureProviderRef<List<Movie>> {
+    on AutoDisposeFutureProviderRef<MovieResponse> {
   /// The parameter `page` of this provider.
   dynamic get page;
 }
 
 class _WatchNowPlayingMoviesControllerProviderElement
-    extends AutoDisposeFutureProviderElement<List<Movie>>
+    extends AutoDisposeFutureProviderElement<MovieResponse>
     with WatchNowPlayingMoviesControllerRef {
   _WatchNowPlayingMoviesControllerProviderElement(super.provider);
 
