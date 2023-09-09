@@ -43,17 +43,18 @@ dependencies:
   riverpod_lint:
   go_router:
   json_annotation:
+  freezed:
   freezed_annotation:
   cached_network_image:
   flutter_screenutil:
   carousel_slider:
-  sliding_up_panel:
   auto_size_text:
   flutter_native_splash: ^2.3.2
   adaptive_dialog: ^1.9.0-0
   device_preview:
   shimmer:
   intl:
+  dio:
 
 
 dev_dependencies:
