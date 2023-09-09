@@ -35,3 +35,13 @@ Future<MovieResponse> watchNowPlayingMoviesController(
       .read(movieRepositoryProvider.notifier)
       .getNowPlayingMovies(page: page);
 }
+
+@riverpod
+Future<Movie> watchMovieDetailController(
+  WatchMovieDetailControllerRef ref,
+  int movieId,
+) async {
+  return await ref
+      .read(movieRepositoryProvider.notifier)
+      .getMovieDetail(movieId: movieId);
+}

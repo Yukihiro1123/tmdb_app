@@ -34,4 +34,19 @@ class MovieRepository extends _$MovieRepository {
     //     .map((item) => Movie.fromJson(item as Map<String, dynamic>))
     //     .toList();
   }
+
+  Future<Movie> getMovieDetail({required int movieId}) async {
+    final String url = Uri(
+      scheme: 'https',
+      host: 'api.themoviedb.org',
+      path: '3/movie/$movieId',
+      queryParameters: {
+        'language': 'ja-JP',
+        'api_key': Env.apiKey,
+      },
+    ).toString();
+    final response = await state.get(url);
+    print(response.data);
+    return Movie.fromJson(response.data);
+  }
 }

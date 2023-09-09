@@ -60,7 +60,7 @@ class _MovieListPageState extends ConsumerState<MovieListPage> {
               title: Text(item.title),
               onTap: () =>
                   context.goNamed(AppRoute.movie.name, queryParameters: {
-                "movieId": item.movieId.toString(),
+                "movieId": item.id.toString(),
               }),
             ),
           ),
