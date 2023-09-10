@@ -85,9 +85,12 @@ class _SearchMoviePageState extends ConsumerState<SearchMoviePage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           const Icon(Icons.search, size: 50),
-                          searchController.text.isEmpty
-                              ? const Text('キーワードで映画を検索')
-                              : const Text('映画が見つかりません'),
+                          Text(
+                            searchController.text.isEmpty
+                                ? 'キーワードで映画を検索'
+                                : '映画が見つかりません',
+                            style: Theme.of(context).textTheme.bodyLarge,
+                          )
                         ],
                       ),
                     );

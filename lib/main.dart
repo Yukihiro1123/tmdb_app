@@ -31,8 +31,23 @@ class MyApp extends ConsumerWidget {
           locale: DevicePreview.locale(context),
           builder: DevicePreview.appBuilder,
           theme: ThemeData(
-            useMaterial3: true,
-          ),
+              brightness: Brightness.light,
+              fontFamily: "Noto_Sans_JP",
+              useMaterial3: true,
+              textTheme: const TextTheme(
+                displayLarge: TextStyle(
+                  fontSize: 72.0,
+                  fontWeight: FontWeight.bold,
+                ),
+                titleLarge: TextStyle(fontSize: 36.0),
+                titleMedium: TextStyle(
+                  fontSize: 27.0,
+                  fontWeight: FontWeight.w400,
+                ),
+                bodyMedium: TextStyle(
+                  fontSize: 18.0,
+                ),
+              )),
         );
       },
     );

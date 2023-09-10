@@ -65,9 +65,18 @@ class _MovieListPageState extends ConsumerState<MovieListPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text('近日公開予定'),
+                Text(
+                  '公開予定の映画',
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+                const SizedBox(height: 10),
                 const UpcomingMovieList(),
-                const Text('公開中'),
+                const SizedBox(height: 10),
+                Text(
+                  '公開中の映画',
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+                const SizedBox(height: 10),
                 PagedListView<int, Movie>(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
