@@ -64,7 +64,10 @@ class MovieDetailPage extends HookConsumerWidget {
                           style: const TextStyle(fontSize: 20),
                         ),
                         const SizedBox(height: 10),
-                        Text(movie.overview ?? ''),
+                        Text(
+                          movie.overview ?? '',
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        ),
                         const SizedBox(height: 10),
                         CategoryChips(movie: movie),
                         const SizedBox(height: 10),

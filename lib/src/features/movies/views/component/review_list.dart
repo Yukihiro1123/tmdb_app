@@ -56,9 +56,12 @@ class _ReviewListState extends ConsumerState<ReviewList> {
       pagingController: _pagingController,
       builderDelegate: PagedChildBuilderDelegate<Review>(
         noItemsFoundIndicatorBuilder: (_) {
-          return const Center(
+          return Center(
             heightFactor: 10,
-            child: Text('レビューが見つかりません'),
+            child: Text(
+              'レビューが見つかりません',
+              style: Theme.of(context).textTheme.displayLarge,
+            ),
           );
         },
         firstPageProgressIndicatorBuilder: (_) {
@@ -80,9 +83,13 @@ class _ReviewListState extends ConsumerState<ReviewList> {
               height: 50,
               isCircle: true,
             ),
-            title: Text(item.author),
+            title: Text(
+              item.author,
+              style: Theme.of(context).textTheme.bodyLarge,
+            ),
             subtitle: Text(
               item.content,
+              style: Theme.of(context).textTheme.bodySmall,
               overflow: TextOverflow.ellipsis,
             ),
           );
