@@ -5,6 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:tmdb_app/src/features/movies/controller/movie_controller.dart';
 import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie/movie.dart';
+import 'package:tmdb_app/src/features/movies/views/component/movie_card.dart';
 import 'package:tmdb_app/src/routing/router_utils.dart';
 
 class SearchMoviePage extends StatefulHookConsumerWidget {
@@ -76,14 +77,19 @@ class _SearchMoviePageState extends ConsumerState<SearchMoviePage> {
               child: PagedListView<int, Movie>(
                 pagingController: _pagingController,
                 builderDelegate: PagedChildBuilderDelegate<Movie>(
-                  itemBuilder: (context, item, index) => ListTile(
-                    title: Text(item.title),
-                    onTap: () {
-                      context.goNamed(AppRoute.movie.name, queryParameters: {
-                        "movieId": item.id.toString(),
-                      });
-                    },
-                  ),
+                  itemBuilder: (context, item, index) {
+                    return MovieCard(
+                      item: item,
+                      onTap: () {
+                        context.goNamed(
+                          AppRoute.movie.name,
+                          queryParameters: {
+                            "movieId": item.id.toString(),
+                          },
+                        );
+                      },
+                    );
+                  },
                 ),
               ),
             ),
