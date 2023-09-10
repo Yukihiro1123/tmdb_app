@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tmdb_app/src/features/movies/views/movie_detail_page.dart';
 import 'package:tmdb_app/src/features/movies/views/search_movie_page.dart';
 import 'package:tmdb_app/src/features/navigation/bottom_navigation.dart';
 import 'package:tmdb_app/src/routing/router_utils.dart';
@@ -31,15 +32,31 @@ GoRouter goRouter(GoRouterRef ref) {
               // 各ルートとそのサブルート (利用可能な場合) 例: feed/uuid/details
               routes: <RouteBase>[
                 GoRoute(
-                  path: AppRoute.movies.path,
-                  name: AppRoute.movies.name,
-                  pageBuilder: (context, state) {
-                    return NoTransitionPage(
-                      key: state.pageKey,
-                      child: MovieListPage(key: state.pageKey),
-                    );
-                  },
-                ),
+                    path: AppRoute.movies.path,
+                    name: AppRoute.movies.name,
+                    pageBuilder: (context, state) {
+                      return NoTransitionPage(
+                        key: state.pageKey,
+                        child: MovieListPage(key: state.pageKey),
+                      );
+                    },
+                    routes: [
+                      GoRoute(
+                        path: AppRoute.movie.path,
+                        name: AppRoute.movie.name,
+                        pageBuilder: (context, state) {
+                          final String movieId =
+                              state.uri.queryParameters['movieId']!;
+                          return NoTransitionPage(
+                            key: state.pageKey,
+                            child: MovieDetailPage(
+                              key: state.pageKey,
+                              movieId: movieId,
+                            ),
+                          );
+                        },
+                      ),
+                    ]),
               ],
             ),
             StatefulShellBranch(
