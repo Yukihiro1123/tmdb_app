@@ -27,7 +27,6 @@ class MovieCard extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20.0),
         ),
-        // color: Colors.black,
         child: Column(
           children: [
             ClipRRect(
@@ -36,7 +35,9 @@ class MovieCard extends StatelessWidget {
                 topLeft: Radius.circular(20),
               ),
               child: CachedImage(
-                imageURL: item.posterPath,
+                imageURL: item.backdropPath != null
+                    ? "https://image.tmdb.org/t/p/w500/${item.backdropPath!}"
+                    : "",
                 width: double.infinity,
                 height: 200,
                 isCircle: false,
@@ -45,9 +46,6 @@ class MovieCard extends StatelessWidget {
             ListTile(
               title: Text(
                 item.title,
-                style: const TextStyle(
-                  color: Colors.white,
-                ),
               ),
               subtitle: Row(
                 children: [

@@ -25,7 +25,7 @@ class CachedImage extends StatelessWidget {
         decoration: BoxDecoration(
           shape: isCircle ? BoxShape.circle : BoxShape.rectangle,
           image: DecorationImage(
-            fit: BoxFit.contain,
+            fit: BoxFit.fill,
             image: imageProvider,
           ),
         ),
@@ -43,8 +43,11 @@ class CachedImage extends StatelessWidget {
           width: width,
           height: height,
           decoration: BoxDecoration(
+            image: const DecorationImage(
+              fit: BoxFit.fill,
+              image: AssetImage("assets/images/cinema.jpeg"),
+            ),
             shape: isCircle ? BoxShape.circle : BoxShape.rectangle,
-            color: Colors.red,
           ),
         );
       },
