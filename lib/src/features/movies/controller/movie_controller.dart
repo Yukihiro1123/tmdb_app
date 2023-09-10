@@ -2,6 +2,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie/movie.dart';
 import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie_response.dart';
+import 'package:tmdb_app/src/features/movies/data_model/review_response/review_response.dart';
 import 'package:tmdb_app/src/features/movies/repository/movie_repository.dart';
 
 part 'movie_controller.g.dart';
@@ -30,6 +31,19 @@ class MovieController extends _$MovieController {
       return await ref
           .read(movieRepositoryProvider.notifier)
           .getUpcomingMovies();
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<ReviewResponse> getMovieReview({
+    required int movieId,
+    required int page,
+  }) async {
+    try {
+      return await ref
+          .read(movieRepositoryProvider.notifier)
+          .getMovieReview(movieId: movieId, page: page);
     } catch (e) {
       rethrow;
     }

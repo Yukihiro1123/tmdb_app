@@ -4,6 +4,7 @@ import 'package:tmdb_app/src/common_widgets/cached_image.dart';
 import 'package:tmdb_app/src/features/movies/views/component/category_chips.dart';
 import 'package:tmdb_app/src/features/movies/controller/movie_controller.dart';
 import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie/movie.dart';
+import 'package:tmdb_app/src/features/movies/views/component/review_list.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class MovieDetailPage extends HookConsumerWidget {
@@ -27,7 +28,6 @@ class MovieDetailPage extends HookConsumerWidget {
             },
             loading: () => const Center(child: CircularProgressIndicator()),
             data: (Movie movie) {
-              print(movie);
               return NestedScrollView(
                 headerSliverBuilder:
                     (BuildContext context, bool innerBoxIsScrolled) {
@@ -109,6 +109,11 @@ class MovieDetailPage extends HookConsumerWidget {
                             const SizedBox(width: 10),
                             Text("(${movie.voteCount}人による評価)"),
                           ],
+                        ),
+                        const Text("レビュー"),
+                        SizedBox(
+                          height: 150,
+                          child: ReviewList(movieId: movieId),
                         ),
                       ],
                     ),
