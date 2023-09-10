@@ -177,7 +177,7 @@ final watchUpcomingMoviesControllerProvider =
 
 typedef WatchUpcomingMoviesControllerRef
     = AutoDisposeFutureProviderRef<MovieResponse>;
-String _$movieControllerHash() => r'71406c483a5875ca45d04de91e798b39259c5d88';
+String _$movieControllerHash() => r'42af774d74fdbc4487b65554a5360da6b203b754';
 
 /// See also [MovieController].
 @ProviderFor(MovieController)
