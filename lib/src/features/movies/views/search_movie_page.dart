@@ -78,6 +78,20 @@ class _SearchMoviePageState extends ConsumerState<SearchMoviePage> {
               child: PagedListView<int, Movie>(
                 pagingController: _pagingController,
                 builderDelegate: PagedChildBuilderDelegate<Movie>(
+                  noItemsFoundIndicatorBuilder: (_) {
+                    return Center(
+                      heightFactor: 10,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Icon(Icons.search, size: 50),
+                          searchController.text.isEmpty
+                              ? const Text('キーワードで映画を検索')
+                              : const Text('映画が見つかりません'),
+                        ],
+                      ),
+                    );
+                  },
                   firstPageProgressIndicatorBuilder: (_) {
                     return ListView.builder(
                       shrinkWrap: true,
