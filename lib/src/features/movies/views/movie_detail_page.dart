@@ -112,7 +112,7 @@ class MovieDetailPage extends HookConsumerWidget {
                         ),
                         const Text("レビュー"),
                         SizedBox(
-                          height: 150,
+                          height: 300,
                           child: ReviewList(movieId: movieId),
                         ),
                       ],

@@ -51,38 +51,42 @@ class _ReviewListState extends ConsumerState<ReviewList> {
 
   @override
   Widget build(BuildContext context) {
-    return Flexible(
-      child: PagedListView<int, Review>(
-        shrinkWrap: true,
-        pagingController: _pagingController,
-        builderDelegate: PagedChildBuilderDelegate<Review>(
-          firstPageProgressIndicatorBuilder: (_) {
-            return ListView.builder(
-              shrinkWrap: true,
-              itemCount: 5,
-              itemBuilder: (context, index) {
-                return const ReviewCardShimmer();
-              },
-            );
-          },
-          itemBuilder: (context, item, index) {
-            return ListTile(
-              leading: CachedImage(
-                imageURL: item.authorDetails["avatar_path"] != null
-                    ? "https://image.tmdb.org/t/p/w500/${item.authorDetails["avatar_path"]}"
-                    : "",
-                width: 50,
-                height: 50,
-                isCircle: true,
-              ),
-              title: Text(item.author),
-              subtitle: Text(
-                item.content,
-                overflow: TextOverflow.ellipsis,
-              ),
-            );
-          },
-        ),
+    return PagedListView<int, Review>(
+      shrinkWrap: true,
+      pagingController: _pagingController,
+      builderDelegate: PagedChildBuilderDelegate<Review>(
+        noItemsFoundIndicatorBuilder: (_) {
+          return const Center(
+            heightFactor: 10,
+            child: Text('レビューが見つかりません'),
+          );
+        },
+        firstPageProgressIndicatorBuilder: (_) {
+          return ListView.builder(
+            shrinkWrap: true,
+            itemCount: 5,
+            itemBuilder: (context, index) {
+              return const ReviewCardShimmer();
+            },
+          );
+        },
+        itemBuilder: (context, item, index) {
+          return ListTile(
+            leading: CachedImage(
+              imageURL: item.authorDetails["avatar_path"] != null
+                  ? "https://image.tmdb.org/t/p/w500/${item.authorDetails["avatar_path"]}"
+                  : "",
+              width: 50,
+              height: 50,
+              isCircle: true,
+            ),
+            title: Text(item.author),
+            subtitle: Text(
+              item.content,
+              overflow: TextOverflow.ellipsis,
+            ),
+          );
+        },
       ),
     );
   }
