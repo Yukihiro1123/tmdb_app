@@ -55,6 +55,7 @@ dependencies:
   shimmer:
   intl:
   dio:
+  infinite_scroll_pagination:
 
 
 dev_dependencies:

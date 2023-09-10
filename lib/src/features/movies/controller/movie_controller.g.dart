@@ -6,8 +6,8 @@ part of 'movie_controller.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$watchNowPlayingMoviesControllerHash() =>
-    r'e9f4349041c40bf0123b64912312d550aa433814';
+String _$watchMovieDetailControllerHash() =>
+    r'abb282f983edd64aa2909d93ae9fb1c3a5e70f64';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -30,32 +30,30 @@ class _SystemHash {
   }
 }
 
-/// See also [watchNowPlayingMoviesController].
-@ProviderFor(watchNowPlayingMoviesController)
-const watchNowPlayingMoviesControllerProvider =
-    WatchNowPlayingMoviesControllerFamily();
+/// See also [watchMovieDetailController].
+@ProviderFor(watchMovieDetailController)
+const watchMovieDetailControllerProvider = WatchMovieDetailControllerFamily();
 
-/// See also [watchNowPlayingMoviesController].
-class WatchNowPlayingMoviesControllerFamily
-    extends Family<AsyncValue<List<Movie>>> {
-  /// See also [watchNowPlayingMoviesController].
-  const WatchNowPlayingMoviesControllerFamily();
+/// See also [watchMovieDetailController].
+class WatchMovieDetailControllerFamily extends Family<AsyncValue<Movie>> {
+  /// See also [watchMovieDetailController].
+  const WatchMovieDetailControllerFamily();
 
-  /// See also [watchNowPlayingMoviesController].
-  WatchNowPlayingMoviesControllerProvider call(
-    dynamic page,
+  /// See also [watchMovieDetailController].
+  WatchMovieDetailControllerProvider call(
+    int movieId,
   ) {
-    return WatchNowPlayingMoviesControllerProvider(
-      page,
+    return WatchMovieDetailControllerProvider(
+      movieId,
     );
   }
 
   @override
-  WatchNowPlayingMoviesControllerProvider getProviderOverride(
-    covariant WatchNowPlayingMoviesControllerProvider provider,
+  WatchMovieDetailControllerProvider getProviderOverride(
+    covariant WatchMovieDetailControllerProvider provider,
   ) {
     return call(
-      provider.page,
+      provider.movieId,
     );
   }
 
@@ -71,99 +69,97 @@ class WatchNowPlayingMoviesControllerFamily
       _allTransitiveDependencies;
 
   @override
-  String? get name => r'watchNowPlayingMoviesControllerProvider';
+  String? get name => r'watchMovieDetailControllerProvider';
 }
 
-/// See also [watchNowPlayingMoviesController].
-class WatchNowPlayingMoviesControllerProvider
-    extends AutoDisposeFutureProvider<List<Movie>> {
-  /// See also [watchNowPlayingMoviesController].
-  WatchNowPlayingMoviesControllerProvider(
-    dynamic page,
+/// See also [watchMovieDetailController].
+class WatchMovieDetailControllerProvider
+    extends AutoDisposeFutureProvider<Movie> {
+  /// See also [watchMovieDetailController].
+  WatchMovieDetailControllerProvider(
+    int movieId,
   ) : this._internal(
-          (ref) => watchNowPlayingMoviesController(
-            ref as WatchNowPlayingMoviesControllerRef,
-            page,
+          (ref) => watchMovieDetailController(
+            ref as WatchMovieDetailControllerRef,
+            movieId,
           ),
-          from: watchNowPlayingMoviesControllerProvider,
-          name: r'watchNowPlayingMoviesControllerProvider',
+          from: watchMovieDetailControllerProvider,
+          name: r'watchMovieDetailControllerProvider',
           debugGetCreateSourceHash:
               const bool.fromEnvironment('dart.vm.product')
                   ? null
-                  : _$watchNowPlayingMoviesControllerHash,
-          dependencies: WatchNowPlayingMoviesControllerFamily._dependencies,
+                  : _$watchMovieDetailControllerHash,
+          dependencies: WatchMovieDetailControllerFamily._dependencies,
           allTransitiveDependencies:
-              WatchNowPlayingMoviesControllerFamily._allTransitiveDependencies,
-          page: page,
+              WatchMovieDetailControllerFamily._allTransitiveDependencies,
+          movieId: movieId,
         );
 
-  WatchNowPlayingMoviesControllerProvider._internal(
+  WatchMovieDetailControllerProvider._internal(
     super._createNotifier, {
     required super.name,
     required super.dependencies,
     required super.allTransitiveDependencies,
     required super.debugGetCreateSourceHash,
     required super.from,
-    required this.page,
+    required this.movieId,
   }) : super.internal();
 
-  final dynamic page;
+  final int movieId;
 
   @override
   Override overrideWith(
-    FutureOr<List<Movie>> Function(WatchNowPlayingMoviesControllerRef provider)
-        create,
+    FutureOr<Movie> Function(WatchMovieDetailControllerRef provider) create,
   ) {
     return ProviderOverride(
       origin: this,
-      override: WatchNowPlayingMoviesControllerProvider._internal(
-        (ref) => create(ref as WatchNowPlayingMoviesControllerRef),
+      override: WatchMovieDetailControllerProvider._internal(
+        (ref) => create(ref as WatchMovieDetailControllerRef),
         from: from,
         name: null,
         dependencies: null,
         allTransitiveDependencies: null,
         debugGetCreateSourceHash: null,
-        page: page,
+        movieId: movieId,
       ),
     );
   }
 
   @override
-  AutoDisposeFutureProviderElement<List<Movie>> createElement() {
-    return _WatchNowPlayingMoviesControllerProviderElement(this);
+  AutoDisposeFutureProviderElement<Movie> createElement() {
+    return _WatchMovieDetailControllerProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is WatchNowPlayingMoviesControllerProvider &&
-        other.page == page;
+    return other is WatchMovieDetailControllerProvider &&
+        other.movieId == movieId;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, page.hashCode);
+    hash = _SystemHash.combine(hash, movieId.hashCode);
 
     return _SystemHash.finish(hash);
   }
 }
 
-mixin WatchNowPlayingMoviesControllerRef
-    on AutoDisposeFutureProviderRef<List<Movie>> {
-  /// The parameter `page` of this provider.
-  dynamic get page;
+mixin WatchMovieDetailControllerRef on AutoDisposeFutureProviderRef<Movie> {
+  /// The parameter `movieId` of this provider.
+  int get movieId;
 }
 
-class _WatchNowPlayingMoviesControllerProviderElement
-    extends AutoDisposeFutureProviderElement<List<Movie>>
-    with WatchNowPlayingMoviesControllerRef {
-  _WatchNowPlayingMoviesControllerProviderElement(super.provider);
+class _WatchMovieDetailControllerProviderElement
+    extends AutoDisposeFutureProviderElement<Movie>
+    with WatchMovieDetailControllerRef {
+  _WatchMovieDetailControllerProviderElement(super.provider);
 
   @override
-  dynamic get page => (origin as WatchNowPlayingMoviesControllerProvider).page;
+  int get movieId => (origin as WatchMovieDetailControllerProvider).movieId;
 }
 
-String _$movieControllerHash() => r'a4afc05fa55b8f911d08d4b86de135c36e34aa62';
+String _$movieControllerHash() => r'997ab08936859b86f57d551ca8c6e5fc97270c72';
 
 /// See also [MovieController].
 @ProviderFor(MovieController)
