@@ -3,6 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:tmdb_app/src/common_widgets/movie_card_shimmer.dart';
 import 'package:tmdb_app/src/features/movies/controller/movie_controller.dart';
 import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie/movie.dart';
 import 'package:tmdb_app/src/features/movies/views/component/movie_card.dart';
@@ -77,6 +78,15 @@ class _SearchMoviePageState extends ConsumerState<SearchMoviePage> {
               child: PagedListView<int, Movie>(
                 pagingController: _pagingController,
                 builderDelegate: PagedChildBuilderDelegate<Movie>(
+                  firstPageProgressIndicatorBuilder: (_) {
+                    return ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: 5,
+                      itemBuilder: (context, index) {
+                        return const MovieCardShimmer();
+                      },
+                    );
+                  },
                   itemBuilder: (context, item, index) {
                     return MovieCard(
                       item: item,
