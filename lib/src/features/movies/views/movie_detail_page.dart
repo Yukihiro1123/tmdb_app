@@ -3,6 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:tmdb_app/src/common_widgets/cached_image.dart';
 import 'package:tmdb_app/src/features/movies/controller/movie_controller.dart';
 import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie/movie.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MovieDetailPage extends HookConsumerWidget {
   final String movieId;
@@ -92,7 +93,13 @@ class MovieDetailPage extends HookConsumerWidget {
                                 ],
                               ),
                         const SizedBox(height: 10),
-                        Text("ホームページ:${movie.homepage}"),
+                        TextButton.icon(
+                          onPressed: () {
+                            _openExternalSite(movie.homepage);
+                          },
+                          icon: const Icon(Icons.link),
+                          label: const Text('オフィシャルサイト'),
+                        ),
                         const SizedBox(height: 10),
                         Row(
                           children: [
@@ -109,5 +116,18 @@ class MovieDetailPage extends HookConsumerWidget {
             },
           ),
     );
+  }
+
+  Future<void> _openExternalSite(String? homepage) async {
+    if (homepage == null) {
+      return;
+    }
+    final Uri url = Uri.parse(homepage);
+    if (await canLaunchUrl(url)) {
+      // URLを開く
+      await launchUrl(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 }
