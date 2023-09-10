@@ -54,17 +54,21 @@ class _MovieListPageState extends ConsumerState<MovieListPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(),
-        body: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text('近日公開予定'),
-              const UpcomingMovieList(),
-              const Text('公開中'),
-              Flexible(
-                child: PagedListView<int, Movie>(
+        appBar: AppBar(
+          title: const Text('TMDB'),
+        ),
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text('近日公開予定'),
+                const UpcomingMovieList(),
+                const Text('公開中'),
+                PagedListView<int, Movie>(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
                   pagingController: _pagingController,
                   builderDelegate: PagedChildBuilderDelegate<Movie>(
                     itemBuilder: (context, item, index) {
@@ -82,8 +86,8 @@ class _MovieListPageState extends ConsumerState<MovieListPage> {
                     },
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
