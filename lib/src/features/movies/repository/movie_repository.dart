@@ -33,6 +33,22 @@ class MovieRepository extends _$MovieRepository {
     return MovieResponse.fromJson(response.data);
   }
 
+  Future<MovieResponse> getUpcomingMovies() async {
+    final String url = Uri(
+      scheme: 'https',
+      host: 'api.themoviedb.org',
+      path: '3/movie/upcoming',
+      queryParameters: {
+        'language': 'ja-JP',
+        'api_key': Env.apiKey,
+        'include_adult': 'false',
+        'page': '1',
+      },
+    ).toString();
+    final response = await state.get(url);
+    return MovieResponse.fromJson(response.data);
+  }
+
   Future<MovieResponse> searchMovie({
     required String query,
     required int page,

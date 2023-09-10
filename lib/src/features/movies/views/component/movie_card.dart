@@ -48,7 +48,8 @@ class MovieCard extends StatelessWidget {
               ),
               subtitle: Row(
                 children: [
-                  RateBar(item: item),
+                  Text("${item.voteAverage}/10"),
+                  // RateBar(item: item),
                   Text("(${item.voteCount})"),
                 ],
               ),
