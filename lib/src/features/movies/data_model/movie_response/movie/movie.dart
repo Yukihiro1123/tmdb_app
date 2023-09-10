@@ -33,7 +33,7 @@ class Movie with _$Movie {
     // @JsonKey(name: 'belongs_to_collection')
     //     Map<String, dynamic>? collection,
     // int? budget,
-    // List<Map<String, dynamic>>? genres,
+    List<Map<String, dynamic>>? genres,
     String? homepage,
     // @JsonKey(name: 'imdb_id')
     //     String? imdbId,

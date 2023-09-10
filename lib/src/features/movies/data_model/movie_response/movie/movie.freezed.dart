@@ -46,7 +46,7 @@ mixin _$Movie {
 // @JsonKey(name: 'belongs_to_collection')
 //     Map<String, dynamic>? collection,
 // int? budget,
-// List<Map<String, dynamic>>? genres,
+  List<Map<String, dynamic>>? get genres => throw _privateConstructorUsedError;
   String? get homepage =>
       throw _privateConstructorUsedError; // @JsonKey(name: 'imdb_id')
 //     String? imdbId,
@@ -87,6 +87,7 @@ abstract class $MovieCopyWith<$Res> {
       bool? adult,
       String? overview,
       @JsonKey(name: 'release_date') String? releaseDate,
+      List<Map<String, dynamic>>? genres,
       String? homepage,
       @JsonKey(name: 'production_companies')
       List<Map<String, dynamic>>? productionCompanies,
@@ -124,6 +125,7 @@ class _$MovieCopyWithImpl<$Res, $Val extends Movie>
     Object? adult = freezed,
     Object? overview = freezed,
     Object? releaseDate = freezed,
+    Object? genres = freezed,
     Object? homepage = freezed,
     Object? productionCompanies = freezed,
     Object? productionCountries = freezed,
@@ -188,6 +190,10 @@ class _$MovieCopyWithImpl<$Res, $Val extends Movie>
           ? _value.releaseDate
           : releaseDate // ignore: cast_nullable_to_non_nullable
               as String?,
+      genres: freezed == genres
+          ? _value.genres
+          : genres // ignore: cast_nullable_to_non_nullable
+              as List<Map<String, dynamic>>?,
       homepage: freezed == homepage
           ? _value.homepage
           : homepage // ignore: cast_nullable_to_non_nullable
@@ -237,6 +243,7 @@ abstract class _$$_MovieCopyWith<$Res> implements $MovieCopyWith<$Res> {
       bool? adult,
       String? overview,
       @JsonKey(name: 'release_date') String? releaseDate,
+      List<Map<String, dynamic>>? genres,
       String? homepage,
       @JsonKey(name: 'production_companies')
       List<Map<String, dynamic>>? productionCompanies,
@@ -270,6 +277,7 @@ class __$$_MovieCopyWithImpl<$Res> extends _$MovieCopyWithImpl<$Res, _$_Movie>
     Object? adult = freezed,
     Object? overview = freezed,
     Object? releaseDate = freezed,
+    Object? genres = freezed,
     Object? homepage = freezed,
     Object? productionCompanies = freezed,
     Object? productionCountries = freezed,
@@ -334,6 +342,10 @@ class __$$_MovieCopyWithImpl<$Res> extends _$MovieCopyWithImpl<$Res, _$_Movie>
           ? _value.releaseDate
           : releaseDate // ignore: cast_nullable_to_non_nullable
               as String?,
+      genres: freezed == genres
+          ? _value._genres
+          : genres // ignore: cast_nullable_to_non_nullable
+              as List<Map<String, dynamic>>?,
       homepage: freezed == homepage
           ? _value.homepage
           : homepage // ignore: cast_nullable_to_non_nullable
@@ -380,6 +392,7 @@ class _$_Movie implements _Movie {
       this.adult,
       this.overview,
       @JsonKey(name: 'release_date') this.releaseDate,
+      final List<Map<String, dynamic>>? genres,
       this.homepage,
       @JsonKey(name: 'production_companies')
       final List<Map<String, dynamic>>? productionCompanies,
@@ -389,6 +402,7 @@ class _$_Movie implements _Movie {
       this.status,
       this.tagline})
       : _genreIds = genreIds,
+        _genres = genres,
         _productionCompanies = productionCompanies,
         _productionCountries = productionCountries;
 
@@ -444,7 +458,20 @@ class _$_Movie implements _Movie {
 // @JsonKey(name: 'belongs_to_collection')
 //     Map<String, dynamic>? collection,
 // int? budget,
-// List<Map<String, dynamic>>? genres,
+  final List<Map<String, dynamic>>? _genres;
+//detailで取得できるデータ
+// @JsonKey(name: 'belongs_to_collection')
+//     Map<String, dynamic>? collection,
+// int? budget,
+  @override
+  List<Map<String, dynamic>>? get genres {
+    final value = _genres;
+    if (value == null) return null;
+    if (_genres is EqualUnmodifiableListView) return _genres;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   final String? homepage;
 // @JsonKey(name: 'imdb_id')
@@ -486,7 +513,7 @@ class _$_Movie implements _Movie {
 
   @override
   String toString() {
-    return 'Movie(voteCount: $voteCount, id: $id, video: $video, voteAverage: $voteAverage, title: $title, popularity: $popularity, posterPath: $posterPath, originalLanguage: $originalLanguage, originalTitle: $originalTitle, genreIds: $genreIds, backdropPath: $backdropPath, adult: $adult, overview: $overview, releaseDate: $releaseDate, homepage: $homepage, productionCompanies: $productionCompanies, productionCountries: $productionCountries, revenue: $revenue, status: $status, tagline: $tagline)';
+    return 'Movie(voteCount: $voteCount, id: $id, video: $video, voteAverage: $voteAverage, title: $title, popularity: $popularity, posterPath: $posterPath, originalLanguage: $originalLanguage, originalTitle: $originalTitle, genreIds: $genreIds, backdropPath: $backdropPath, adult: $adult, overview: $overview, releaseDate: $releaseDate, genres: $genres, homepage: $homepage, productionCompanies: $productionCompanies, productionCountries: $productionCountries, revenue: $revenue, status: $status, tagline: $tagline)';
   }
 
   @override
@@ -517,6 +544,7 @@ class _$_Movie implements _Movie {
                 other.overview == overview) &&
             (identical(other.releaseDate, releaseDate) ||
                 other.releaseDate == releaseDate) &&
+            const DeepCollectionEquality().equals(other._genres, _genres) &&
             (identical(other.homepage, homepage) ||
                 other.homepage == homepage) &&
             const DeepCollectionEquality()
@@ -546,6 +574,7 @@ class _$_Movie implements _Movie {
         adult,
         overview,
         releaseDate,
+        const DeepCollectionEquality().hash(_genres),
         homepage,
         const DeepCollectionEquality().hash(_productionCompanies),
         const DeepCollectionEquality().hash(_productionCountries),
@@ -584,6 +613,7 @@ abstract class _Movie implements Movie {
       final bool? adult,
       final String? overview,
       @JsonKey(name: 'release_date') final String? releaseDate,
+      final List<Map<String, dynamic>>? genres,
       final String? homepage,
       @JsonKey(name: 'production_companies')
       final List<Map<String, dynamic>>? productionCompanies,
@@ -635,7 +665,8 @@ abstract class _Movie implements Movie {
 // @JsonKey(name: 'belongs_to_collection')
 //     Map<String, dynamic>? collection,
 // int? budget,
-// List<Map<String, dynamic>>? genres,
+  List<Map<String, dynamic>>? get genres;
+  @override
   String? get homepage;
   @override // @JsonKey(name: 'imdb_id')
 //     String? imdbId,

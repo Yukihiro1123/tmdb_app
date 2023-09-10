@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:tmdb_app/src/common_widgets/cached_image.dart';
+import 'package:tmdb_app/src/features/movies/views/component/category_chips.dart';
 import 'package:tmdb_app/src/features/movies/controller/movie_controller.dart';
 import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie/movie.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -65,8 +66,9 @@ class MovieDetailPage extends HookConsumerWidget {
                         const SizedBox(height: 10),
                         Text(movie.overview ?? ''),
                         const SizedBox(height: 10),
+                        CategoryChips(movie: movie),
+                        const SizedBox(height: 10),
                         Text("公開日:${movie.releaseDate.toString()}"),
-                        Text(movie.status == "Released" ? '公開中' : ''),
                         const SizedBox(height: 10),
                         movie.productionCompanies == null
                             ? const SizedBox.shrink()
