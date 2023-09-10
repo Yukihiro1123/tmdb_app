@@ -6,6 +6,159 @@ part of 'movie_controller.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+String _$watchMovieDetailControllerHash() =>
+    r'abb282f983edd64aa2909d93ae9fb1c3a5e70f64';
+
+/// Copied from Dart SDK
+class _SystemHash {
+  _SystemHash._();
+
+  static int combine(int hash, int value) {
+    // ignore: parameter_assignments
+    hash = 0x1fffffff & (hash + value);
+    // ignore: parameter_assignments
+    hash = 0x1fffffff & (hash + ((0x0007ffff & hash) << 10));
+    return hash ^ (hash >> 6);
+  }
+
+  static int finish(int hash) {
+    // ignore: parameter_assignments
+    hash = 0x1fffffff & (hash + ((0x03ffffff & hash) << 3));
+    // ignore: parameter_assignments
+    hash = hash ^ (hash >> 11);
+    return 0x1fffffff & (hash + ((0x00003fff & hash) << 15));
+  }
+}
+
+/// See also [watchMovieDetailController].
+@ProviderFor(watchMovieDetailController)
+const watchMovieDetailControllerProvider = WatchMovieDetailControllerFamily();
+
+/// See also [watchMovieDetailController].
+class WatchMovieDetailControllerFamily extends Family<AsyncValue<Movie>> {
+  /// See also [watchMovieDetailController].
+  const WatchMovieDetailControllerFamily();
+
+  /// See also [watchMovieDetailController].
+  WatchMovieDetailControllerProvider call(
+    int movieId,
+  ) {
+    return WatchMovieDetailControllerProvider(
+      movieId,
+    );
+  }
+
+  @override
+  WatchMovieDetailControllerProvider getProviderOverride(
+    covariant WatchMovieDetailControllerProvider provider,
+  ) {
+    return call(
+      provider.movieId,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'watchMovieDetailControllerProvider';
+}
+
+/// See also [watchMovieDetailController].
+class WatchMovieDetailControllerProvider
+    extends AutoDisposeFutureProvider<Movie> {
+  /// See also [watchMovieDetailController].
+  WatchMovieDetailControllerProvider(
+    int movieId,
+  ) : this._internal(
+          (ref) => watchMovieDetailController(
+            ref as WatchMovieDetailControllerRef,
+            movieId,
+          ),
+          from: watchMovieDetailControllerProvider,
+          name: r'watchMovieDetailControllerProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$watchMovieDetailControllerHash,
+          dependencies: WatchMovieDetailControllerFamily._dependencies,
+          allTransitiveDependencies:
+              WatchMovieDetailControllerFamily._allTransitiveDependencies,
+          movieId: movieId,
+        );
+
+  WatchMovieDetailControllerProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.movieId,
+  }) : super.internal();
+
+  final int movieId;
+
+  @override
+  Override overrideWith(
+    FutureOr<Movie> Function(WatchMovieDetailControllerRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: WatchMovieDetailControllerProvider._internal(
+        (ref) => create(ref as WatchMovieDetailControllerRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        movieId: movieId,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<Movie> createElement() {
+    return _WatchMovieDetailControllerProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is WatchMovieDetailControllerProvider &&
+        other.movieId == movieId;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, movieId.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin WatchMovieDetailControllerRef on AutoDisposeFutureProviderRef<Movie> {
+  /// The parameter `movieId` of this provider.
+  int get movieId;
+}
+
+class _WatchMovieDetailControllerProviderElement
+    extends AutoDisposeFutureProviderElement<Movie>
+    with WatchMovieDetailControllerRef {
+  _WatchMovieDetailControllerProviderElement(super.provider);
+
+  @override
+  int get movieId => (origin as WatchMovieDetailControllerProvider).movieId;
+}
+
 String _$movieControllerHash() => r'997ab08936859b86f57d551ca8c6e5fc97270c72';
 
 /// See also [MovieController].

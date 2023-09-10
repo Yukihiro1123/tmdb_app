@@ -20,29 +20,28 @@ Movie _$MovieFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Movie {
-  @JsonKey(name: 'id')
-  int get movieId => throw _privateConstructorUsedError;
-  String get title => throw _privateConstructorUsedError;
-  String get overview => throw _privateConstructorUsedError;
-  @JsonKey(name: 'genre_ids')
-  List<int> get genreIds => throw _privateConstructorUsedError;
-  double get popularity => throw _privateConstructorUsedError;
-  @JsonKey(name: 'vote_average')
-  double get voteAverage => throw _privateConstructorUsedError;
   @JsonKey(name: 'vote_count')
-  double get voteCount => throw _privateConstructorUsedError;
-  @JsonKey(name: 'release_date')
-  DateTime get releaseDate => throw _privateConstructorUsedError;
-  @JsonKey(name: 'backdrop_path')
-  String? get backdropPath => throw _privateConstructorUsedError;
-  @JsonKey(name: 'original_language')
-  String get originalLang => throw _privateConstructorUsedError;
+  int? get voteCount => throw _privateConstructorUsedError;
+  int get id => throw _privateConstructorUsedError;
+  bool get video => throw _privateConstructorUsedError;
+  @JsonKey(name: 'vote_average')
+  double? get voteAverage => throw _privateConstructorUsedError;
+  String get title => throw _privateConstructorUsedError;
+  double? get popularity => throw _privateConstructorUsedError;
   @JsonKey(name: 'poster_path')
   String? get posterPath => throw _privateConstructorUsedError;
-  @JsonKey(name: 'adult')
-  bool get isAdult => throw _privateConstructorUsedError;
-  @JsonKey(name: 'video')
-  bool get isVideo => throw _privateConstructorUsedError;
+  @JsonKey(name: 'original_language')
+  String? get originalLanguage => throw _privateConstructorUsedError;
+  @JsonKey(name: 'original_title')
+  String? get originalTitle => throw _privateConstructorUsedError;
+  @JsonKey(name: 'genre_ids')
+  List<int>? get genreIds => throw _privateConstructorUsedError;
+  @JsonKey(name: 'backdrop_path')
+  String? get backdropPath => throw _privateConstructorUsedError;
+  bool? get adult => throw _privateConstructorUsedError;
+  String? get overview => throw _privateConstructorUsedError;
+  @JsonKey(name: 'release_date')
+  String? get releaseDate => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -55,19 +54,20 @@ abstract class $MovieCopyWith<$Res> {
       _$MovieCopyWithImpl<$Res, Movie>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'id') int movieId,
+      {@JsonKey(name: 'vote_count') int? voteCount,
+      int id,
+      bool video,
+      @JsonKey(name: 'vote_average') double? voteAverage,
       String title,
-      String overview,
-      @JsonKey(name: 'genre_ids') List<int> genreIds,
-      double popularity,
-      @JsonKey(name: 'vote_average') double voteAverage,
-      @JsonKey(name: 'vote_count') double voteCount,
-      @JsonKey(name: 'release_date') DateTime releaseDate,
-      @JsonKey(name: 'backdrop_path') String? backdropPath,
-      @JsonKey(name: 'original_language') String originalLang,
+      double? popularity,
       @JsonKey(name: 'poster_path') String? posterPath,
-      @JsonKey(name: 'adult') bool isAdult,
-      @JsonKey(name: 'video') bool isVideo});
+      @JsonKey(name: 'original_language') String? originalLanguage,
+      @JsonKey(name: 'original_title') String? originalTitle,
+      @JsonKey(name: 'genre_ids') List<int>? genreIds,
+      @JsonKey(name: 'backdrop_path') String? backdropPath,
+      bool? adult,
+      String? overview,
+      @JsonKey(name: 'release_date') String? releaseDate});
 }
 
 /// @nodoc
@@ -83,73 +83,78 @@ class _$MovieCopyWithImpl<$Res, $Val extends Movie>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? movieId = null,
+    Object? voteCount = freezed,
+    Object? id = null,
+    Object? video = null,
+    Object? voteAverage = freezed,
     Object? title = null,
-    Object? overview = null,
-    Object? genreIds = null,
-    Object? popularity = null,
-    Object? voteAverage = null,
-    Object? voteCount = null,
-    Object? releaseDate = null,
-    Object? backdropPath = freezed,
-    Object? originalLang = null,
+    Object? popularity = freezed,
     Object? posterPath = freezed,
-    Object? isAdult = null,
-    Object? isVideo = null,
+    Object? originalLanguage = freezed,
+    Object? originalTitle = freezed,
+    Object? genreIds = freezed,
+    Object? backdropPath = freezed,
+    Object? adult = freezed,
+    Object? overview = freezed,
+    Object? releaseDate = freezed,
   }) {
     return _then(_value.copyWith(
-      movieId: null == movieId
-          ? _value.movieId
-          : movieId // ignore: cast_nullable_to_non_nullable
+      voteCount: freezed == voteCount
+          ? _value.voteCount
+          : voteCount // ignore: cast_nullable_to_non_nullable
+              as int?,
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
               as int,
+      video: null == video
+          ? _value.video
+          : video // ignore: cast_nullable_to_non_nullable
+              as bool,
+      voteAverage: freezed == voteAverage
+          ? _value.voteAverage
+          : voteAverage // ignore: cast_nullable_to_non_nullable
+              as double?,
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
-      overview: null == overview
-          ? _value.overview
-          : overview // ignore: cast_nullable_to_non_nullable
-              as String,
-      genreIds: null == genreIds
-          ? _value.genreIds
-          : genreIds // ignore: cast_nullable_to_non_nullable
-              as List<int>,
-      popularity: null == popularity
+      popularity: freezed == popularity
           ? _value.popularity
           : popularity // ignore: cast_nullable_to_non_nullable
-              as double,
-      voteAverage: null == voteAverage
-          ? _value.voteAverage
-          : voteAverage // ignore: cast_nullable_to_non_nullable
-              as double,
-      voteCount: null == voteCount
-          ? _value.voteCount
-          : voteCount // ignore: cast_nullable_to_non_nullable
-              as double,
-      releaseDate: null == releaseDate
-          ? _value.releaseDate
-          : releaseDate // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      backdropPath: freezed == backdropPath
-          ? _value.backdropPath
-          : backdropPath // ignore: cast_nullable_to_non_nullable
-              as String?,
-      originalLang: null == originalLang
-          ? _value.originalLang
-          : originalLang // ignore: cast_nullable_to_non_nullable
-              as String,
+              as double?,
       posterPath: freezed == posterPath
           ? _value.posterPath
           : posterPath // ignore: cast_nullable_to_non_nullable
               as String?,
-      isAdult: null == isAdult
-          ? _value.isAdult
-          : isAdult // ignore: cast_nullable_to_non_nullable
-              as bool,
-      isVideo: null == isVideo
-          ? _value.isVideo
-          : isVideo // ignore: cast_nullable_to_non_nullable
-              as bool,
+      originalLanguage: freezed == originalLanguage
+          ? _value.originalLanguage
+          : originalLanguage // ignore: cast_nullable_to_non_nullable
+              as String?,
+      originalTitle: freezed == originalTitle
+          ? _value.originalTitle
+          : originalTitle // ignore: cast_nullable_to_non_nullable
+              as String?,
+      genreIds: freezed == genreIds
+          ? _value.genreIds
+          : genreIds // ignore: cast_nullable_to_non_nullable
+              as List<int>?,
+      backdropPath: freezed == backdropPath
+          ? _value.backdropPath
+          : backdropPath // ignore: cast_nullable_to_non_nullable
+              as String?,
+      adult: freezed == adult
+          ? _value.adult
+          : adult // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      overview: freezed == overview
+          ? _value.overview
+          : overview // ignore: cast_nullable_to_non_nullable
+              as String?,
+      releaseDate: freezed == releaseDate
+          ? _value.releaseDate
+          : releaseDate // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -161,19 +166,20 @@ abstract class _$$_MovieCopyWith<$Res> implements $MovieCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'id') int movieId,
+      {@JsonKey(name: 'vote_count') int? voteCount,
+      int id,
+      bool video,
+      @JsonKey(name: 'vote_average') double? voteAverage,
       String title,
-      String overview,
-      @JsonKey(name: 'genre_ids') List<int> genreIds,
-      double popularity,
-      @JsonKey(name: 'vote_average') double voteAverage,
-      @JsonKey(name: 'vote_count') double voteCount,
-      @JsonKey(name: 'release_date') DateTime releaseDate,
-      @JsonKey(name: 'backdrop_path') String? backdropPath,
-      @JsonKey(name: 'original_language') String originalLang,
+      double? popularity,
       @JsonKey(name: 'poster_path') String? posterPath,
-      @JsonKey(name: 'adult') bool isAdult,
-      @JsonKey(name: 'video') bool isVideo});
+      @JsonKey(name: 'original_language') String? originalLanguage,
+      @JsonKey(name: 'original_title') String? originalTitle,
+      @JsonKey(name: 'genre_ids') List<int>? genreIds,
+      @JsonKey(name: 'backdrop_path') String? backdropPath,
+      bool? adult,
+      String? overview,
+      @JsonKey(name: 'release_date') String? releaseDate});
 }
 
 /// @nodoc
@@ -185,73 +191,78 @@ class __$$_MovieCopyWithImpl<$Res> extends _$MovieCopyWithImpl<$Res, _$_Movie>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? movieId = null,
+    Object? voteCount = freezed,
+    Object? id = null,
+    Object? video = null,
+    Object? voteAverage = freezed,
     Object? title = null,
-    Object? overview = null,
-    Object? genreIds = null,
-    Object? popularity = null,
-    Object? voteAverage = null,
-    Object? voteCount = null,
-    Object? releaseDate = null,
-    Object? backdropPath = freezed,
-    Object? originalLang = null,
+    Object? popularity = freezed,
     Object? posterPath = freezed,
-    Object? isAdult = null,
-    Object? isVideo = null,
+    Object? originalLanguage = freezed,
+    Object? originalTitle = freezed,
+    Object? genreIds = freezed,
+    Object? backdropPath = freezed,
+    Object? adult = freezed,
+    Object? overview = freezed,
+    Object? releaseDate = freezed,
   }) {
     return _then(_$_Movie(
-      movieId: null == movieId
-          ? _value.movieId
-          : movieId // ignore: cast_nullable_to_non_nullable
+      voteCount: freezed == voteCount
+          ? _value.voteCount
+          : voteCount // ignore: cast_nullable_to_non_nullable
+              as int?,
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
               as int,
+      video: null == video
+          ? _value.video
+          : video // ignore: cast_nullable_to_non_nullable
+              as bool,
+      voteAverage: freezed == voteAverage
+          ? _value.voteAverage
+          : voteAverage // ignore: cast_nullable_to_non_nullable
+              as double?,
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
-      overview: null == overview
-          ? _value.overview
-          : overview // ignore: cast_nullable_to_non_nullable
-              as String,
-      genreIds: null == genreIds
-          ? _value._genreIds
-          : genreIds // ignore: cast_nullable_to_non_nullable
-              as List<int>,
-      popularity: null == popularity
+      popularity: freezed == popularity
           ? _value.popularity
           : popularity // ignore: cast_nullable_to_non_nullable
-              as double,
-      voteAverage: null == voteAverage
-          ? _value.voteAverage
-          : voteAverage // ignore: cast_nullable_to_non_nullable
-              as double,
-      voteCount: null == voteCount
-          ? _value.voteCount
-          : voteCount // ignore: cast_nullable_to_non_nullable
-              as double,
-      releaseDate: null == releaseDate
-          ? _value.releaseDate
-          : releaseDate // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      backdropPath: freezed == backdropPath
-          ? _value.backdropPath
-          : backdropPath // ignore: cast_nullable_to_non_nullable
-              as String?,
-      originalLang: null == originalLang
-          ? _value.originalLang
-          : originalLang // ignore: cast_nullable_to_non_nullable
-              as String,
+              as double?,
       posterPath: freezed == posterPath
           ? _value.posterPath
           : posterPath // ignore: cast_nullable_to_non_nullable
               as String?,
-      isAdult: null == isAdult
-          ? _value.isAdult
-          : isAdult // ignore: cast_nullable_to_non_nullable
-              as bool,
-      isVideo: null == isVideo
-          ? _value.isVideo
-          : isVideo // ignore: cast_nullable_to_non_nullable
-              as bool,
+      originalLanguage: freezed == originalLanguage
+          ? _value.originalLanguage
+          : originalLanguage // ignore: cast_nullable_to_non_nullable
+              as String?,
+      originalTitle: freezed == originalTitle
+          ? _value.originalTitle
+          : originalTitle // ignore: cast_nullable_to_non_nullable
+              as String?,
+      genreIds: freezed == genreIds
+          ? _value._genreIds
+          : genreIds // ignore: cast_nullable_to_non_nullable
+              as List<int>?,
+      backdropPath: freezed == backdropPath
+          ? _value.backdropPath
+          : backdropPath // ignore: cast_nullable_to_non_nullable
+              as String?,
+      adult: freezed == adult
+          ? _value.adult
+          : adult // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      overview: freezed == overview
+          ? _value.overview
+          : overview // ignore: cast_nullable_to_non_nullable
+              as String?,
+      releaseDate: freezed == releaseDate
+          ? _value.releaseDate
+          : releaseDate // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -260,70 +271,74 @@ class __$$_MovieCopyWithImpl<$Res> extends _$MovieCopyWithImpl<$Res, _$_Movie>
 @JsonSerializable()
 class _$_Movie implements _Movie {
   _$_Movie(
-      {@JsonKey(name: 'id') required this.movieId,
+      {@JsonKey(name: 'vote_count') this.voteCount,
+      required this.id,
+      this.video = false,
+      @JsonKey(name: 'vote_average') this.voteAverage,
       required this.title,
-      required this.overview,
-      @JsonKey(name: 'genre_ids') required final List<int> genreIds,
-      required this.popularity,
-      @JsonKey(name: 'vote_average') required this.voteAverage,
-      @JsonKey(name: 'vote_count') required this.voteCount,
-      @JsonKey(name: 'release_date') required this.releaseDate,
-      @JsonKey(name: 'backdrop_path') this.backdropPath,
-      @JsonKey(name: 'original_language') required this.originalLang,
+      this.popularity,
       @JsonKey(name: 'poster_path') this.posterPath,
-      @JsonKey(name: 'adult') required this.isAdult,
-      @JsonKey(name: 'video') required this.isVideo})
+      @JsonKey(name: 'original_language') this.originalLanguage,
+      @JsonKey(name: 'original_title') this.originalTitle,
+      @JsonKey(name: 'genre_ids') final List<int>? genreIds,
+      @JsonKey(name: 'backdrop_path') this.backdropPath,
+      this.adult,
+      this.overview,
+      @JsonKey(name: 'release_date') this.releaseDate})
       : _genreIds = genreIds;
 
   factory _$_Movie.fromJson(Map<String, dynamic> json) =>
       _$$_MovieFromJson(json);
 
   @override
-  @JsonKey(name: 'id')
-  final int movieId;
+  @JsonKey(name: 'vote_count')
+  final int? voteCount;
+  @override
+  final int id;
+  @override
+  @JsonKey()
+  final bool video;
+  @override
+  @JsonKey(name: 'vote_average')
+  final double? voteAverage;
   @override
   final String title;
   @override
-  final String overview;
-  final List<int> _genreIds;
-  @override
-  @JsonKey(name: 'genre_ids')
-  List<int> get genreIds {
-    if (_genreIds is EqualUnmodifiableListView) return _genreIds;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_genreIds);
-  }
-
-  @override
-  final double popularity;
-  @override
-  @JsonKey(name: 'vote_average')
-  final double voteAverage;
-  @override
-  @JsonKey(name: 'vote_count')
-  final double voteCount;
-  @override
-  @JsonKey(name: 'release_date')
-  final DateTime releaseDate;
-  @override
-  @JsonKey(name: 'backdrop_path')
-  final String? backdropPath;
-  @override
-  @JsonKey(name: 'original_language')
-  final String originalLang;
+  final double? popularity;
   @override
   @JsonKey(name: 'poster_path')
   final String? posterPath;
   @override
-  @JsonKey(name: 'adult')
-  final bool isAdult;
+  @JsonKey(name: 'original_language')
+  final String? originalLanguage;
   @override
-  @JsonKey(name: 'video')
-  final bool isVideo;
+  @JsonKey(name: 'original_title')
+  final String? originalTitle;
+  final List<int>? _genreIds;
+  @override
+  @JsonKey(name: 'genre_ids')
+  List<int>? get genreIds {
+    final value = _genreIds;
+    if (value == null) return null;
+    if (_genreIds is EqualUnmodifiableListView) return _genreIds;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  @override
+  @JsonKey(name: 'backdrop_path')
+  final String? backdropPath;
+  @override
+  final bool? adult;
+  @override
+  final String? overview;
+  @override
+  @JsonKey(name: 'release_date')
+  final String? releaseDate;
 
   @override
   String toString() {
-    return 'Movie(movieId: $movieId, title: $title, overview: $overview, genreIds: $genreIds, popularity: $popularity, voteAverage: $voteAverage, voteCount: $voteCount, releaseDate: $releaseDate, backdropPath: $backdropPath, originalLang: $originalLang, posterPath: $posterPath, isAdult: $isAdult, isVideo: $isVideo)';
+    return 'Movie(voteCount: $voteCount, id: $id, video: $video, voteAverage: $voteAverage, title: $title, popularity: $popularity, posterPath: $posterPath, originalLanguage: $originalLanguage, originalTitle: $originalTitle, genreIds: $genreIds, backdropPath: $backdropPath, adult: $adult, overview: $overview, releaseDate: $releaseDate)';
   }
 
   @override
@@ -331,46 +346,49 @@ class _$_Movie implements _Movie {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Movie &&
-            (identical(other.movieId, movieId) || other.movieId == movieId) &&
-            (identical(other.title, title) || other.title == title) &&
-            (identical(other.overview, overview) ||
-                other.overview == overview) &&
-            const DeepCollectionEquality().equals(other._genreIds, _genreIds) &&
-            (identical(other.popularity, popularity) ||
-                other.popularity == popularity) &&
-            (identical(other.voteAverage, voteAverage) ||
-                other.voteAverage == voteAverage) &&
             (identical(other.voteCount, voteCount) ||
                 other.voteCount == voteCount) &&
-            (identical(other.releaseDate, releaseDate) ||
-                other.releaseDate == releaseDate) &&
-            (identical(other.backdropPath, backdropPath) ||
-                other.backdropPath == backdropPath) &&
-            (identical(other.originalLang, originalLang) ||
-                other.originalLang == originalLang) &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.video, video) || other.video == video) &&
+            (identical(other.voteAverage, voteAverage) ||
+                other.voteAverage == voteAverage) &&
+            (identical(other.title, title) || other.title == title) &&
+            (identical(other.popularity, popularity) ||
+                other.popularity == popularity) &&
             (identical(other.posterPath, posterPath) ||
                 other.posterPath == posterPath) &&
-            (identical(other.isAdult, isAdult) || other.isAdult == isAdult) &&
-            (identical(other.isVideo, isVideo) || other.isVideo == isVideo));
+            (identical(other.originalLanguage, originalLanguage) ||
+                other.originalLanguage == originalLanguage) &&
+            (identical(other.originalTitle, originalTitle) ||
+                other.originalTitle == originalTitle) &&
+            const DeepCollectionEquality().equals(other._genreIds, _genreIds) &&
+            (identical(other.backdropPath, backdropPath) ||
+                other.backdropPath == backdropPath) &&
+            (identical(other.adult, adult) || other.adult == adult) &&
+            (identical(other.overview, overview) ||
+                other.overview == overview) &&
+            (identical(other.releaseDate, releaseDate) ||
+                other.releaseDate == releaseDate));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      movieId,
-      title,
-      overview,
-      const DeepCollectionEquality().hash(_genreIds),
-      popularity,
-      voteAverage,
       voteCount,
-      releaseDate,
-      backdropPath,
-      originalLang,
+      id,
+      video,
+      voteAverage,
+      title,
+      popularity,
       posterPath,
-      isAdult,
-      isVideo);
+      originalLanguage,
+      originalTitle,
+      const DeepCollectionEquality().hash(_genreIds),
+      backdropPath,
+      adult,
+      overview,
+      releaseDate);
 
   @JsonKey(ignore: true)
   @override
@@ -388,58 +406,59 @@ class _$_Movie implements _Movie {
 
 abstract class _Movie implements Movie {
   factory _Movie(
-      {@JsonKey(name: 'id') required final int movieId,
+      {@JsonKey(name: 'vote_count') final int? voteCount,
+      required final int id,
+      final bool video,
+      @JsonKey(name: 'vote_average') final double? voteAverage,
       required final String title,
-      required final String overview,
-      @JsonKey(name: 'genre_ids') required final List<int> genreIds,
-      required final double popularity,
-      @JsonKey(name: 'vote_average') required final double voteAverage,
-      @JsonKey(name: 'vote_count') required final double voteCount,
-      @JsonKey(name: 'release_date') required final DateTime releaseDate,
-      @JsonKey(name: 'backdrop_path') final String? backdropPath,
-      @JsonKey(name: 'original_language') required final String originalLang,
+      final double? popularity,
       @JsonKey(name: 'poster_path') final String? posterPath,
-      @JsonKey(name: 'adult') required final bool isAdult,
-      @JsonKey(name: 'video') required final bool isVideo}) = _$_Movie;
+      @JsonKey(name: 'original_language') final String? originalLanguage,
+      @JsonKey(name: 'original_title') final String? originalTitle,
+      @JsonKey(name: 'genre_ids') final List<int>? genreIds,
+      @JsonKey(name: 'backdrop_path') final String? backdropPath,
+      final bool? adult,
+      final String? overview,
+      @JsonKey(name: 'release_date') final String? releaseDate}) = _$_Movie;
 
   factory _Movie.fromJson(Map<String, dynamic> json) = _$_Movie.fromJson;
 
   @override
-  @JsonKey(name: 'id')
-  int get movieId;
+  @JsonKey(name: 'vote_count')
+  int? get voteCount;
+  @override
+  int get id;
+  @override
+  bool get video;
+  @override
+  @JsonKey(name: 'vote_average')
+  double? get voteAverage;
   @override
   String get title;
   @override
-  String get overview;
-  @override
-  @JsonKey(name: 'genre_ids')
-  List<int> get genreIds;
-  @override
-  double get popularity;
-  @override
-  @JsonKey(name: 'vote_average')
-  double get voteAverage;
-  @override
-  @JsonKey(name: 'vote_count')
-  double get voteCount;
-  @override
-  @JsonKey(name: 'release_date')
-  DateTime get releaseDate;
-  @override
-  @JsonKey(name: 'backdrop_path')
-  String? get backdropPath;
-  @override
-  @JsonKey(name: 'original_language')
-  String get originalLang;
+  double? get popularity;
   @override
   @JsonKey(name: 'poster_path')
   String? get posterPath;
   @override
-  @JsonKey(name: 'adult')
-  bool get isAdult;
+  @JsonKey(name: 'original_language')
+  String? get originalLanguage;
   @override
-  @JsonKey(name: 'video')
-  bool get isVideo;
+  @JsonKey(name: 'original_title')
+  String? get originalTitle;
+  @override
+  @JsonKey(name: 'genre_ids')
+  List<int>? get genreIds;
+  @override
+  @JsonKey(name: 'backdrop_path')
+  String? get backdropPath;
+  @override
+  bool? get adult;
+  @override
+  String? get overview;
+  @override
+  @JsonKey(name: 'release_date')
+  String? get releaseDate;
   @override
   @JsonKey(ignore: true)
   _$$_MovieCopyWith<_$_Movie> get copyWith =>
