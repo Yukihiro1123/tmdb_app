@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:tmdb_app/src/common_widgets/RateBar.dart';
+// import 'package:tmdb_app/src/common_widgets/RateBar.dart';
 import 'package:tmdb_app/src/common_widgets/cached_image.dart';
 import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie/movie.dart';
 import 'package:tmdb_app/src/routing/router_utils.dart';
@@ -42,6 +42,7 @@ class MovieCard extends StatelessWidget {
                 isCircle: false,
               ),
             ),
+            //TODO Autosizetext使う
             ListTile(
               title: Text(
                 item.title,

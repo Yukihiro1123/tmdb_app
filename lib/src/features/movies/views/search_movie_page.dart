@@ -8,6 +8,7 @@ import 'package:tmdb_app/src/features/movies/controller/movie_controller.dart';
 import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie/movie.dart';
 import 'package:tmdb_app/src/features/movies/views/component/movie_card.dart';
 import 'package:tmdb_app/src/routing/router_utils.dart';
+import 'package:tmdb_app/src/utils/breakpoints.dart';
 
 class SearchMoviePage extends StatefulHookConsumerWidget {
   const SearchMoviePage({super.key});
@@ -62,6 +63,7 @@ class _SearchMoviePageState extends ConsumerState<SearchMoviePage> {
   @override
   Widget build(BuildContext context) {
     final TextEditingController searchController = useTextEditingController();
+    final double screenWidth = MediaQuery.sizeOf(context).width;
     return SafeArea(
       child: Scaffold(
         body: Column(
@@ -75,7 +77,16 @@ class _SearchMoviePageState extends ConsumerState<SearchMoviePage> {
               ),
             ]),
             Expanded(
-              child: PagedListView<int, Movie>(
+              child: PagedGridView<int, Movie>(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  childAspectRatio: 1.25,
+                  crossAxisSpacing: 5,
+                  crossAxisCount: screenWidth <= BreakPoints.mobileSize
+                      ? 1
+                      : screenWidth <= BreakPoints.tabletSize
+                          ? 2
+                          : 3,
+                ),
                 pagingController: _pagingController,
                 builderDelegate: PagedChildBuilderDelegate<Movie>(
                   noItemsFoundIndicatorBuilder: (_) {
@@ -96,7 +107,15 @@ class _SearchMoviePageState extends ConsumerState<SearchMoviePage> {
                     );
                   },
                   firstPageProgressIndicatorBuilder: (_) {
-                    return ListView.builder(
+                    return GridView.builder(
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisSpacing: 5, //ボックス左右間のスペース
+                        crossAxisCount: screenWidth <= BreakPoints.mobileSize
+                            ? 1
+                            : screenWidth <= BreakPoints.tabletSize
+                                ? 2
+                                : 3,
+                      ),
                       shrinkWrap: true,
                       itemCount: 5,
                       itemBuilder: (context, index) {

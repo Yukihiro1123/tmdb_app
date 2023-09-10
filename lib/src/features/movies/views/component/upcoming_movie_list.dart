@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:tmdb_app/src/common_widgets/movie_card_shimmer.dart';
 import 'package:tmdb_app/src/features/movies/controller/movie_controller.dart';
 import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie/movie.dart';
 import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie_response.dart';
@@ -23,7 +24,7 @@ class UpcomingMovieList extends ConsumerWidget {
         );
       },
       loading: () {
-        return Container();
+        return const MovieCardShimmer();
       },
       data: (MovieResponse movieResponse) {
         return CarouselSlider(

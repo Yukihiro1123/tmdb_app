@@ -56,6 +56,7 @@ class _MovieListPageState extends ConsumerState<MovieListPage> {
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.sizeOf(context).width;
+    //TODO sliverappbarにする
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -81,7 +82,9 @@ class _MovieListPageState extends ConsumerState<MovieListPage> {
                 const SizedBox(height: 10),
                 PagedGridView<int, Movie>(
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    childAspectRatio: 1.25,
                     crossAxisSpacing: 5,
+                    //TODO ここどうするか考える
                     crossAxisCount: screenWidth <= BreakPoints.mobileSize
                         ? 1
                         : screenWidth <= BreakPoints.tabletSize
@@ -95,7 +98,6 @@ class _MovieListPageState extends ConsumerState<MovieListPage> {
                     firstPageProgressIndicatorBuilder: (_) {
                       return GridView.builder(
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          mainAxisExtent: 275,
                           crossAxisSpacing: 5, //ボックス左右間のスペース
                           crossAxisCount: screenWidth <= BreakPoints.mobileSize
                               ? 1
@@ -111,19 +113,16 @@ class _MovieListPageState extends ConsumerState<MovieListPage> {
                       );
                     },
                     itemBuilder: (context, item, index) {
-                      return AspectRatio(
-                        aspectRatio: 4 / 1,
-                        child: MovieCard(
-                          item: item,
-                          onTap: () {
-                            context.goNamed(
-                              AppRoute.movie.name,
-                              queryParameters: {
-                                "movieId": item.id.toString(),
-                              },
-                            );
-                          },
-                        ),
+                      return MovieCard(
+                        item: item,
+                        onTap: () {
+                          context.goNamed(
+                            AppRoute.movie.name,
+                            queryParameters: {
+                              "movieId": item.id.toString(),
+                            },
+                          );
+                        },
                       );
                     },
                   ),
