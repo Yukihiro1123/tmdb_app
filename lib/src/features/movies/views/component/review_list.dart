@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:tmdb_app/src/common_widgets/cached_image.dart';
+import 'package:tmdb_app/src/common_widgets/review_card_shimmer.dart';
 import 'package:tmdb_app/src/features/movies/controller/movie_controller.dart';
 import 'package:tmdb_app/src/features/movies/data_model/review_response/review/review.dart';
 
@@ -55,6 +56,15 @@ class _ReviewListState extends ConsumerState<ReviewList> {
         shrinkWrap: true,
         pagingController: _pagingController,
         builderDelegate: PagedChildBuilderDelegate<Review>(
+          firstPageProgressIndicatorBuilder: (_) {
+            return ListView.builder(
+              shrinkWrap: true,
+              itemCount: 5,
+              itemBuilder: (context, index) {
+                return const ReviewCardShimmer();
+              },
+            );
+          },
           itemBuilder: (context, item, index) {
             return ListTile(
               leading: CachedImage(
