@@ -64,7 +64,10 @@ class MovieDetailPage extends HookConsumerWidget {
                           style: const TextStyle(fontSize: 20),
                         ),
                         const SizedBox(height: 10),
-                        Text(movie.overview ?? ''),
+                        Text(
+                          movie.overview ?? '',
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        ),
                         const SizedBox(height: 10),
                         CategoryChips(movie: movie),
                         const SizedBox(height: 10),
@@ -112,7 +115,7 @@ class MovieDetailPage extends HookConsumerWidget {
                         ),
                         const Text("レビュー"),
                         SizedBox(
-                          height: 150,
+                          height: 300,
                           child: ReviewList(movieId: movieId),
                         ),
                       ],

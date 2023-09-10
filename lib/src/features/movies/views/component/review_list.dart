@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:tmdb_app/src/common_widgets/cached_image.dart';
+import 'package:tmdb_app/src/common_widgets/review_card_shimmer.dart';
 import 'package:tmdb_app/src/features/movies/controller/movie_controller.dart';
 import 'package:tmdb_app/src/features/movies/data_model/review_response/review/review.dart';
 
@@ -50,29 +51,49 @@ class _ReviewListState extends ConsumerState<ReviewList> {
 
   @override
   Widget build(BuildContext context) {
-    return Flexible(
-      child: PagedListView<int, Review>(
-        shrinkWrap: true,
-        pagingController: _pagingController,
-        builderDelegate: PagedChildBuilderDelegate<Review>(
-          itemBuilder: (context, item, index) {
-            return ListTile(
-              leading: CachedImage(
-                imageURL: item.authorDetails["avatar_path"] != null
-                    ? "https://image.tmdb.org/t/p/w500/${item.authorDetails["avatar_path"]}"
-                    : "",
-                width: 50,
-                height: 50,
-                isCircle: true,
-              ),
-              title: Text(item.author),
-              subtitle: Text(
-                item.content,
-                overflow: TextOverflow.ellipsis,
-              ),
-            );
-          },
-        ),
+    return PagedListView<int, Review>(
+      shrinkWrap: true,
+      pagingController: _pagingController,
+      builderDelegate: PagedChildBuilderDelegate<Review>(
+        noItemsFoundIndicatorBuilder: (_) {
+          return Center(
+            heightFactor: 10,
+            child: Text(
+              'レビューが見つかりません',
+              style: Theme.of(context).textTheme.displayLarge,
+            ),
+          );
+        },
+        firstPageProgressIndicatorBuilder: (_) {
+          return ListView.builder(
+            shrinkWrap: true,
+            itemCount: 5,
+            itemBuilder: (context, index) {
+              return const ReviewCardShimmer();
+            },
+          );
+        },
+        itemBuilder: (context, item, index) {
+          return ListTile(
+            leading: CachedImage(
+              imageURL: item.authorDetails["avatar_path"] != null
+                  ? "https://image.tmdb.org/t/p/w500/${item.authorDetails["avatar_path"]}"
+                  : "",
+              width: 50,
+              height: 50,
+              isCircle: true,
+            ),
+            title: Text(
+              item.author,
+              style: Theme.of(context).textTheme.bodyLarge,
+            ),
+            subtitle: Text(
+              item.content,
+              style: Theme.of(context).textTheme.bodySmall,
+              overflow: TextOverflow.ellipsis,
+            ),
+          );
+        },
       ),
     );
   }
