@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:tmdb_app/src/common_widgets/RateBar.dart';
 import 'package:tmdb_app/src/common_widgets/cached_image.dart';
 import 'package:tmdb_app/src/features/movies/controller/movie_controller.dart';
 import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie/movie.dart';
@@ -52,23 +51,58 @@ class MovieDetailPage extends HookConsumerWidget {
                     ),
                   ];
                 },
-                body: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text("概要:\n${movie.overview}"),
-                      const SizedBox(height: 10),
-                      Text("公開日:${movie.releaseDate.toString()}"),
-                      const SizedBox(height: 10),
-                      Row(
-                        children: [
-                          Text("評価:${movie.voteAverage.toString()}/10"),
-                          const SizedBox(width: 10),
-                          Text("(${movie.voteCount}人による評価)"),
-                        ],
-                      ),
-                    ],
+                body: SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          movie.tagline ?? '',
+                          style: const TextStyle(fontSize: 20),
+                        ),
+                        const SizedBox(height: 10),
+                        Text(movie.overview ?? ''),
+                        const SizedBox(height: 10),
+                        Text("公開日:${movie.releaseDate.toString()}"),
+                        Text(movie.status == "Released" ? '公開中' : ''),
+                        const SizedBox(height: 10),
+                        movie.productionCompanies == null
+                            ? const SizedBox.shrink()
+                            : Column(
+                                children: [
+                                  const Align(
+                                    alignment: Alignment.topLeft,
+                                    child: Text('制作会社'),
+                                  ),
+                                  Column(
+                                    children: [
+                                      CachedImage(
+                                        boxFit: BoxFit.contain,
+                                        imageURL:
+                                            "https://image.tmdb.org/t/p/w500/${movie.productionCompanies![0]["logo_path"]}",
+                                        width: 80,
+                                        height: 80,
+                                        isCircle: true,
+                                      ),
+                                      Text(movie.productionCompanies?[0]
+                                          ["name"]),
+                                    ],
+                                  )
+                                ],
+                              ),
+                        const SizedBox(height: 10),
+                        Text("ホームページ:${movie.homepage}"),
+                        const SizedBox(height: 10),
+                        Row(
+                          children: [
+                            Text("評価:${movie.voteAverage.toString()}/10"),
+                            const SizedBox(width: 10),
+                            Text("(${movie.voteCount}人による評価)"),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               );

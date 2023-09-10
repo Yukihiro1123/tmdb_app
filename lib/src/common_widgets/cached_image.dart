@@ -6,12 +6,14 @@ class CachedImage extends StatelessWidget {
   final double width;
   final double height;
   final bool isCircle;
+  final BoxFit? boxFit;
   const CachedImage({
     super.key,
     required this.imageURL,
     required this.width,
     required this.height,
     required this.isCircle,
+    this.boxFit,
   });
 
   @override
@@ -25,7 +27,7 @@ class CachedImage extends StatelessWidget {
         decoration: BoxDecoration(
           shape: isCircle ? BoxShape.circle : BoxShape.rectangle,
           image: DecorationImage(
-            fit: BoxFit.fill,
+            fit: boxFit ?? BoxFit.fill,
             image: imageProvider,
           ),
         ),

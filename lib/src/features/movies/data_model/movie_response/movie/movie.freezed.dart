@@ -41,7 +41,26 @@ mixin _$Movie {
   bool? get adult => throw _privateConstructorUsedError;
   String? get overview => throw _privateConstructorUsedError;
   @JsonKey(name: 'release_date')
-  String? get releaseDate => throw _privateConstructorUsedError;
+  String? get releaseDate =>
+      throw _privateConstructorUsedError; //detailで取得できるデータ
+// @JsonKey(name: 'belongs_to_collection')
+//     Map<String, dynamic>? collection,
+// int? budget,
+// List<Map<String, dynamic>>? genres,
+  String? get homepage =>
+      throw _privateConstructorUsedError; // @JsonKey(name: 'imdb_id')
+//     String? imdbId,
+  @JsonKey(name: 'production_companies')
+  List<Map<String, dynamic>>? get productionCompanies =>
+      throw _privateConstructorUsedError;
+  @JsonKey(name: 'production_countries')
+  List<Map<String, dynamic>>? get productionCountries =>
+      throw _privateConstructorUsedError;
+  int? get revenue =>
+      throw _privateConstructorUsedError; // @JsonKey(name: 'spoken_languages')
+//     List<Map<String, dynamic>>? spokenLang,
+  String? get status => throw _privateConstructorUsedError;
+  String? get tagline => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -67,7 +86,15 @@ abstract class $MovieCopyWith<$Res> {
       @JsonKey(name: 'backdrop_path') String? backdropPath,
       bool? adult,
       String? overview,
-      @JsonKey(name: 'release_date') String? releaseDate});
+      @JsonKey(name: 'release_date') String? releaseDate,
+      String? homepage,
+      @JsonKey(name: 'production_companies')
+      List<Map<String, dynamic>>? productionCompanies,
+      @JsonKey(name: 'production_countries')
+      List<Map<String, dynamic>>? productionCountries,
+      int? revenue,
+      String? status,
+      String? tagline});
 }
 
 /// @nodoc
@@ -97,6 +124,12 @@ class _$MovieCopyWithImpl<$Res, $Val extends Movie>
     Object? adult = freezed,
     Object? overview = freezed,
     Object? releaseDate = freezed,
+    Object? homepage = freezed,
+    Object? productionCompanies = freezed,
+    Object? productionCountries = freezed,
+    Object? revenue = freezed,
+    Object? status = freezed,
+    Object? tagline = freezed,
   }) {
     return _then(_value.copyWith(
       voteCount: freezed == voteCount
@@ -155,6 +188,30 @@ class _$MovieCopyWithImpl<$Res, $Val extends Movie>
           ? _value.releaseDate
           : releaseDate // ignore: cast_nullable_to_non_nullable
               as String?,
+      homepage: freezed == homepage
+          ? _value.homepage
+          : homepage // ignore: cast_nullable_to_non_nullable
+              as String?,
+      productionCompanies: freezed == productionCompanies
+          ? _value.productionCompanies
+          : productionCompanies // ignore: cast_nullable_to_non_nullable
+              as List<Map<String, dynamic>>?,
+      productionCountries: freezed == productionCountries
+          ? _value.productionCountries
+          : productionCountries // ignore: cast_nullable_to_non_nullable
+              as List<Map<String, dynamic>>?,
+      revenue: freezed == revenue
+          ? _value.revenue
+          : revenue // ignore: cast_nullable_to_non_nullable
+              as int?,
+      status: freezed == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as String?,
+      tagline: freezed == tagline
+          ? _value.tagline
+          : tagline // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -179,7 +236,15 @@ abstract class _$$_MovieCopyWith<$Res> implements $MovieCopyWith<$Res> {
       @JsonKey(name: 'backdrop_path') String? backdropPath,
       bool? adult,
       String? overview,
-      @JsonKey(name: 'release_date') String? releaseDate});
+      @JsonKey(name: 'release_date') String? releaseDate,
+      String? homepage,
+      @JsonKey(name: 'production_companies')
+      List<Map<String, dynamic>>? productionCompanies,
+      @JsonKey(name: 'production_countries')
+      List<Map<String, dynamic>>? productionCountries,
+      int? revenue,
+      String? status,
+      String? tagline});
 }
 
 /// @nodoc
@@ -205,6 +270,12 @@ class __$$_MovieCopyWithImpl<$Res> extends _$MovieCopyWithImpl<$Res, _$_Movie>
     Object? adult = freezed,
     Object? overview = freezed,
     Object? releaseDate = freezed,
+    Object? homepage = freezed,
+    Object? productionCompanies = freezed,
+    Object? productionCountries = freezed,
+    Object? revenue = freezed,
+    Object? status = freezed,
+    Object? tagline = freezed,
   }) {
     return _then(_$_Movie(
       voteCount: freezed == voteCount
@@ -263,6 +334,30 @@ class __$$_MovieCopyWithImpl<$Res> extends _$MovieCopyWithImpl<$Res, _$_Movie>
           ? _value.releaseDate
           : releaseDate // ignore: cast_nullable_to_non_nullable
               as String?,
+      homepage: freezed == homepage
+          ? _value.homepage
+          : homepage // ignore: cast_nullable_to_non_nullable
+              as String?,
+      productionCompanies: freezed == productionCompanies
+          ? _value._productionCompanies
+          : productionCompanies // ignore: cast_nullable_to_non_nullable
+              as List<Map<String, dynamic>>?,
+      productionCountries: freezed == productionCountries
+          ? _value._productionCountries
+          : productionCountries // ignore: cast_nullable_to_non_nullable
+              as List<Map<String, dynamic>>?,
+      revenue: freezed == revenue
+          ? _value.revenue
+          : revenue // ignore: cast_nullable_to_non_nullable
+              as int?,
+      status: freezed == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as String?,
+      tagline: freezed == tagline
+          ? _value.tagline
+          : tagline // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -284,8 +379,18 @@ class _$_Movie implements _Movie {
       @JsonKey(name: 'backdrop_path') this.backdropPath,
       this.adult,
       this.overview,
-      @JsonKey(name: 'release_date') this.releaseDate})
-      : _genreIds = genreIds;
+      @JsonKey(name: 'release_date') this.releaseDate,
+      this.homepage,
+      @JsonKey(name: 'production_companies')
+      final List<Map<String, dynamic>>? productionCompanies,
+      @JsonKey(name: 'production_countries')
+      final List<Map<String, dynamic>>? productionCountries,
+      this.revenue,
+      this.status,
+      this.tagline})
+      : _genreIds = genreIds,
+        _productionCompanies = productionCompanies,
+        _productionCountries = productionCountries;
 
   factory _$_Movie.fromJson(Map<String, dynamic> json) =>
       _$$_MovieFromJson(json);
@@ -335,10 +440,53 @@ class _$_Movie implements _Movie {
   @override
   @JsonKey(name: 'release_date')
   final String? releaseDate;
+//detailで取得できるデータ
+// @JsonKey(name: 'belongs_to_collection')
+//     Map<String, dynamic>? collection,
+// int? budget,
+// List<Map<String, dynamic>>? genres,
+  @override
+  final String? homepage;
+// @JsonKey(name: 'imdb_id')
+//     String? imdbId,
+  final List<Map<String, dynamic>>? _productionCompanies;
+// @JsonKey(name: 'imdb_id')
+//     String? imdbId,
+  @override
+  @JsonKey(name: 'production_companies')
+  List<Map<String, dynamic>>? get productionCompanies {
+    final value = _productionCompanies;
+    if (value == null) return null;
+    if (_productionCompanies is EqualUnmodifiableListView)
+      return _productionCompanies;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  final List<Map<String, dynamic>>? _productionCountries;
+  @override
+  @JsonKey(name: 'production_countries')
+  List<Map<String, dynamic>>? get productionCountries {
+    final value = _productionCountries;
+    if (value == null) return null;
+    if (_productionCountries is EqualUnmodifiableListView)
+      return _productionCountries;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  @override
+  final int? revenue;
+// @JsonKey(name: 'spoken_languages')
+//     List<Map<String, dynamic>>? spokenLang,
+  @override
+  final String? status;
+  @override
+  final String? tagline;
 
   @override
   String toString() {
-    return 'Movie(voteCount: $voteCount, id: $id, video: $video, voteAverage: $voteAverage, title: $title, popularity: $popularity, posterPath: $posterPath, originalLanguage: $originalLanguage, originalTitle: $originalTitle, genreIds: $genreIds, backdropPath: $backdropPath, adult: $adult, overview: $overview, releaseDate: $releaseDate)';
+    return 'Movie(voteCount: $voteCount, id: $id, video: $video, voteAverage: $voteAverage, title: $title, popularity: $popularity, posterPath: $posterPath, originalLanguage: $originalLanguage, originalTitle: $originalTitle, genreIds: $genreIds, backdropPath: $backdropPath, adult: $adult, overview: $overview, releaseDate: $releaseDate, homepage: $homepage, productionCompanies: $productionCompanies, productionCountries: $productionCountries, revenue: $revenue, status: $status, tagline: $tagline)';
   }
 
   @override
@@ -368,27 +516,43 @@ class _$_Movie implements _Movie {
             (identical(other.overview, overview) ||
                 other.overview == overview) &&
             (identical(other.releaseDate, releaseDate) ||
-                other.releaseDate == releaseDate));
+                other.releaseDate == releaseDate) &&
+            (identical(other.homepage, homepage) ||
+                other.homepage == homepage) &&
+            const DeepCollectionEquality()
+                .equals(other._productionCompanies, _productionCompanies) &&
+            const DeepCollectionEquality()
+                .equals(other._productionCountries, _productionCountries) &&
+            (identical(other.revenue, revenue) || other.revenue == revenue) &&
+            (identical(other.status, status) || other.status == status) &&
+            (identical(other.tagline, tagline) || other.tagline == tagline));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      voteCount,
-      id,
-      video,
-      voteAverage,
-      title,
-      popularity,
-      posterPath,
-      originalLanguage,
-      originalTitle,
-      const DeepCollectionEquality().hash(_genreIds),
-      backdropPath,
-      adult,
-      overview,
-      releaseDate);
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        voteCount,
+        id,
+        video,
+        voteAverage,
+        title,
+        popularity,
+        posterPath,
+        originalLanguage,
+        originalTitle,
+        const DeepCollectionEquality().hash(_genreIds),
+        backdropPath,
+        adult,
+        overview,
+        releaseDate,
+        homepage,
+        const DeepCollectionEquality().hash(_productionCompanies),
+        const DeepCollectionEquality().hash(_productionCountries),
+        revenue,
+        status,
+        tagline
+      ]);
 
   @JsonKey(ignore: true)
   @override
@@ -419,7 +583,15 @@ abstract class _Movie implements Movie {
       @JsonKey(name: 'backdrop_path') final String? backdropPath,
       final bool? adult,
       final String? overview,
-      @JsonKey(name: 'release_date') final String? releaseDate}) = _$_Movie;
+      @JsonKey(name: 'release_date') final String? releaseDate,
+      final String? homepage,
+      @JsonKey(name: 'production_companies')
+      final List<Map<String, dynamic>>? productionCompanies,
+      @JsonKey(name: 'production_countries')
+      final List<Map<String, dynamic>>? productionCountries,
+      final int? revenue,
+      final String? status,
+      final String? tagline}) = _$_Movie;
 
   factory _Movie.fromJson(Map<String, dynamic> json) = _$_Movie.fromJson;
 
@@ -459,6 +631,26 @@ abstract class _Movie implements Movie {
   @override
   @JsonKey(name: 'release_date')
   String? get releaseDate;
+  @override //detailで取得できるデータ
+// @JsonKey(name: 'belongs_to_collection')
+//     Map<String, dynamic>? collection,
+// int? budget,
+// List<Map<String, dynamic>>? genres,
+  String? get homepage;
+  @override // @JsonKey(name: 'imdb_id')
+//     String? imdbId,
+  @JsonKey(name: 'production_companies')
+  List<Map<String, dynamic>>? get productionCompanies;
+  @override
+  @JsonKey(name: 'production_countries')
+  List<Map<String, dynamic>>? get productionCountries;
+  @override
+  int? get revenue;
+  @override // @JsonKey(name: 'spoken_languages')
+//     List<Map<String, dynamic>>? spokenLang,
+  String? get status;
+  @override
+  String? get tagline;
   @override
   @JsonKey(ignore: true)
   _$$_MovieCopyWith<_$_Movie> get copyWith =>
