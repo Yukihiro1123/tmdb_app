@@ -22,25 +22,6 @@ _$_Movie _$$_MovieFromJson(Map<String, dynamic> json) => _$_Movie(
       adult: json['adult'] as bool?,
       overview: json['overview'] as String?,
       releaseDate: json['release_date'] as String?,
-      collection: json['belongs_to_collection'] as Map<String, dynamic>?,
-      budget: json['budget'] as int?,
-      genres: (json['genres'] as List<dynamic>?)
-          ?.map((e) => e as Map<String, dynamic>)
-          .toList(),
-      homepage: json['homepage'] as String?,
-      imdbId: json['imdb_id'] as int?,
-      productionCompanies: (json['production_companies'] as List<dynamic>?)
-          ?.map((e) => e as Map<String, dynamic>)
-          .toList(),
-      productionCountries: (json['production_countries'] as List<dynamic>?)
-          ?.map((e) => e as Map<String, dynamic>)
-          .toList(),
-      revenue: json['revenue'] as int?,
-      spokenLang: (json['spoken_languages'] as List<dynamic>?)
-          ?.map((e) => e as Map<String, dynamic>)
-          .toList(),
-      status: json['status'] as String?,
-      tagline: json['tagline'] as String?,
     );
 
 Map<String, dynamic> _$$_MovieToJson(_$_Movie instance) => <String, dynamic>{
@@ -58,15 +39,4 @@ Map<String, dynamic> _$$_MovieToJson(_$_Movie instance) => <String, dynamic>{
       'adult': instance.adult,
       'overview': instance.overview,
       'release_date': instance.releaseDate,
-      'belongs_to_collection': instance.collection,
-      'budget': instance.budget,
-      'genres': instance.genres,
-      'homepage': instance.homepage,
-      'imdb_id': instance.imdbId,
-      'production_companies': instance.productionCompanies,
-      'production_countries': instance.productionCountries,
-      'revenue': instance.revenue,
-      'spoken_languages': instance.spokenLang,
-      'status': instance.status,
-      'tagline': instance.tagline,
     };
