@@ -65,7 +65,6 @@ class MovieRepository extends _$MovieRepository {
       },
     ).toString();
     final response = await state.get(url);
-    print(response.data);
     return Movie.fromJson(response.data);
   }
 }
