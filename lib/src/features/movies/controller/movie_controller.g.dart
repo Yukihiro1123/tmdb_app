@@ -159,7 +159,25 @@ class _WatchMovieDetailControllerProviderElement
   int get movieId => (origin as WatchMovieDetailControllerProvider).movieId;
 }
 
-String _$movieControllerHash() => r'997ab08936859b86f57d551ca8c6e5fc97270c72';
+String _$watchUpcomingMoviesControllerHash() =>
+    r'47264b8066b9ab3cff060d5db317f3ae4ddc9095';
+
+/// See also [watchUpcomingMoviesController].
+@ProviderFor(watchUpcomingMoviesController)
+final watchUpcomingMoviesControllerProvider =
+    AutoDisposeFutureProvider<MovieResponse>.internal(
+  watchUpcomingMoviesController,
+  name: r'watchUpcomingMoviesControllerProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$watchUpcomingMoviesControllerHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef WatchUpcomingMoviesControllerRef
+    = AutoDisposeFutureProviderRef<MovieResponse>;
+String _$movieControllerHash() => r'71406c483a5875ca45d04de91e798b39259c5d88';
 
 /// See also [MovieController].
 @ProviderFor(MovieController)

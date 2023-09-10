@@ -25,6 +25,16 @@ class MovieController extends _$MovieController {
     }
   }
 
+  Future<MovieResponse> getUpcomingMovies() async {
+    try {
+      return await ref
+          .read(movieRepositoryProvider.notifier)
+          .getUpcomingMovies();
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   Future<MovieResponse> searchMovie({
     required String query,
     required int page,
@@ -47,4 +57,10 @@ Future<Movie> watchMovieDetailController(
   return await ref
       .read(movieRepositoryProvider.notifier)
       .getMovieDetail(movieId: movieId);
+}
+
+@riverpod
+Future<MovieResponse> watchUpcomingMoviesController(
+    WatchUpcomingMoviesControllerRef ref) async {
+  return await ref.read(movieRepositoryProvider.notifier).getUpcomingMovies();
 }

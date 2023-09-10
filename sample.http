@@ -1,5 +1,7 @@
 # GET https://api.themoviedb.org/3/movie/popular?language=en-US&page=1&api_key=YOUR_API_KEY
 
-GET https://api.themoviedb.org/3/movie/1083862?api_key=YOUR_API_KEY
+# GET https://api.themoviedb.org/3/movie/1083862?api_key=YOUR_API_KEY
 
-GET https://api.themoviedb.org/3/search/movie?include_adult=false&language=en-US&page=1&query=すずめ&api_key=YOUR_API_KEY
+# GET https://api.themoviedb.org/3/search/movie?include_adult=false&language=en-US&page=1&query=すずめ&api_key=YOUR_API_KEY
+
+GET https://api.themoviedb.org/3/movie/upcoming?include_adult=false&language=en-US&page=1&api_key=3fd2be6f0c70a2a598f084ddfb75487c

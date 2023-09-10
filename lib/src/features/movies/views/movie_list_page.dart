@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:tmdb_app/src/features/movies/controller/movie_controller.dart';
 import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie/movie.dart';
+import 'package:tmdb_app/src/features/movies/views/component/upcoming_movie_list.dart';
 import 'package:tmdb_app/src/features/movies/views/component/movie_card.dart';
 import 'package:tmdb_app/src/routing/router_utils.dart';
 
@@ -54,22 +55,35 @@ class _MovieListPageState extends ConsumerState<MovieListPage> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(),
-        body: PagedListView<int, Movie>(
-          pagingController: _pagingController,
-          builderDelegate: PagedChildBuilderDelegate<Movie>(
-            itemBuilder: (context, item, index) {
-              return MovieCard(
-                item: item,
-                onTap: () {
-                  context.goNamed(
-                    AppRoute.movie.name,
-                    queryParameters: {
-                      "movieId": item.id.toString(),
+        body: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text('近日公開予定'),
+              const UpcomingMovieList(),
+              const Text('公開中'),
+              Flexible(
+                child: PagedListView<int, Movie>(
+                  pagingController: _pagingController,
+                  builderDelegate: PagedChildBuilderDelegate<Movie>(
+                    itemBuilder: (context, item, index) {
+                      return MovieCard(
+                        item: item,
+                        onTap: () {
+                          context.goNamed(
+                            AppRoute.movie.name,
+                            queryParameters: {
+                              "movieId": item.id.toString(),
+                            },
+                          );
+                        },
+                      );
                     },
-                  );
-                },
-              );
-            },
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),
