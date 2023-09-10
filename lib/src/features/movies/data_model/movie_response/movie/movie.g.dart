@@ -22,6 +22,19 @@ _$_Movie _$$_MovieFromJson(Map<String, dynamic> json) => _$_Movie(
       adult: json['adult'] as bool?,
       overview: json['overview'] as String?,
       releaseDate: json['release_date'] as String?,
+      genres: (json['genres'] as List<dynamic>?)
+          ?.map((e) => e as Map<String, dynamic>)
+          .toList(),
+      homepage: json['homepage'] as String?,
+      productionCompanies: (json['production_companies'] as List<dynamic>?)
+          ?.map((e) => e as Map<String, dynamic>)
+          .toList(),
+      productionCountries: (json['production_countries'] as List<dynamic>?)
+          ?.map((e) => e as Map<String, dynamic>)
+          .toList(),
+      revenue: json['revenue'] as int?,
+      status: json['status'] as String?,
+      tagline: json['tagline'] as String?,
     );
 
 Map<String, dynamic> _$$_MovieToJson(_$_Movie instance) => <String, dynamic>{
@@ -39,4 +52,11 @@ Map<String, dynamic> _$$_MovieToJson(_$_Movie instance) => <String, dynamic>{
       'adult': instance.adult,
       'overview': instance.overview,
       'release_date': instance.releaseDate,
+      'genres': instance.genres,
+      'homepage': instance.homepage,
+      'production_companies': instance.productionCompanies,
+      'production_countries': instance.productionCountries,
+      'revenue': instance.revenue,
+      'status': instance.status,
+      'tagline': instance.tagline,
     };

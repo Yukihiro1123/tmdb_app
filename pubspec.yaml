@@ -57,6 +57,7 @@ dependencies:
   dio:
   infinite_scroll_pagination:
   flutter_rating_bar:
+  url_launcher:
 
 
 dev_dependencies:
