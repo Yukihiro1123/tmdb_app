@@ -34,7 +34,7 @@ class MovieDetailPage extends HookConsumerWidget {
                   return [
                     SliverAppBar(
                       pinned: true,
-                      expandedHeight: 200,
+                      expandedHeight: MediaQuery.sizeOf(context).height * 0.4,
                       flexibleSpace: FlexibleSpaceBar(
                         title: Text(
                           movie.title,

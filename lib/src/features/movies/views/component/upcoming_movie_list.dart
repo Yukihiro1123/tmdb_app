@@ -7,12 +7,14 @@ import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie/mov
 import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie_response.dart';
 import 'package:tmdb_app/src/features/movies/views/component/movie_card.dart';
 import 'package:tmdb_app/src/routing/router_utils.dart';
+import 'package:tmdb_app/src/utils/breakpoints.dart';
 
 class UpcomingMovieList extends ConsumerWidget {
   const UpcomingMovieList({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final double screenWidth = MediaQuery.sizeOf(context).width;
     final CarouselController controller = CarouselController();
     return ref.watch(watchUpcomingMoviesControllerProvider).when(
       error: (error, stackTrace) {
@@ -28,7 +30,11 @@ class UpcomingMovieList extends ConsumerWidget {
           carouselController: controller,
           options: CarouselOptions(
             height: 300,
-            viewportFraction: 1,
+            viewportFraction: screenWidth <= BreakPoints.mobileSize
+                ? 1
+                : screenWidth <= BreakPoints.tabletSize
+                    ? 0.5
+                    : 0.3,
             autoPlay: true,
             enlargeCenterPage: false,
           ),
