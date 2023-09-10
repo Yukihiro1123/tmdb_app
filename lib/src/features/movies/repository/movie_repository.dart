@@ -3,6 +3,7 @@ import 'package:tmdb_app/env.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie/movie.dart';
 import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie_response.dart';
+import 'package:tmdb_app/src/features/movies/data_model/review_response/review_response.dart';
 
 import 'package:tmdb_app/src/utils/dio_provider.dart';
 part 'movie_repository.g.dart';
@@ -82,5 +83,22 @@ class MovieRepository extends _$MovieRepository {
     ).toString();
     final response = await state.get(url);
     return Movie.fromJson(response.data);
+  }
+
+  Future<ReviewResponse> getMovieReview({
+    required int page,
+    required int movieId,
+  }) async {
+    final String url = Uri(
+      scheme: 'https',
+      host: 'api.themoviedb.org',
+      path: '3/movie/$movieId/reviews',
+      queryParameters: {
+        // 'language': 'ja-JP',
+        'api_key': Env.apiKey,
+      },
+    ).toString();
+    final response = await state.get(url);
+    return ReviewResponse.fromJson(response.data);
   }
 }
