@@ -29,7 +29,6 @@ class MovieCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(20.0),
         ),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             ClipRRect(
               borderRadius: const BorderRadius.only(
@@ -45,29 +44,22 @@ class MovieCard extends StatelessWidget {
                 isCircle: false,
               ),
             ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                AutoSizeText(
-                  item.title,
-                  minFontSize: 12,
-                  maxFontSize: 18,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Text("${item.voteAverage}/10"),
-                      // RateBar(item: item),
-                      Text("(${item.voteCount})"),
-                    ],
-                  ),
-                ),
-              ],
+            ListTile(
+              title: AutoSizeText(
+                item.title,
+                minFontSize: 12,
+                maxFontSize: 18,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+              subtitle: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Text("${item.voteAverage}/10"),
+                  // RateBar(item: item),
+                  Text("(${item.voteCount})"),
+                ],
+              ),
             ),
           ],
         ),

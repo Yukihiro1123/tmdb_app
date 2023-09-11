@@ -31,10 +31,10 @@ class UpcomingMovieList extends ConsumerWidget {
           carouselController: controller,
           options: CarouselOptions(
             aspectRatio: screenWidth <= BreakPoints.mobileSize
-                ? 1.5
+                ? 1.4
                 : screenWidth <= BreakPoints.tabletSize
                     ? 2.5
-                    : 4,
+                    : 6,
             viewportFraction: screenWidth <= BreakPoints.mobileSize
                 ? 1
                 : screenWidth <= BreakPoints.tabletSize
