@@ -77,7 +77,7 @@ class _ReviewListState extends ConsumerState<ReviewList> {
           return ListTile(
             leading: CachedImage(
               imageURL: item.authorDetails["avatar_path"] != null
-                  ? "https://image.tmdb.org/t/p/w500/${item.authorDetails["avatar_path"]}"
+                  ? "https://image.tmdb.org/t/p/w500${item.authorDetails["avatar_path"]}"
                   : "",
               width: 50,
               height: 50,

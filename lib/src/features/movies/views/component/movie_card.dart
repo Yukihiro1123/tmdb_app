@@ -37,7 +37,7 @@ class MovieCard extends StatelessWidget {
               ),
               child: CachedImage(
                 imageURL: item.backdropPath != null
-                    ? "https://image.tmdb.org/t/p/w500/${item.backdropPath!}"
+                    ? "https://image.tmdb.org/t/p/w500${item.backdropPath!}"
                     : "",
                 width: double.infinity,
                 height: 175.h,
