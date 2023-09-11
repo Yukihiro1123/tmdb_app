@@ -7,6 +7,7 @@ class CachedImage extends StatelessWidget {
   final double height;
   final bool isCircle;
   final BoxFit? boxFit;
+  final ColorFilter? colorFilter;
   const CachedImage({
     super.key,
     required this.imageURL,
@@ -14,6 +15,7 @@ class CachedImage extends StatelessWidget {
     required this.height,
     required this.isCircle,
     this.boxFit,
+    this.colorFilter,
   });
 
   @override
@@ -28,10 +30,8 @@ class CachedImage extends StatelessWidget {
           image: DecorationImage(
             fit: boxFit ?? BoxFit.fill,
             image: imageProvider,
-            colorFilter: ColorFilter.mode(
-              Colors.black.withOpacity(0.5),
-              BlendMode.srcATop,
-            ), // colorFilterを追加
+            colorFilter: colorFilter ??
+                const ColorFilter.mode(Colors.transparent, BlendMode.srcATop),
           ),
         ),
       ),

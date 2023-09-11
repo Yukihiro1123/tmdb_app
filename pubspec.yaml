@@ -73,6 +73,7 @@ dev_dependencies:
   json_serializable:
   freeze:
   build_runner:
+  flutter_svg:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

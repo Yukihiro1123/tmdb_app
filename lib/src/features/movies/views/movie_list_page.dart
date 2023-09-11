@@ -9,6 +9,7 @@ import 'package:tmdb_app/src/features/movies/views/component/upcoming_movie_list
 import 'package:tmdb_app/src/features/movies/views/component/movie_card.dart';
 import 'package:tmdb_app/src/routing/router_utils.dart';
 import 'package:tmdb_app/src/common_widgets/shimmer_widget.dart';
+import 'package:tmdb_app/src/utils/breakpoints.dart';
 
 class MovieListPage extends StatefulHookConsumerWidget {
   const MovieListPage({super.key});
@@ -54,6 +55,8 @@ class _MovieListPageState extends ConsumerState<MovieListPage> {
 
   @override
   Widget build(BuildContext context) {
+    final double screenWidth = MediaQuery.sizeOf(context).width;
+    //TODO sliverappbarにする
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -77,13 +80,35 @@ class _MovieListPageState extends ConsumerState<MovieListPage> {
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
                 const SizedBox(height: 10),
-                PagedListView<int, Movie>(
+                PagedGridView<int, Movie>(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    childAspectRatio: screenWidth <= BreakPoints.mobileSize
+                        ? 1.75
+                        : screenWidth <= BreakPoints.tabletSize
+                            ? 1.4
+                            : 1.5,
+                    crossAxisSpacing: 5,
+                    //TODO ここどうするか考える
+                    crossAxisCount: screenWidth <= BreakPoints.mobileSize
+                        ? 1
+                        : screenWidth <= BreakPoints.tabletSize
+                            ? 2
+                            : 4,
+                  ),
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   pagingController: _pagingController,
                   builderDelegate: PagedChildBuilderDelegate<Movie>(
                     firstPageProgressIndicatorBuilder: (_) {
-                      return ListView.builder(
+                      return GridView.builder(
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisSpacing: 5, //ボックス左右間のスペース
+                          crossAxisCount: screenWidth <= BreakPoints.mobileSize
+                              ? 1
+                              : screenWidth <= BreakPoints.tabletSize
+                                  ? 2
+                                  : 4,
+                        ),
                         shrinkWrap: true,
                         itemCount: 5,
                         itemBuilder: (context, index) {

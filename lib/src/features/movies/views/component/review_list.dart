@@ -60,7 +60,7 @@ class _ReviewListState extends ConsumerState<ReviewList> {
             heightFactor: 10,
             child: Text(
               'レビューが見つかりません',
-              style: Theme.of(context).textTheme.displayLarge,
+              style: Theme.of(context).textTheme.bodyMedium,
             ),
           );
         },
