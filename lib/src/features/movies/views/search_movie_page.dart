@@ -68,6 +68,7 @@ class _SearchMoviePageState extends ConsumerState<SearchMoviePage> {
       child: Scaffold(
         body: Column(
           children: [
+            const SizedBox(height: 10),
             SearchBar(controller: searchController, trailing: [
               IconButton(
                 icon: const Icon(Icons.search),
@@ -76,16 +77,21 @@ class _SearchMoviePageState extends ConsumerState<SearchMoviePage> {
                 },
               ),
             ]),
+            const SizedBox(height: 10),
             Expanded(
               child: PagedGridView<int, Movie>(
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  childAspectRatio: 1.25,
+                  childAspectRatio: screenWidth <= BreakPoints.mobileSize
+                      ? 1.75
+                      : screenWidth <= BreakPoints.tabletSize
+                          ? 1.4
+                          : 1.5,
                   crossAxisSpacing: 5,
                   crossAxisCount: screenWidth <= BreakPoints.mobileSize
                       ? 1
                       : screenWidth <= BreakPoints.tabletSize
                           ? 2
-                          : 3,
+                          : 4,
                 ),
                 pagingController: _pagingController,
                 builderDelegate: PagedChildBuilderDelegate<Movie>(

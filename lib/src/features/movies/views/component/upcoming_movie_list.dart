@@ -30,12 +30,16 @@ class UpcomingMovieList extends ConsumerWidget {
         return CarouselSlider(
           carouselController: controller,
           options: CarouselOptions(
-            height: 300,
+            aspectRatio: screenWidth <= BreakPoints.mobileSize
+                ? 1.75
+                : screenWidth <= BreakPoints.tabletSize
+                    ? 2.75
+                    : 6,
             viewportFraction: screenWidth <= BreakPoints.mobileSize
                 ? 1
                 : screenWidth <= BreakPoints.tabletSize
                     ? 0.5
-                    : 0.3,
+                    : 0.2,
             autoPlay: true,
             enlargeCenterPage: false,
           ),

@@ -1,4 +1,6 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 // import 'package:tmdb_app/src/common_widgets/RateBar.dart';
 import 'package:tmdb_app/src/common_widgets/cached_image.dart';
@@ -38,14 +40,17 @@ class MovieCard extends StatelessWidget {
                     ? "https://image.tmdb.org/t/p/w500/${item.backdropPath!}"
                     : "",
                 width: double.infinity,
-                height: 200,
+                height: 150.h,
                 isCircle: false,
               ),
             ),
-            //TODO Autosizetext使う
             ListTile(
-              title: Text(
+              title: AutoSizeText(
                 item.title,
+                minFontSize: 12,
+                maxFontSize: 18,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
               ),
               subtitle: Row(
                 children: [

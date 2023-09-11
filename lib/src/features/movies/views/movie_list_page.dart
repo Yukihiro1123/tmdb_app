@@ -82,14 +82,18 @@ class _MovieListPageState extends ConsumerState<MovieListPage> {
                 const SizedBox(height: 10),
                 PagedGridView<int, Movie>(
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    childAspectRatio: 1.25,
+                    childAspectRatio: screenWidth <= BreakPoints.mobileSize
+                        ? 1.75
+                        : screenWidth <= BreakPoints.tabletSize
+                            ? 1.4
+                            : 1.5,
                     crossAxisSpacing: 5,
                     //TODO ここどうするか考える
                     crossAxisCount: screenWidth <= BreakPoints.mobileSize
                         ? 1
                         : screenWidth <= BreakPoints.tabletSize
                             ? 2
-                            : 3,
+                            : 4,
                   ),
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
@@ -103,7 +107,7 @@ class _MovieListPageState extends ConsumerState<MovieListPage> {
                               ? 1
                               : screenWidth <= BreakPoints.tabletSize
                                   ? 2
-                                  : 3,
+                                  : 4,
                         ),
                         shrinkWrap: true,
                         itemCount: 5,
