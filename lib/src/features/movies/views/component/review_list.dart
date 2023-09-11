@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:tmdb_app/src/common_widgets/cached_image.dart';
@@ -66,32 +67,44 @@ class _ReviewListState extends ConsumerState<ReviewList> {
           );
         },
         firstPageProgressIndicatorBuilder: (_) {
-          return ListView.builder(
-            shrinkWrap: true,
-            itemCount: 5,
-            itemBuilder: (context, index) {
-              return const ReviewCardShimmer();
-            },
+          return AnimationLimiter(
+            child: ListView.builder(
+              shrinkWrap: true,
+              itemCount: 5,
+              itemBuilder: (context, index) {
+                return const ReviewCardShimmer();
+              },
+            ),
           );
         },
         itemBuilder: (context, item, index) {
-          return ListTile(
-            leading: CachedImage(
-              imageURL: item.authorDetails["avatar_path"] != null
-                  ? "https://image.tmdb.org/t/p/w500${item.authorDetails["avatar_path"]}"
-                  : "",
-              width: 50,
-              height: 50,
-              isCircle: true,
-            ),
-            title: Text(
-              item.author,
-              style: Theme.of(context).textTheme.bodyLarge,
-            ),
-            subtitle: Text(
-              item.content,
-              style: Theme.of(context).textTheme.bodySmall,
-              overflow: TextOverflow.ellipsis,
+          return AnimationConfiguration.staggeredList(
+            delay: const Duration(milliseconds: 375),
+            position: index,
+            duration: const Duration(milliseconds: 375),
+            child: SlideAnimation(
+              verticalOffset: 50.0,
+              child: FadeInAnimation(
+                child: ListTile(
+                  leading: CachedImage(
+                    imageURL: item.authorDetails["avatar_path"] != null
+                        ? "https://image.tmdb.org/t/p/w500${item.authorDetails["avatar_path"]}"
+                        : "",
+                    width: 50,
+                    height: 50,
+                    isCircle: true,
+                  ),
+                  title: Text(
+                    item.author,
+                    style: Theme.of(context).textTheme.bodyLarge,
+                  ),
+                  subtitle: Text(
+                    item.content,
+                    style: Theme.of(context).textTheme.bodySmall,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+              ),
             ),
           );
         },

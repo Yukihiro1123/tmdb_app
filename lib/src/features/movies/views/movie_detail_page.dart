@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:tmdb_app/src/common_widgets/cached_image.dart';
 import 'package:tmdb_app/src/features/movies/views/component/category_chips.dart';
@@ -61,73 +62,85 @@ class MovieDetailPage extends HookConsumerWidget {
                 body: SingleChildScrollView(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          movie.tagline ?? '',
-                          style: const TextStyle(fontSize: 20),
-                        ),
-                        const SizedBox(height: 10),
-                        Text(
-                          movie.overview ?? '',
-                          style: Theme.of(context).textTheme.bodyLarge,
-                        ),
-                        const SizedBox(height: 10),
-                        CategoryChips(movie: movie),
-                        const SizedBox(height: 10),
-                        Text(
-                            "${AppLocalizations.of(context).releaseDate}:${movie.releaseDate.toString()}"),
-                        const SizedBox(height: 10),
-                        movie.productionCompanies == null
-                            ? const SizedBox.shrink()
-                            : Column(
-                                children: [
-                                  Align(
-                                    alignment: Alignment.topLeft,
-                                    child: Text(AppLocalizations.of(context)
-                                        .productionCompanies),
-                                  ),
-                                  Column(
-                                    children: [
-                                      CachedImage(
-                                        boxFit: BoxFit.contain,
-                                        imageURL:
-                                            "https://image.tmdb.org/t/p/w500${movie.productionCompanies![0]["logo_path"]}",
-                                        width: 80,
-                                        height: 80,
-                                        isCircle: true,
-                                      ),
-                                      Text(movie.productionCompanies?[0]
-                                          ["name"]),
-                                    ],
-                                  )
-                                ],
-                              ),
-                        const SizedBox(height: 10),
-                        TextButton.icon(
-                          onPressed: () {
-                            _openExternalSite(movie.homepage);
-                          },
-                          icon: const Icon(Icons.link),
-                          label: Text(AppLocalizations.of(context).homePage),
-                        ),
-                        const SizedBox(height: 10),
-                        Row(
+                    child: AnimationLimiter(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: AnimationConfiguration.toStaggeredList(
+                          duration: const Duration(milliseconds: 375),
+                          childAnimationBuilder: (widget) => SlideAnimation(
+                            horizontalOffset: 50.0,
+                            child: FadeInAnimation(
+                              child: widget,
+                            ),
+                          ),
                           children: [
                             Text(
-                                "${AppLocalizations.of(context).review}:${movie.voteAverage.toString()}/10"),
-                            const SizedBox(width: 10),
+                              movie.tagline ?? '',
+                              style: const TextStyle(fontSize: 20),
+                            ),
+                            const SizedBox(height: 10),
                             Text(
-                                "(${movie.voteCount}${AppLocalizations.of(context).reviewedBy})"),
+                              movie.overview ?? '',
+                              style: Theme.of(context).textTheme.bodyLarge,
+                            ),
+                            const SizedBox(height: 10),
+                            CategoryChips(movie: movie),
+                            const SizedBox(height: 10),
+                            Text(
+                                "${AppLocalizations.of(context).releaseDate}:${movie.releaseDate.toString()}"),
+                            const SizedBox(height: 10),
+                            movie.productionCompanies == null
+                                ? const SizedBox.shrink()
+                                : Column(
+                                    children: [
+                                      Align(
+                                        alignment: Alignment.topLeft,
+                                        child: Text(AppLocalizations.of(context)
+                                            .productionCompanies),
+                                      ),
+                                      Column(
+                                        children: [
+                                          CachedImage(
+                                            boxFit: BoxFit.contain,
+                                            imageURL:
+                                                "https://image.tmdb.org/t/p/w500${movie.productionCompanies![0]["logo_path"]}",
+                                            width: 80,
+                                            height: 80,
+                                            isCircle: true,
+                                          ),
+                                          Text(movie.productionCompanies?[0]
+                                              ["name"]),
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                            const SizedBox(height: 10),
+                            TextButton.icon(
+                              onPressed: () {
+                                _openExternalSite(movie.homepage);
+                              },
+                              icon: const Icon(Icons.link),
+                              label:
+                                  Text(AppLocalizations.of(context).homePage),
+                            ),
+                            const SizedBox(height: 10),
+                            Row(
+                              children: [
+                                Text(
+                                    "${AppLocalizations.of(context).review}:${movie.voteAverage.toString()}/10"),
+                                const SizedBox(width: 10),
+                                Text(
+                                    "(${movie.voteCount}${AppLocalizations.of(context).reviewedBy})"),
+                              ],
+                            ),
+                            Text(AppLocalizations.of(context).review),
+                            SizedBox(
+                              height: 300,
+                              child: ReviewList(movieId: movieId),
+                            ),
                           ],
                         ),
-                        Text(AppLocalizations.of(context).review),
-                        SizedBox(
-                          height: 300,
-                          child: ReviewList(movieId: movieId),
-                        ),
-                      ],
+                      ),
                     ),
                   ),
                 ),
