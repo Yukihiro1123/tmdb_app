@@ -8,7 +8,6 @@ import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie/mov
 import 'package:tmdb_app/src/features/movies/views/component/upcoming_movie_list.dart';
 import 'package:tmdb_app/src/features/movies/views/component/movie_card.dart';
 import 'package:tmdb_app/src/routing/router_utils.dart';
-import 'package:tmdb_app/src/common_widgets/shimmer_widget.dart';
 import 'package:tmdb_app/src/utils/breakpoints.dart';
 
 class MovieListPage extends StatefulHookConsumerWidget {

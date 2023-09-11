@@ -5,7 +5,7 @@ import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie/mov
 import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie_response.dart';
 import 'package:tmdb_app/src/features/movies/data_model/review_response/review_response.dart';
 
-import 'package:tmdb_app/src/utils/dio_provider.dart';
+import 'package:tmdb_app/src/utils/dio/dio_provider.dart';
 part 'movie_repository.g.dart';
 
 @riverpod
