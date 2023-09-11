@@ -43,17 +43,21 @@ dependencies:
   riverpod_lint:
   go_router:
   json_annotation:
+  freezed:
   freezed_annotation:
   cached_network_image:
   flutter_screenutil:
   carousel_slider:
-  sliding_up_panel:
   auto_size_text:
   flutter_native_splash: ^2.3.2
   adaptive_dialog: ^1.9.0-0
   device_preview:
   shimmer:
   intl:
+  dio:
+  infinite_scroll_pagination:
+  flutter_rating_bar:
+  url_launcher:
 
 
 dev_dependencies:
@@ -69,6 +73,7 @@ dev_dependencies:
   json_serializable:
   freeze:
   build_runner:
+  flutter_svg:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -82,9 +87,18 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+  assets:
+    - assets/images/
+
+  fonts:
+    - family: Noto_Sans_JP
+      fonts:
+        - asset: assets/fonts/Noto_Sans_JP/NotoSansJP-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Noto_Sans_JP/NotoSansJP-Bold.ttf
+          weight: 700
+    
+  
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
