@@ -60,32 +60,36 @@ class _SearchMoviePageState extends ConsumerState<SearchMoviePage> {
   @override
   Widget build(BuildContext context) {
     final TextEditingController searchController = useTextEditingController();
+    final hasSearched = useState(false);
     return SafeArea(
       child: Scaffold(
         body: Column(
           children: [
             const SizedBox(height: 10),
-            SearchBar(controller: searchController, trailing: [
-              IconButton(
-                icon: const Icon(Icons.search),
-                onPressed: () {
-                  _updateSearchTerm(searchController.text);
-                },
-              ),
-            ]),
+            SearchBar(
+              controller: searchController,
+              trailing: [
+                IconButton(
+                  icon: const Icon(Icons.search),
+                  onPressed: () {
+                    hasSearched.value = true;
+                    _updateSearchTerm(searchController.text);
+                  },
+                ),
+              ],
+            ),
             const SizedBox(height: 10),
             Expanded(
               child: MovieList(
                 pagingController: _pagingController,
                 noItemsFoundWidget: Center(
-                  heightFactor: 10,
+                  heightFactor: 6,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Icon(Icons.search, size: 50),
-                      Text(searchController.text),
                       Text(
-                        searchController.text.isEmpty
+                        hasSearched.value == false
                             ? AppLocalizations.of(context).searchByKeyword
                             : AppLocalizations.of(context).movieNotFound,
                         style: Theme.of(context).textTheme.bodyLarge,
