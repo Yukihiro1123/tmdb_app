@@ -62,6 +62,7 @@ dependencies:
   url_launcher:
   shared_preferences:
   settings_ui:
+  flutter_staggered_animations:
 
 
 dev_dependencies:

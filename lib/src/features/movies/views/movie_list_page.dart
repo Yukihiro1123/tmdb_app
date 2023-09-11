@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:tmdb_app/src/common_widgets/movie_card_shimmer.dart';
 import 'package:tmdb_app/src/features/movies/controller/movie_controller.dart';
 import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie/movie.dart';
+import 'package:tmdb_app/src/features/movies/views/component/movie_list.dart';
 import 'package:tmdb_app/src/features/movies/views/component/upcoming_movie_list.dart';
-import 'package:tmdb_app/src/features/movies/views/component/movie_card.dart';
-import 'package:tmdb_app/src/routing/router_utils.dart';
-import 'package:tmdb_app/src/utils/breakpoints.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MovieListPage extends StatefulHookConsumerWidget {
@@ -55,7 +51,6 @@ class _MovieListPageState extends ConsumerState<MovieListPage> {
 
   @override
   Widget build(BuildContext context) {
-    final double screenWidth = MediaQuery.sizeOf(context).width;
     //TODO sliverappbarにする
     return SafeArea(
       child: Scaffold(
@@ -80,55 +75,20 @@ class _MovieListPageState extends ConsumerState<MovieListPage> {
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
                 const SizedBox(height: 10),
-                PagedGridView<int, Movie>(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    childAspectRatio: screenWidth <= BreakPoints.mobileSize
-                        ? 1.4
-                        : screenWidth <= BreakPoints.tabletSize
-                            ? 1.25
-                            : 1.4,
-                    crossAxisSpacing: 5,
-                    //TODO ここどうするか考える
-                    crossAxisCount: screenWidth <= BreakPoints.mobileSize
-                        ? 1
-                        : screenWidth <= BreakPoints.tabletSize
-                            ? 2
-                            : 4,
-                  ),
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
+                MovieList(
                   pagingController: _pagingController,
-                  builderDelegate: PagedChildBuilderDelegate<Movie>(
-                    firstPageProgressIndicatorBuilder: (_) {
-                      return GridView.builder(
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisSpacing: 5, //ボックス左右間のスペース
-                          crossAxisCount: screenWidth <= BreakPoints.mobileSize
-                              ? 1
-                              : screenWidth <= BreakPoints.tabletSize
-                                  ? 2
-                                  : 4,
-                        ),
-                        shrinkWrap: true,
-                        itemCount: 5,
-                        itemBuilder: (context, index) {
-                          return const MovieCardShimmer();
-                        },
-                      );
-                    },
-                    itemBuilder: (context, item, index) {
-                      return MovieCard(
-                        item: item,
-                        onTap: () {
-                          context.goNamed(
-                            AppRoute.movie.name,
-                            queryParameters: {
-                              "movieId": item.id.toString(),
-                            },
-                          );
-                        },
-                      );
-                    },
+                  noItemsFoundWidget: Center(
+                    heightFactor: 10,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(Icons.search, size: 50),
+                        Text(
+                          AppLocalizations.of(context).movieNotFound,
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ],
