@@ -1,4 +1,3 @@
-import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -14,6 +13,7 @@ class SettingsPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final bool darkMode = ref.watch(themeControllerProvider);
+    final String lang = ref.watch(langControllerProvider);
     return Scaffold(
       appBar: AppBar(),
       body: SettingsList(
@@ -24,7 +24,8 @@ class SettingsPage extends HookConsumerWidget {
               SettingsTile.navigation(
                 leading: const Icon(Icons.language),
                 title: Text(AppLocalizations.of(context).language),
-                value: const Text('日本語'),
+                //TODO 言語増えたら関数を作る
+                value: Text(lang == "ja" ? "日本語" : "English"),
                 onPressed: (context) {
                   context.goNamed(AppRoute.language.name);
                 },

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:settings_ui/settings_ui.dart';
 import 'package:tmdb_app/src/features/settings/lang/controller/lang_controller.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SetLanguagePage extends ConsumerWidget {
   const SetLanguagePage({super.key});
@@ -9,31 +10,28 @@ class SetLanguagePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final String lang = ref.watch(langControllerProvider);
+    final Map<String, String> langMap = {
+      AppLocalizations.of(context).ja: "ja",
+      AppLocalizations.of(context).en: "en"
+    };
     return Scaffold(
       appBar: AppBar(),
       body: SettingsList(
         sections: [
           SettingsSection(
-            tiles: <SettingsTile>[
-              SettingsTile(
-                title: const Text('日本語'),
-                value: Text(lang == "ja" ? '現行の設定' : ''),
+            tiles: langMap.entries.map((entry) {
+              return SettingsTile(
+                title: Text(entry.key),
+                value: Text(lang == entry.value
+                    ? AppLocalizations.of(context).currentLang
+                    : ''),
                 onPressed: (context) async {
                   await ref
                       .read(langControllerProvider.notifier)
-                      .changeLang(lang: "ja");
+                      .changeLang(lang: entry.value);
                 },
-              ),
-              SettingsTile(
-                title: const Text('English'),
-                value: Text(lang == "en" ? '現行の設定' : ''),
-                onPressed: (context) async {
-                  await ref
-                      .read(langControllerProvider.notifier)
-                      .changeLang(lang: "en");
-                },
-              ),
-            ],
+              );
+            }).toList(),
           ),
         ],
       ),

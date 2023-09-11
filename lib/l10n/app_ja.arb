@@ -18,6 +18,7 @@
   "language":"言語",
   "ja":"日本語",
   "en":"英語",
+  "currentLang": "現行の設定",
   "lightTheme":"ライトモード",
   "darkTheme":"ダークモード"
 }

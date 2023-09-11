@@ -16,8 +16,9 @@
   "searchByKeyword":"search movie by keyword",
   "movieNotFound":"movie not found.",
   "language":"Language",
-  "ja":"ja",
-  "en":"en",
+  "ja":"Japanese",
+  "en":"English",
+  "currentLang": "current Language",
   "lightTheme":"light theme",
   "darkTheme":"dark theme"
 }
