@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:tmdb_app/src/common_widgets/movie_card_shimmer.dart';
 import 'package:tmdb_app/src/features/movies/controller/movie_controller.dart';
 import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie/movie.dart';
-import 'package:tmdb_app/src/features/movies/views/component/movie_card.dart';
-import 'package:tmdb_app/src/routing/router_utils.dart';
-import 'package:tmdb_app/src/utils/breakpoints.dart';
+import 'package:tmdb_app/src/features/movies/views/component/movie_list.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SearchMoviePage extends StatefulHookConsumerWidget {
@@ -64,81 +60,42 @@ class _SearchMoviePageState extends ConsumerState<SearchMoviePage> {
   @override
   Widget build(BuildContext context) {
     final TextEditingController searchController = useTextEditingController();
-    final double screenWidth = MediaQuery.sizeOf(context).width;
+    final hasSearched = useState(false);
     return SafeArea(
       child: Scaffold(
         body: Column(
           children: [
             const SizedBox(height: 10),
-            SearchBar(controller: searchController, trailing: [
-              IconButton(
-                icon: const Icon(Icons.search),
-                onPressed: () {
-                  _updateSearchTerm(searchController.text);
-                },
-              ),
-            ]),
+            SearchBar(
+              controller: searchController,
+              trailing: [
+                IconButton(
+                  icon: const Icon(Icons.search),
+                  onPressed: () {
+                    hasSearched.value = true;
+                    _updateSearchTerm(searchController.text);
+                  },
+                ),
+              ],
+            ),
             const SizedBox(height: 10),
             Expanded(
-              child: PagedGridView<int, Movie>(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  childAspectRatio: 1.4,
-                  crossAxisSpacing: 5,
-                  crossAxisCount: screenWidth <= BreakPoints.mobileSize
-                      ? 1
-                      : screenWidth <= BreakPoints.tabletSize
-                          ? 2
-                          : 4,
-                ),
+              child: MovieList(
                 pagingController: _pagingController,
-                builderDelegate: PagedChildBuilderDelegate<Movie>(
-                  noItemsFoundIndicatorBuilder: (_) {
-                    return Center(
-                      heightFactor: 10,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Icon(Icons.search, size: 50),
-                          Text(
-                            searchController.text.isEmpty
-                                ? AppLocalizations.of(context).searchByKeyword
-                                : AppLocalizations.of(context).movieNotFound,
-                            style: Theme.of(context).textTheme.bodyLarge,
-                          )
-                        ],
-                      ),
-                    );
-                  },
-                  firstPageProgressIndicatorBuilder: (_) {
-                    return GridView.builder(
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisSpacing: 5, //ボックス左右間のスペース
-                        crossAxisCount: screenWidth <= BreakPoints.mobileSize
-                            ? 1
-                            : screenWidth <= BreakPoints.tabletSize
-                                ? 2
-                                : 3,
-                      ),
-                      shrinkWrap: true,
-                      itemCount: 5,
-                      itemBuilder: (context, index) {
-                        return const MovieCardShimmer();
-                      },
-                    );
-                  },
-                  itemBuilder: (context, item, index) {
-                    return MovieCard(
-                      item: item,
-                      onTap: () {
-                        context.goNamed(
-                          AppRoute.movie.name,
-                          queryParameters: {
-                            "movieId": item.id.toString(),
-                          },
-                        );
-                      },
-                    );
-                  },
+                noItemsFoundWidget: Center(
+                  heightFactor: 6,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(Icons.search, size: 50),
+                      Text(
+                        hasSearched.value == false
+                            ? AppLocalizations.of(context).searchByKeyword
+                            : AppLocalizations.of(context).movieNotFound,
+                        style: Theme.of(context).textTheme.bodyLarge,
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),
