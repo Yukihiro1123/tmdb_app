@@ -43,7 +43,7 @@ class MovieDetailPage extends HookConsumerWidget {
                         centerTitle: true,
                         background: CachedImage(
                           imageURL: movie.backdropPath != null
-                              ? "https://image.tmdb.org/t/p/w500/${movie.backdropPath!}"
+                              ? "https://image.tmdb.org/t/p/w500${movie.backdropPath!}"
                               : "",
                           width: double.infinity,
                           height: 200,
@@ -90,7 +90,7 @@ class MovieDetailPage extends HookConsumerWidget {
                                       CachedImage(
                                         boxFit: BoxFit.contain,
                                         imageURL:
-                                            "https://image.tmdb.org/t/p/w500/${movie.productionCompanies![0]["logo_path"]}",
+                                            "https://image.tmdb.org/t/p/w500${movie.productionCompanies![0]["logo_path"]}",
                                         width: 80,
                                         height: 80,
                                         isCircle: true,

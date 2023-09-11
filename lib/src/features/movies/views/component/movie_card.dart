@@ -37,10 +37,10 @@ class MovieCard extends StatelessWidget {
               ),
               child: CachedImage(
                 imageURL: item.backdropPath != null
-                    ? "https://image.tmdb.org/t/p/w500/${item.backdropPath!}"
+                    ? "https://image.tmdb.org/t/p/w500${item.backdropPath!}"
                     : "",
                 width: double.infinity,
-                height: 150.h,
+                height: 175.h,
                 isCircle: false,
               ),
             ),
@@ -53,6 +53,7 @@ class MovieCard extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
               ),
               subtitle: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Text("${item.voteAverage}/10"),
                   // RateBar(item: item),

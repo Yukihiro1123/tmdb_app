@@ -81,11 +81,7 @@ class _SearchMoviePageState extends ConsumerState<SearchMoviePage> {
             Expanded(
               child: PagedGridView<int, Movie>(
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  childAspectRatio: screenWidth <= BreakPoints.mobileSize
-                      ? 1.75
-                      : screenWidth <= BreakPoints.tabletSize
-                          ? 1.4
-                          : 1.5,
+                  childAspectRatio: 1.4,
                   crossAxisSpacing: 5,
                   crossAxisCount: screenWidth <= BreakPoints.mobileSize
                       ? 1
