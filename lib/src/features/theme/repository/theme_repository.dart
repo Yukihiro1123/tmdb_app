@@ -16,7 +16,6 @@ class ThemeRepository extends _$ThemeRepository {
 
   void toggleTheme() async {
     final bool currentTheme = getTheme();
-    final prefs = ref.read(sharedPreferencesProvider);
-    await prefs.setBool("darkMode", !currentTheme);
+    await state.setBool("darkMode", !currentTheme);
   }
 }
