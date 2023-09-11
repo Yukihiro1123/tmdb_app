@@ -1,6 +1,6 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:tmdb_app/src/features/theme/repository/theme_repository.dart';
+import 'package:tmdb_app/src/features/settings/theme/repository/theme_repository.dart';
 
 part 'theme_controller.g.dart';
 

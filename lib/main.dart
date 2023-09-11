@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tmdb_app/src/features/theme/controller/theme_controller.dart';
+import 'package:tmdb_app/src/features/settings/lang/controller/lang_controller.dart';
 import 'package:tmdb_app/src/routing/app_router.dart';
 
+import 'src/features/settings/theme/controller/theme_controller.dart';
 import 'src/utils/shared_preferences/shared_preferences_provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -31,6 +32,7 @@ class MyApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final router = ref.read(goRouterProvider);
     final bool isDarkMode = ref.watch(themeControllerProvider);
+    final String lang = ref.watch(langControllerProvider);
     print(isDarkMode);
     return ScreenUtilInit(
       useInheritedMediaQuery: true,
@@ -44,7 +46,7 @@ class MyApp extends ConsumerWidget {
               const String.fromEnvironment('flavor') == 'dev',
           routerConfig: router,
           title: 'Flutter Demo',
-          locale: DevicePreview.locale(context),
+          locale: Locale(lang),
           builder: DevicePreview.appBuilder,
           theme: ThemeData(
               brightness: isDarkMode ? Brightness.dark : Brightness.light,
