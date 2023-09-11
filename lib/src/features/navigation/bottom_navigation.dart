@@ -19,6 +19,8 @@ class BottomNavigation extends StatelessWidget {
           // BottomNavigationBarItemは、ボトムナビゲーションバーのアイテムを実装しています。
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
           BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.settings), label: 'Settings'),
         ],
         onTap: _onTap,
       ),

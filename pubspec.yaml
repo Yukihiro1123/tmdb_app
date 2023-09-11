@@ -59,6 +59,7 @@ dependencies:
   flutter_rating_bar:
   url_launcher:
   shared_preferences:
+  settings_ui:
 
 
 dev_dependencies:
