@@ -58,6 +58,7 @@ dependencies:
   infinite_scroll_pagination:
   flutter_rating_bar:
   url_launcher:
+  shared_preferences:
 
 
 dev_dependencies:

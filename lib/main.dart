@@ -2,6 +2,7 @@ import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:tmdb_app/src/features/theme/controller/theme_controller.dart';
 import 'package:tmdb_app/src/routing/app_router.dart';
 
 void main() {
@@ -18,6 +19,8 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final router = ref.read(goRouterProvider);
+    final bool isLightMode =
+        ref.read(themeControllerProvider.notifier).getTheme();
     return ScreenUtilInit(
       useInheritedMediaQuery: true,
       splitScreenMode: true,
@@ -31,7 +34,7 @@ class MyApp extends ConsumerWidget {
           locale: DevicePreview.locale(context),
           builder: DevicePreview.appBuilder,
           theme: ThemeData(
-              brightness: Brightness.light,
+              brightness: isLightMode ? Brightness.light : Brightness.dark,
               fontFamily: "Noto_Sans_JP",
               useMaterial3: true,
               textTheme: const TextTheme(
