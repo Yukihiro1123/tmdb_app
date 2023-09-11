@@ -7,15 +7,11 @@ part 'theme_controller.g.dart';
 @riverpod
 class ThemeController extends _$ThemeController {
   @override
-  AsyncValue build() {
-    return const AsyncData(null);
+  bool build() {
+    return ref.watch(themeRepositoryProvider);
   }
 
-  bool getTheme() {
-    return ref.read(themeRepositoryProvider.notifier).getTheme();
-  }
-
-  void toggleTheme() {
-    return ref.read(themeRepositoryProvider.notifier).toggleTheme();
+  Future<void> toggleTheme() async {
+    return await ref.read(themeRepositoryProvider.notifier).toggleTheme();
   }
 }

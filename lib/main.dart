@@ -2,13 +2,23 @@ import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tmdb_app/src/features/theme/controller/theme_controller.dart';
 import 'package:tmdb_app/src/routing/app_router.dart';
 
-void main() {
+import 'src/utils/shared_preferences/shared_preferences_provider.dart';
+
+void main() async {
+  final pref = await SharedPreferences.getInstance();
   const flavor = String.fromEnvironment('flavor');
-  final devicePreview =
-      DevicePreview(builder: (_) => const ProviderScope(child: MyApp()));
+  final devicePreview = DevicePreview(
+    builder: (_) => ProviderScope(
+      overrides: [
+        sharedPreferencesProvider.overrideWithValue(pref),
+      ],
+      child: const MyApp(),
+    ),
+  );
   runApp(devicePreview);
 }
 
@@ -19,8 +29,8 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final router = ref.read(goRouterProvider);
-    final bool isLightMode =
-        ref.read(themeControllerProvider.notifier).getTheme();
+    final bool isDarkMode = ref.watch(themeControllerProvider);
+    print(isDarkMode);
     return ScreenUtilInit(
       useInheritedMediaQuery: true,
       splitScreenMode: true,
@@ -34,7 +44,7 @@ class MyApp extends ConsumerWidget {
           locale: DevicePreview.locale(context),
           builder: DevicePreview.appBuilder,
           theme: ThemeData(
-              brightness: isLightMode ? Brightness.light : Brightness.dark,
+              brightness: isDarkMode ? Brightness.dark : Brightness.light,
               fontFamily: "Noto_Sans_JP",
               useMaterial3: true,
               textTheme: const TextTheme(

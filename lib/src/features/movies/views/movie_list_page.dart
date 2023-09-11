@@ -7,6 +7,7 @@ import 'package:tmdb_app/src/features/movies/controller/movie_controller.dart';
 import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie/movie.dart';
 import 'package:tmdb_app/src/features/movies/views/component/upcoming_movie_list.dart';
 import 'package:tmdb_app/src/features/movies/views/component/movie_card.dart';
+import 'package:tmdb_app/src/features/theme/controller/theme_controller.dart';
 import 'package:tmdb_app/src/routing/router_utils.dart';
 import 'package:tmdb_app/src/common_widgets/shimmer_widget.dart';
 import 'package:tmdb_app/src/utils/breakpoints.dart';
@@ -56,11 +57,21 @@ class _MovieListPageState extends ConsumerState<MovieListPage> {
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.sizeOf(context).width;
+    final bool darkMode = ref.watch(themeControllerProvider) ?? false;
     //TODO sliverappbarにする
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
           title: const Text('TMDB'),
+          //TODO あとで設定画面に移動させる
+          actions: [
+            Switch(
+              value: darkMode,
+              onChanged: (_) async {
+                await ref.read(themeControllerProvider.notifier).toggleTheme();
+              },
+            ),
+          ],
         ),
         body: SingleChildScrollView(
           child: Padding(
