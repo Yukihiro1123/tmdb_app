@@ -5,6 +5,7 @@ import 'package:tmdb_app/src/common_widgets/cached_image.dart';
 import 'package:tmdb_app/src/common_widgets/review_card_shimmer.dart';
 import 'package:tmdb_app/src/features/movies/controller/movie_controller.dart';
 import 'package:tmdb_app/src/features/movies/data_model/review_response/review/review.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ReviewList extends StatefulHookConsumerWidget {
   final String movieId;
@@ -59,7 +60,7 @@ class _ReviewListState extends ConsumerState<ReviewList> {
           return Center(
             heightFactor: 10,
             child: Text(
-              'レビューが見つかりません',
+              AppLocalizations.of(context).reviewNotFound,
               style: Theme.of(context).textTheme.bodyMedium,
             ),
           );

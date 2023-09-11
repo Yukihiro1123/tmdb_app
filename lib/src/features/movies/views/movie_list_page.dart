@@ -9,6 +9,7 @@ import 'package:tmdb_app/src/features/movies/views/component/upcoming_movie_list
 import 'package:tmdb_app/src/features/movies/views/component/movie_card.dart';
 import 'package:tmdb_app/src/routing/router_utils.dart';
 import 'package:tmdb_app/src/utils/breakpoints.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MovieListPage extends StatefulHookConsumerWidget {
   const MovieListPage({super.key});
@@ -68,14 +69,14 @@ class _MovieListPageState extends ConsumerState<MovieListPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  '公開予定の映画',
+                  AppLocalizations.of(context).upcoming,
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
                 const SizedBox(height: 10),
                 const UpcomingMovieList(),
                 const SizedBox(height: 10),
                 Text(
-                  '公開中の映画',
+                  AppLocalizations.of(context).nowPlaying,
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
                 const SizedBox(height: 10),

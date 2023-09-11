@@ -6,6 +6,7 @@ import 'package:tmdb_app/src/features/movies/controller/movie_controller.dart';
 import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie/movie.dart';
 import 'package:tmdb_app/src/features/movies/views/component/review_list.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MovieDetailPage extends HookConsumerWidget {
   final String movieId;
@@ -22,8 +23,8 @@ class MovieDetailPage extends HookConsumerWidget {
             skipLoadingOnReload: true,
             error: (error, stackTrace) {
               print(error);
-              return const Center(
-                child: Text('映画詳細情報取得時にエラーが発生しました'),
+              return Center(
+                child: Text(AppLocalizations.of(context).movieDetailError),
               );
             },
             loading: () => const Center(child: CircularProgressIndicator()),
@@ -75,15 +76,17 @@ class MovieDetailPage extends HookConsumerWidget {
                         const SizedBox(height: 10),
                         CategoryChips(movie: movie),
                         const SizedBox(height: 10),
-                        Text("公開日:${movie.releaseDate.toString()}"),
+                        Text(
+                            "${AppLocalizations.of(context).releaseDate}:${movie.releaseDate.toString()}"),
                         const SizedBox(height: 10),
                         movie.productionCompanies == null
                             ? const SizedBox.shrink()
                             : Column(
                                 children: [
-                                  const Align(
+                                  Align(
                                     alignment: Alignment.topLeft,
-                                    child: Text('制作会社'),
+                                    child: Text(AppLocalizations.of(context)
+                                        .productionCompanies),
                                   ),
                                   Column(
                                     children: [
@@ -107,17 +110,19 @@ class MovieDetailPage extends HookConsumerWidget {
                             _openExternalSite(movie.homepage);
                           },
                           icon: const Icon(Icons.link),
-                          label: const Text('オフィシャルサイト'),
+                          label: Text(AppLocalizations.of(context).homePage),
                         ),
                         const SizedBox(height: 10),
                         Row(
                           children: [
-                            Text("評価:${movie.voteAverage.toString()}/10"),
+                            Text(
+                                "${AppLocalizations.of(context).review}:${movie.voteAverage.toString()}/10"),
                             const SizedBox(width: 10),
-                            Text("(${movie.voteCount}人による評価)"),
+                            Text(
+                                "(${movie.voteCount}${AppLocalizations.of(context).reviewedBy})"),
                           ],
                         ),
-                        const Text("レビュー"),
+                        Text(AppLocalizations.of(context).review),
                         SizedBox(
                           height: 300,
                           child: ReviewList(movieId: movieId),
