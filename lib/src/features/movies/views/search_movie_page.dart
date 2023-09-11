@@ -9,6 +9,7 @@ import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie/mov
 import 'package:tmdb_app/src/features/movies/views/component/movie_card.dart';
 import 'package:tmdb_app/src/routing/router_utils.dart';
 import 'package:tmdb_app/src/utils/breakpoints.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SearchMoviePage extends StatefulHookConsumerWidget {
   const SearchMoviePage({super.key});
@@ -100,8 +101,8 @@ class _SearchMoviePageState extends ConsumerState<SearchMoviePage> {
                           const Icon(Icons.search, size: 50),
                           Text(
                             searchController.text.isEmpty
-                                ? 'キーワードで映画を検索'
-                                : '映画が見つかりません',
+                                ? AppLocalizations.of(context).searchByKeyword
+                                : AppLocalizations.of(context).movieNotFound,
                             style: Theme.of(context).textTheme.bodyLarge,
                           )
                         ],

@@ -1,0 +1,23 @@
+{
+  "@@locale":"ja",
+  "home":"ホーム",
+  "search":"検索",
+  "settings":"設定",
+  "nowPlaying":"公開中の映画",
+  "upcoming":"公開予定の映画",
+  "upcomingMovieError": "公開予定の映画データ取得時にエラーが発生しました",
+  "movieDetailError":"映画詳細情報取得時にエラーが発生しました",
+  "homePage": "オフィシャルサイト",
+  "releaseDate":"公開日",
+  "productionCompanies":"制作会社",
+  "review": "レビュー",
+  "reviewedBy": "人による評価",
+  "reviewNotFound": "レビューが見つかりません",
+  "searchByKeyword":"キーワードで映画を検索",
+  "movieNotFound":"映画が見つかりません",
+  "language":"言語",
+  "ja":"日本語",
+  "en":"英語",
+  "lightTheme":"ライトモード",
+  "darkTheme":"ダークモード"
+}

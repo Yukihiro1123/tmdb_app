@@ -7,6 +7,7 @@ import 'package:tmdb_app/src/features/theme/controller/theme_controller.dart';
 import 'package:tmdb_app/src/routing/app_router.dart';
 
 import 'src/utils/shared_preferences/shared_preferences_provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() async {
   final pref = await SharedPreferences.getInstance();
@@ -37,6 +38,8 @@ class MyApp extends ConsumerWidget {
       designSize: const Size(390, 844),
       builder: (context, child) {
         return MaterialApp.router(
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
           debugShowCheckedModeBanner:
               const String.fromEnvironment('flavor') == 'dev',
           routerConfig: router,

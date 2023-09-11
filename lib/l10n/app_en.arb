@@ -1,0 +1,23 @@
+{
+  "@@locale":"en",
+  "home":"Home",
+  "search":"Search",
+  "settings":"Settings",
+  "nowPlaying":"Now Playing",
+  "upcoming":"Upcoming",
+  "upcomingMovieError": "Error fetching upcoming movie",
+  "movieDetailError":"Error fetching movie detail",
+  "homePage": "Home page",
+  "releaseDate": "release date",
+  "productionCompanies":"productionCompanies",
+  "review": "Review",
+  "reviewedBy": "rated this movie",
+  "reviewNotFound": "no review yet",
+  "searchByKeyword":"search movie by keyword",
+  "movieNotFound":"movie not found.",
+  "language":"Language",
+  "ja":"ja",
+  "en":"en",
+  "lightTheme":"light theme",
+  "darkTheme":"dark theme"
+}
