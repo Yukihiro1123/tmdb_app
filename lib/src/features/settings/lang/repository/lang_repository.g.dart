@@ -6,7 +6,7 @@ part of 'lang_repository.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$langRepositoryHash() => r'd53e8b286bedfc59ce2213ecb59b3c8cffda73c1';
+String _$langRepositoryHash() => r'178c551988653ed308759fe83c138d7fa0d7337c';
 
 /// See also [LangRepository].
 @ProviderFor(LangRepository)

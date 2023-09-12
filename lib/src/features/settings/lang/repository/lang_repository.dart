@@ -12,6 +12,8 @@ class LangRepository extends _$LangRepository {
   Future<void> changeLang({required String lang}) async {
     state = lang;
     final pref = ref.read(sharedPreferencesProvider);
-    await pref.setString("lang", state);
+    AsyncValue.guard(() async {
+      await pref.setString("lang", state);
+    });
   }
 }
