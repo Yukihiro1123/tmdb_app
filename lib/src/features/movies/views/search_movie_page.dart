@@ -33,12 +33,15 @@ class _SearchMoviePageState extends ConsumerState<SearchMoviePage> {
       final newItems = await ref
           .read(movieControllerProvider.notifier)
           .searchMovie(page: pageKey, query: _searchTerm ?? '');
-      final isLastPage = newItems.page == newItems.totalPages;
-      if (isLastPage) {
-        _pagingController.appendLastPage(newItems.results);
-      } else {
-        final nextPageKey = pageKey + 1;
-        _pagingController.appendPage(newItems.results, nextPageKey);
+      if (mounted) {
+        final isLastPage = newItems.page == newItems.totalPages;
+
+        if (isLastPage) {
+          _pagingController.appendLastPage(newItems.results);
+        } else {
+          final nextPageKey = pageKey + 1;
+          _pagingController.appendPage(newItems.results, nextPageKey);
+        }
       }
     } catch (error) {
       print(error);
