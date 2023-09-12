@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:tmdb_app/src/common_widgets/cached_image.dart';
+import 'package:tmdb_app/src/common_widgets/movie_detail_shimmer.dart';
 import 'package:tmdb_app/src/features/movies/views/component/category_chips.dart';
 import 'package:tmdb_app/src/features/movies/controller/movie_controller.dart';
 import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie/movie.dart';
@@ -28,7 +29,7 @@ class MovieDetailPage extends HookConsumerWidget {
                 child: Text(AppLocalizations.of(context).movieDetailError),
               );
             },
-            loading: () => const Center(child: CircularProgressIndicator()),
+            loading: () => const MovieDetailShimmer(),
             data: (Movie movie) {
               return NestedScrollView(
                 headerSliverBuilder:
