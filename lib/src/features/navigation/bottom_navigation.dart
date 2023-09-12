@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class BottomNavigation extends StatelessWidget {
   const BottomNavigation(this.navigationShell, {super.key});
@@ -15,10 +16,17 @@ class BottomNavigation extends StatelessWidget {
         // bottomNavigationBar: BottomNavigationBarは、ボトムナビゲーションバーを実装しています。
         currentIndex: navigationShell
             .currentIndex, // currentIndex: navigationShell.currentIndexは、現在のインデックスを取得しています。
-        items: const [
+        items: [
           // BottomNavigationBarItemは、ボトムナビゲーションバーのアイテムを実装しています。
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
+          BottomNavigationBarItem(
+              icon: const Icon(Icons.home),
+              label: AppLocalizations.of(context).home),
+          BottomNavigationBarItem(
+              icon: const Icon(Icons.search),
+              label: AppLocalizations.of(context).search),
+          BottomNavigationBarItem(
+              icon: const Icon(Icons.settings),
+              label: AppLocalizations.of(context).settings),
         ],
         onTap: _onTap,
       ),

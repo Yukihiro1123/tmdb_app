@@ -2,6 +2,8 @@ enum AppRoute {
   movies,
   movie,
   search,
+  settings,
+  language,
 }
 
 extension AppRouteExtention on AppRoute {
@@ -13,6 +15,10 @@ extension AppRouteExtention on AppRoute {
         return 'movieId';
       case AppRoute.search:
         return '/search';
+      case AppRoute.settings:
+        return '/settings';
+      case AppRoute.language:
+        return 'language';
     }
   }
 }

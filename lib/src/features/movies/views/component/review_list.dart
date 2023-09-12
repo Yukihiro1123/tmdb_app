@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:tmdb_app/src/common_widgets/cached_image.dart';
 import 'package:tmdb_app/src/common_widgets/review_card_shimmer.dart';
 import 'package:tmdb_app/src/features/movies/controller/movie_controller.dart';
 import 'package:tmdb_app/src/features/movies/data_model/review_response/review/review.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ReviewList extends StatefulHookConsumerWidget {
   final String movieId;
@@ -30,12 +32,14 @@ class _ReviewListState extends ConsumerState<ReviewList> {
       final newItems = await ref
           .read(movieControllerProvider.notifier)
           .getMovieReview(page: pageKey, movieId: int.parse(widget.movieId));
-      final isLastPage = newItems.page == newItems.totalPages;
-      if (isLastPage) {
-        _pagingController.appendLastPage(newItems.results);
-      } else {
-        final nextPageKey = pageKey + 1;
-        _pagingController.appendPage(newItems.results, nextPageKey);
+      if (mounted) {
+        final isLastPage = newItems.page == newItems.totalPages;
+        if (isLastPage) {
+          _pagingController.appendLastPage(newItems.results);
+        } else {
+          final nextPageKey = pageKey + 1;
+          _pagingController.appendPage(newItems.results, nextPageKey);
+        }
       }
     } catch (error) {
       print(error);
@@ -51,38 +55,61 @@ class _ReviewListState extends ConsumerState<ReviewList> {
 
   @override
   Widget build(BuildContext context) {
-    return Flexible(
-      child: PagedListView<int, Review>(
-        shrinkWrap: true,
-        pagingController: _pagingController,
-        builderDelegate: PagedChildBuilderDelegate<Review>(
-          firstPageProgressIndicatorBuilder: (_) {
-            return ListView.builder(
+    return PagedListView<int, Review>(
+      shrinkWrap: true,
+      pagingController: _pagingController,
+      builderDelegate: PagedChildBuilderDelegate<Review>(
+        noItemsFoundIndicatorBuilder: (_) {
+          return Center(
+            heightFactor: 10,
+            child: Text(
+              AppLocalizations.of(context).reviewNotFound,
+              style: Theme.of(context).textTheme.bodyMedium,
+            ),
+          );
+        },
+        firstPageProgressIndicatorBuilder: (_) {
+          return AnimationLimiter(
+            child: ListView.builder(
               shrinkWrap: true,
               itemCount: 5,
               itemBuilder: (context, index) {
                 return const ReviewCardShimmer();
               },
-            );
-          },
-          itemBuilder: (context, item, index) {
-            return ListTile(
-              leading: CachedImage(
-                imageURL: item.authorDetails["avatar_path"] != null
-                    ? "https://image.tmdb.org/t/p/w500/${item.authorDetails["avatar_path"]}"
-                    : "",
-                width: 50,
-                height: 50,
-                isCircle: true,
+            ),
+          );
+        },
+        itemBuilder: (context, item, index) {
+          return AnimationConfiguration.staggeredList(
+            delay: const Duration(milliseconds: 375),
+            position: index,
+            duration: const Duration(milliseconds: 375),
+            child: SlideAnimation(
+              verticalOffset: 50.0,
+              child: FadeInAnimation(
+                child: ListTile(
+                  leading: CachedImage(
+                    imageURL: item.authorDetails["avatar_path"] != null
+                        ? "https://image.tmdb.org/t/p/w500${item.authorDetails["avatar_path"]}"
+                        : "",
+                    width: 50,
+                    height: 50,
+                    isCircle: true,
+                  ),
+                  title: Text(
+                    item.author,
+                    style: Theme.of(context).textTheme.bodyLarge,
+                  ),
+                  subtitle: Text(
+                    item.content,
+                    style: Theme.of(context).textTheme.bodySmall,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
               ),
-              title: Text(item.author),
-              subtitle: Text(
-                item.content,
-                overflow: TextOverflow.ellipsis,
-              ),
-            );
-          },
-        ),
+            ),
+          );
+        },
       ),
     );
   }
