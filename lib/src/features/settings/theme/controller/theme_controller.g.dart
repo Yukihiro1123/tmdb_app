@@ -6,7 +6,7 @@ part of 'theme_controller.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$themeControllerHash() => r'5b349f2bc4e0721e2bc0039f7bf1fad2e8ba7e0c';
+String _$themeControllerHash() => r'583e627abeac54f3a54e1e555082fc884758bd43';
 
 /// See also [ThemeController].
 @ProviderFor(ThemeController)

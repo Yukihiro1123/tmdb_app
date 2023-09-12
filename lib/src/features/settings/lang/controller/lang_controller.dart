@@ -12,8 +12,8 @@ class LangController extends _$LangController {
   }
 
   Future<void> changeLang({required String lang}) async {
-    return await ref
-        .read(langRepositoryProvider.notifier)
-        .changeLang(lang: lang);
+    AsyncValue.guard(() async {
+      await ref.read(langRepositoryProvider.notifier).changeLang(lang: lang);
+    });
   }
 }

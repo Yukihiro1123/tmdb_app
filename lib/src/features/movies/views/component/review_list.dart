@@ -32,12 +32,14 @@ class _ReviewListState extends ConsumerState<ReviewList> {
       final newItems = await ref
           .read(movieControllerProvider.notifier)
           .getMovieReview(page: pageKey, movieId: int.parse(widget.movieId));
-      final isLastPage = newItems.page == newItems.totalPages;
-      if (isLastPage) {
-        _pagingController.appendLastPage(newItems.results);
-      } else {
-        final nextPageKey = pageKey + 1;
-        _pagingController.appendPage(newItems.results, nextPageKey);
+      if (mounted) {
+        final isLastPage = newItems.page == newItems.totalPages;
+        if (isLastPage) {
+          _pagingController.appendLastPage(newItems.results);
+        } else {
+          final nextPageKey = pageKey + 1;
+          _pagingController.appendPage(newItems.results, nextPageKey);
+        }
       }
     } catch (error) {
       print(error);

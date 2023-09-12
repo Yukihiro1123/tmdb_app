@@ -30,12 +30,14 @@ class _MovieListPageState extends ConsumerState<MovieListPage> {
       final newItems = await ref
           .read(movieControllerProvider.notifier)
           .getNowPlayingMovies(page: pageKey);
-      final isLastPage = newItems.page == newItems.totalPages;
-      if (isLastPage) {
-        _pagingController.appendLastPage(newItems.results);
-      } else {
-        final nextPageKey = pageKey + 1;
-        _pagingController.appendPage(newItems.results, nextPageKey);
+      if (mounted) {
+        final isLastPage = newItems.page == newItems.totalPages;
+        if (isLastPage) {
+          _pagingController.appendLastPage(newItems.results);
+        } else {
+          final nextPageKey = pageKey + 1;
+          _pagingController.appendPage(newItems.results, nextPageKey);
+        }
       }
     } catch (error) {
       print(error);
