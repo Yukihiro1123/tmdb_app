@@ -12,6 +12,8 @@ class ThemeRepository extends _$ThemeRepository {
   Future<void> toggleTheme() async {
     state = !state;
     final pref = ref.read(sharedPreferencesProvider);
-    await pref.setBool("darkMode", state);
+    AsyncValue.guard(() async {
+      await pref.setBool("darkMode", state);
+    });
   }
 }

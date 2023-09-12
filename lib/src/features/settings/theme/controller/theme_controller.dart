@@ -11,7 +11,9 @@ class ThemeController extends _$ThemeController {
     return ref.watch(themeRepositoryProvider);
   }
 
-  Future<void> toggleTheme() async {
-    return await ref.read(themeRepositoryProvider.notifier).toggleTheme();
+  void toggleTheme() {
+    AsyncValue.guard(() async {
+      return await ref.read(themeRepositoryProvider.notifier).toggleTheme();
+    });
   }
 }

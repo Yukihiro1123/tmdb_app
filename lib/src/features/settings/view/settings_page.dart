@@ -32,9 +32,7 @@ class SettingsPage extends HookConsumerWidget {
               ),
               SettingsTile.switchTile(
                 onToggle: (_) async {
-                  await ref
-                      .read(themeControllerProvider.notifier)
-                      .toggleTheme();
+                  ref.read(themeControllerProvider.notifier).toggleTheme();
                 },
                 initialValue: darkMode,
                 leading: const Icon(Icons.dark_mode),
