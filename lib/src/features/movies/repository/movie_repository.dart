@@ -32,7 +32,11 @@ class MovieRepository extends _$MovieRepository {
         },
       ).toString();
       final response = await state.get(url);
-      return MovieResponse.fromJson(response.data);
+      if (response.statusCode == 200) {
+        return MovieResponse.fromJson(response.data);
+      } else {
+        throw Exception('Failed to load movie');
+      }
     } on DioException catch (e) {
       print(e);
       rethrow;

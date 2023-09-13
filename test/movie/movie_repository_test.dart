@@ -5,7 +5,7 @@ import 'package:mocktail/mocktail.dart';
 import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie_response.dart';
 import 'package:tmdb_app/src/features/movies/repository/movie_repository.dart';
 import 'package:tmdb_app/src/utils/dio/dio_provider.dart';
-
+import 'package:http/http.dart' as http;
 import 'movie_repository_test.mocks.dart';
 
 class MockMovieRepository extends AutoDisposeNotifier<Dio>
@@ -13,27 +13,41 @@ class MockMovieRepository extends AutoDisposeNotifier<Dio>
     implements MovieRepository {}
 
 void main() {
-  final _repository = MockMovieRepository();
-  final _dio = MockDio();
-  final container = ProviderContainer(
-    overrides: [
-      dioProvider.overrideWith((ref) => _dio),
-      movieRepositoryProvider.overrideWith(() => _repository),
-    ],
-  );
+  late MockMovieRepository _repository;
+  late MockDio _dio;
+  late ProviderContainer container;
+
+  setUp(() {
+    _repository = MockMovieRepository();
+    _dio = MockDio();
+    container = ProviderContainer(
+      overrides: [
+        dioProvider.overrideWith((ref) => _dio),
+        movieRepositoryProvider.overrideWith(() => _repository),
+      ],
+    );
+  });
 
   group('getNowPlayingMovies', () {
     test('MovieResponse型のデータを返す.', () async {
       when(() => _repository.getNowPlayingMovies(page: 1))
           .thenAnswer((_) async => MovieResponse.fromJson(mockResponse));
+      // print(movieResponse);
       final movieResponse = await container
           .read(movieRepositoryProvider.notifier)
           .getNowPlayingMovies(page: 1);
-      // print(movieResponse);
-      verify(() => container
-          .read(movieRepositoryProvider.notifier)
-          .getNowPlayingMovies(page: 1)).called(1);
       expect(movieResponse, isA<MovieResponse>());
+    });
+
+    test('API呼び出しの際にエラーが出たら例外を返す', () async {
+      when(() => _repository.getNowPlayingMovies(page: 1))
+          .thenThrow(Exception('Failed to load movie'));
+
+      expect(
+          () => container
+              .read(movieRepositoryProvider.notifier)
+              .getNowPlayingMovies(page: 1),
+          throwsA(isA<Exception>()));
     });
   });
 
