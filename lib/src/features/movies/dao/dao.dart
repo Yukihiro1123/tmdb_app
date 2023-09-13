@@ -5,27 +5,26 @@ import 'database.dart';
 
 part "dao.g.dart";
 
-@DriftAccessor(tables: [MovieRecords])
+@DriftAccessor(tables: [MovieResponseRecord])
 class MovieDao extends DatabaseAccessor<LocalDatabase> with _$MovieDaoMixin {
   MovieDao(LocalDatabase db) : super(db);
   //データベースを空にする
-  Future clearDB() => delete(movieRecords).go();
+  Future clearDB() => delete(movieResponseRecord).go();
   //そこから挿入 2行以上insertしたい場合はbatchを使う
-  Future insertDB(List<MovieRecord> articles) async {
-    await batch((batch) {
-      batch.insertAll(movieRecords, articles);
-    });
+  Future insertDB(MovieResponseRecordData response) async {
+    await into(movieResponseRecord).insert(response);
   }
 
   //読み込み
-  Future<List<MovieRecord>> get articlesFromDB => select(movieRecords).get();
+  Future<List<MovieResponseRecordData>> get movieResponseRecordFromDB =>
+      select(movieResponseRecord).get();
 
   //以上3つを1つのトランザクションとする
-  Future<List<MovieRecord>> insertAndReadMovieFromDB(
-          List<MovieRecord> articles) =>
+  Future<List<MovieResponseRecordData>> insertAndReadMovieFromDB(
+          MovieResponseRecordData movieResponseRecord) =>
       transaction(() async {
         await clearDB();
-        await insertDB(articles);
-        return await articlesFromDB;
+        await insertDB(movieResponseRecord);
+        return await movieResponseRecordFromDB;
       });
 }
