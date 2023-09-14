@@ -48,7 +48,7 @@ dependencies:
   freezed:
   freezed_annotation:
   cached_network_image:
-  flutter_screenutil:
+  # flutter_screenutil:
   carousel_slider:
   auto_size_text:
   flutter_native_splash: ^2.3.2

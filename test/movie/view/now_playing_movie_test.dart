@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+// import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
@@ -12,13 +13,15 @@ import 'package:tmdb_app/src/features/movies/controller/movie_controller.dart';
 import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie/movie.dart';
 import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie_response.dart';
 import 'package:tmdb_app/src/features/movies/repository/movie_repository.dart';
+import 'package:tmdb_app/src/features/movies/views/component/movie_card.dart';
+import 'package:tmdb_app/src/features/movies/views/component/movie_list.dart';
 import 'package:tmdb_app/src/features/movies/views/component/now_playing_movie_list.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:tmdb_app/src/utils/dio/dio_provider.dart';
 
 class MockDio extends AutoDisposeNotifier<Dio> with Mock implements Dio {}
 
-// class MockPagingController with Mock implements PagingController<int, Movie> {}
+class MockPagingController with Mock implements PagingController<int, Movie> {}
 
 class MockMovieController extends AutoDisposeNotifier<AsyncValue<dynamic>>
     with Mock
@@ -38,20 +41,20 @@ void main() {
   late ProviderContainer container;
   late MockMovieController _movieController;
   late MockMovieRepository _movieRepository;
-  // late MockPagingController _pagingController;
+  late MockPagingController _pagingController;
 
   setUp(() {
     HttpOverrides.global = null;
     _dio = MockDio();
-    // _pagingController = MockPagingController();
+    _pagingController = MockPagingController();
     _movieController = MockMovieController();
     _movieRepository = MockMovieRepository();
-    container = ProviderContainer(
-      overrides: [
-        dioProvider.overrideWith((ref) => _dio),
-        movieControllerProvider.overrideWith(() => _movieController)
-      ],
-    );
+    // container = ProviderContainer(
+    //   overrides: [
+    //     dioProvider.overrideWith((ref) => _dio),
+    //     movieControllerProvider.overrideWith(() => _movieController)
+    //   ],
+    // );
   });
   group('ddd', () {
     final nowPlayingUrl = Uri(
@@ -77,9 +80,7 @@ void main() {
           );
         },
       );
-      when(() => container
-          .read(movieControllerProvider.notifier)
-          .getNowPlayingMovies(page: 1)).thenAnswer(
+      when(() => _movieController.getNowPlayingMovies(page: 1)).thenAnswer(
         (_) async {
           return MovieResponse.fromJson(mockResponse10);
         },
@@ -87,8 +88,11 @@ void main() {
 
       await widgetTester.runAsync(() async {
         await widgetTester.pumpWidget(
-          const ProviderScope(
-            child: MaterialApp(
+          ProviderScope(
+            overrides: [
+              movieControllerProvider.overrideWith(() => _movieController)
+            ],
+            child: const MaterialApp(
               localizationsDelegates: AppLocalizations.localizationsDelegates,
               supportedLocales: AppLocalizations.supportedLocales,
               locale: Locale('ja'),
@@ -99,7 +103,15 @@ void main() {
           ),
         );
         expect(find.byType(MovieCardShimmer), findsWidgets);
-        expect(find.text("Barbie"), findsWidgets);
+        await widgetTester.pump();
+        expect(find.byType(MovieCardShimmer), findsNothing);
+        expect(find.text('Barbie'), findsOneWidget);
+        await widgetTester.drag(
+          find.byType(PagedGridView<int, Movie>),
+          const Offset(0.0, -2000),
+        );
+        await widgetTester.pump();
+        expect(find.text('Mob Land'), findsOneWidget);
       });
     });
   });

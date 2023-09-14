@@ -19,7 +19,6 @@ class MovieList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(pagingController.itemList);
     final double screenWidth = MediaQuery.sizeOf(context).width;
     return PagedGridView<int, Movie>(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -37,7 +36,7 @@ class MovieList extends StatelessWidget {
                 : 4,
       ),
       shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
+      // physics: const NeverScrollableScrollPhysics(),
       pagingController: pagingController,
       builderDelegate: PagedChildBuilderDelegate<Movie>(
         firstPageProgressIndicatorBuilder: (_) {
