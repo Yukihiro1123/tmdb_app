@@ -4,24 +4,28 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:tmdb_app/env.dart';
 import 'package:tmdb_app/src/common_widgets/movie_card_shimmer.dart';
-import 'package:tmdb_app/src/features/movies/controller/movie_controller.dart';
-import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie_response.dart';
-import 'package:tmdb_app/src/features/movies/views/movie_list_page.dart';
+import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie/movie.dart';
+import 'package:tmdb_app/src/features/movies/views/component/now_playing_movie_list.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:tmdb_app/src/utils/dio/dio_provider.dart';
 
 class MockDio extends AutoDisposeNotifier<Dio> with Mock implements Dio {}
 
+class MockPagingController with Mock implements PagingController<int, Movie> {}
+
 void main() {
   late MockDio _dio;
   late ProviderContainer container;
+  late MockPagingController _pagingController;
 
   setUp(() {
     HttpOverrides.global = null;
     _dio = MockDio();
+    _pagingController = MockPagingController();
     container = ProviderContainer(
       overrides: [
         dioProvider.overrideWith((ref) => _dio),
@@ -80,12 +84,13 @@ void main() {
               supportedLocales: AppLocalizations.supportedLocales,
               locale: Locale('ja'),
               home: Material(
-                child: MovieListPage(),
+                child: NowPlayingMovieList(),
               ),
             ),
           ),
         );
         expect(find.byType(MovieCardShimmer), findsWidgets);
+        expect(find.text("Barbie"), findsWidgets);
       });
     });
   });
