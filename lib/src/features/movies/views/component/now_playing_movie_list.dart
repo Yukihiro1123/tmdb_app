@@ -53,6 +53,7 @@ class _NowPlayingMovieListState extends ConsumerState<NowPlayingMovieList> {
 
   @override
   Widget build(BuildContext context) {
+    print(_pagingController.itemList);
     return MovieList(
       pagingController: _pagingController,
       noItemsFoundWidget: Center(

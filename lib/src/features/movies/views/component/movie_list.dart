@@ -19,6 +19,7 @@ class MovieList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(pagingController.itemList);
     final double screenWidth = MediaQuery.sizeOf(context).width;
     return PagedGridView<int, Movie>(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -62,6 +63,7 @@ class MovieList extends StatelessWidget {
           return noItemsFoundWidget;
         },
         itemBuilder: (context, item, index) {
+          print('builder item $item');
           return AnimationConfiguration.staggeredGrid(
             delay: const Duration(milliseconds: 375),
             position: index,

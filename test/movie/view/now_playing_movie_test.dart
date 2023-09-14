@@ -8,27 +8,48 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:tmdb_app/env.dart';
 import 'package:tmdb_app/src/common_widgets/movie_card_shimmer.dart';
+import 'package:tmdb_app/src/features/movies/controller/movie_controller.dart';
 import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie/movie.dart';
+import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie_response.dart';
+import 'package:tmdb_app/src/features/movies/repository/movie_repository.dart';
 import 'package:tmdb_app/src/features/movies/views/component/now_playing_movie_list.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:tmdb_app/src/utils/dio/dio_provider.dart';
 
 class MockDio extends AutoDisposeNotifier<Dio> with Mock implements Dio {}
 
-class MockPagingController with Mock implements PagingController<int, Movie> {}
+// class MockPagingController with Mock implements PagingController<int, Movie> {}
+
+class MockMovieController extends AutoDisposeNotifier<AsyncValue<dynamic>>
+    with Mock
+    implements MovieController {
+  @override
+  AsyncValue build() {
+    return AsyncData([MovieResponse.fromJson(mockResponse)]);
+  }
+}
+
+class MockMovieRepository extends AutoDisposeNotifier<Dio>
+    with Mock
+    implements MovieRepository {}
 
 void main() {
   late MockDio _dio;
   late ProviderContainer container;
-  late MockPagingController _pagingController;
+  late MockMovieController _movieController;
+  late MockMovieRepository _movieRepository;
+  // late MockPagingController _pagingController;
 
   setUp(() {
     HttpOverrides.global = null;
     _dio = MockDio();
-    _pagingController = MockPagingController();
+    // _pagingController = MockPagingController();
+    _movieController = MockMovieController();
+    _movieRepository = MockMovieRepository();
     container = ProviderContainer(
       overrides: [
         dioProvider.overrideWith((ref) => _dio),
+        movieControllerProvider.overrideWith(() => _movieController)
       ],
     );
   });
@@ -45,17 +66,6 @@ void main() {
         'page': '1',
       },
     ).toString();
-    final String upcomingUrl = Uri(
-      scheme: 'https',
-      host: 'api.themoviedb.org',
-      path: '3/movie/upcoming',
-      queryParameters: {
-        'language': 'ja-JP',
-        'api_key': Env.apiKey,
-        'include_adult': 'false',
-        'page': '1',
-      },
-    ).toString();
 
     testWidgets('1st page load', (widgetTester) async {
       when(() => _dio.get(nowPlayingUrl)).thenAnswer(
@@ -67,15 +77,14 @@ void main() {
           );
         },
       );
-      when(() => _dio.get(upcomingUrl)).thenAnswer(
+      when(() => container
+          .read(movieControllerProvider.notifier)
+          .getNowPlayingMovies(page: 1)).thenAnswer(
         (_) async {
-          return Response(
-            statusCode: 200,
-            data: mockResponse,
-            requestOptions: RequestOptions(baseUrl: upcomingUrl),
-          );
+          return MovieResponse.fromJson(mockResponse10);
         },
       );
+
       await widgetTester.runAsync(() async {
         await widgetTester.pumpWidget(
           const ProviderScope(
