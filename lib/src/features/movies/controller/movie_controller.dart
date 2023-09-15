@@ -40,16 +40,19 @@ class MovieController extends _$MovieController {
     }
   }
 
-  Future<ReviewResponse> getMovieReview({
+  Future<void> getMovieReview({
     required int movieId,
     required int page,
+    required void Function(ReviewResponse) onSuccess,
+    required void Function(String) onError,
   }) async {
     try {
-      return await ref
+      final response = await ref
           .read(movieRepositoryProvider.notifier)
           .getMovieReview(movieId: movieId, page: page);
+      onSuccess(response);
     } catch (e) {
-      rethrow;
+      onError('error');
     }
   }
 
