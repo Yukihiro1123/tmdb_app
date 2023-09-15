@@ -13,25 +13,27 @@ class MovieListPage extends HookConsumerWidget {
         appBar: AppBar(
           title: const Text('TMDB'),
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                AppLocalizations.of(context).upcoming,
-                style: Theme.of(context).textTheme.titleMedium,
-              ),
-              const SizedBox(height: 10),
-              const UpcomingMovieList(),
-              const SizedBox(height: 10),
-              Text(
-                AppLocalizations.of(context).nowPlaying,
-                style: Theme.of(context).textTheme.titleMedium,
-              ),
-              const SizedBox(height: 10),
-              const Expanded(child: NowPlayingMovieList()),
-            ],
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  AppLocalizations.of(context).upcoming,
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+                const SizedBox(height: 10),
+                const UpcomingMovieList(),
+                const SizedBox(height: 10),
+                Text(
+                  AppLocalizations.of(context).nowPlaying,
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+                const SizedBox(height: 10),
+                const NowPlayingMovieList(),
+              ],
+            ),
           ),
         ),
       ),
