@@ -53,16 +53,19 @@ class MovieController extends _$MovieController {
     }
   }
 
-  Future<MovieResponse> searchMovie({
+  Future<void> searchMovie({
     required String query,
     required int page,
+    required void Function(MovieResponse) onSuccess,
+    required void Function(String) onError,
   }) async {
     try {
-      return await ref
+      final response = await ref
           .read(movieRepositoryProvider.notifier)
           .searchMovie(query: query, page: page);
+      onSuccess(response);
     } catch (e) {
-      rethrow;
+      onError('error');
     }
   }
 }
