@@ -22,7 +22,6 @@ class ReviewList extends HookConsumerWidget {
     final usersViewModel = ref.watch(
       movieControllerProvider.notifier,
     );
-    final double screenWidth = MediaQuery.sizeOf(context).width;
     useEffect(
       () {
         _pagingController.addPageRequestListener((pageKey) {
