@@ -22,7 +22,6 @@ class SearchMoviePage extends HookConsumerWidget {
     );
     final double screenWidth = MediaQuery.sizeOf(context).width;
     final TextEditingController searchController = useTextEditingController();
-    final hasSearched = useState(false);
 
     useEffect(
       () {
