@@ -30,6 +30,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -46,7 +48,7 @@ dependencies:
   freezed:
   freezed_annotation:
   cached_network_image:
-  flutter_screenutil:
+  # flutter_screenutil:
   carousel_slider:
   auto_size_text:
   flutter_native_splash: ^2.3.2
@@ -58,6 +60,9 @@ dependencies:
   infinite_scroll_pagination:
   flutter_rating_bar:
   url_launcher:
+  shared_preferences:
+  settings_ui:
+  flutter_staggered_animations:
 
 
 dev_dependencies:
@@ -73,6 +78,10 @@ dev_dependencies:
   json_serializable:
   freeze:
   build_runner:
+  flutter_svg:
+  http_mock_adapter:
+  mockito:
+  mocktail:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -84,6 +93,7 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+  generate: true
 
   # To add assets to your application, add an assets section, like this:
   assets:
