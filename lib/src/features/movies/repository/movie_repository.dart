@@ -31,6 +31,7 @@ class MovieRepository extends _$MovieRepository {
           'page': '$page',
         },
       ).toString();
+      print("repository $url");
       final response = await state.get(url);
       if (response.statusCode == 200) {
         return MovieResponse.fromJson(response.data);

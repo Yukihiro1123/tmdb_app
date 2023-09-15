@@ -19,50 +19,45 @@ class MovieCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => context.goNamed(AppRoute.movie.name, queryParameters: {
-        "movieId": item.id.toString(),
-      }),
-      child: Card(
-        elevation: 12,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20.0),
-        ),
-        child: Column(
-          children: [
-            ClipRRect(
-              borderRadius: const BorderRadius.only(
-                topRight: Radius.circular(20),
-                topLeft: Radius.circular(20),
-              ),
-              child: CachedImage(
-                imageURL: item.backdropPath != null
-                    ? "https://image.tmdb.org/t/p/w500${item.backdropPath!}"
-                    : "",
-                width: double.infinity,
-                height: 175,
-                isCircle: false,
-              ),
+    return Card(
+      elevation: 12,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20.0),
+      ),
+      child: Column(
+        children: [
+          ClipRRect(
+            borderRadius: const BorderRadius.only(
+              topRight: Radius.circular(20),
+              topLeft: Radius.circular(20),
             ),
-            ListTile(
-              title: AutoSizeText(
-                item.title,
-                minFontSize: 12,
-                maxFontSize: 18,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-              subtitle: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Text("${item.voteAverage}/10"),
-                  // RateBar(item: item),
-                  Text("(${item.voteCount})"),
-                ],
-              ),
+            child: CachedImage(
+              imageURL: item.backdropPath != null
+                  ? "https://image.tmdb.org/t/p/w500${item.backdropPath!}"
+                  : "",
+              width: double.infinity,
+              height: 175,
+              isCircle: false,
             ),
-          ],
-        ),
+          ),
+          ListTile(
+            title: AutoSizeText(
+              item.title,
+              minFontSize: 12,
+              maxFontSize: 18,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+            subtitle: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Text("${item.voteAverage}/10"),
+                // RateBar(item: item),
+                Text("(${item.voteCount})"),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

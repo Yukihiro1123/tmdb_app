@@ -23,15 +23,6 @@ class MockDio extends AutoDisposeNotifier<Dio> with Mock implements Dio {}
 
 class MockPagingController with Mock implements PagingController<int, Movie> {}
 
-class MockMovieController extends AutoDisposeNotifier<AsyncValue<dynamic>>
-    with Mock
-    implements MovieController {
-  @override
-  AsyncValue build() {
-    return AsyncData([MovieResponse.fromJson(mockResponse)]);
-  }
-}
-
 class MockMovieRepository extends AutoDisposeNotifier<Dio>
     with Mock
     implements MovieRepository {}
@@ -39,7 +30,6 @@ class MockMovieRepository extends AutoDisposeNotifier<Dio>
 void main() {
   late MockDio _dio;
   late ProviderContainer container;
-  late MockMovieController _movieController;
   late MockMovieRepository _movieRepository;
   late MockPagingController _pagingController;
 
@@ -47,7 +37,6 @@ void main() {
     HttpOverrides.global = null;
     _dio = MockDio();
     _pagingController = MockPagingController();
-    _movieController = MockMovieController();
     _movieRepository = MockMovieRepository();
     // container = ProviderContainer(
     //   overrides: [
@@ -56,41 +45,18 @@ void main() {
     //   ],
     // );
   });
-  group('ddd', () {
-    final nowPlayingUrl = Uri(
-      scheme: 'https',
-      host: 'api.themoviedb.org',
-      path: '3/movie/now_playing',
-      queryParameters: {
-        'language': 'ja-JP',
-        'with_original_language': 'ja',
-        'api_key': Env.apiKey,
-        'include_adult': 'false',
-        'page': '1',
-      },
-    ).toString();
-
+  group('NowPlayingMovieList', () {
     testWidgets('1st page load', (widgetTester) async {
-      when(() => _dio.get(nowPlayingUrl)).thenAnswer(
-        (_) async {
-          return Response(
-            statusCode: 200,
-            data: mockResponse10,
-            requestOptions: RequestOptions(baseUrl: nowPlayingUrl),
-          );
-        },
-      );
-      when(() => _movieController.getNowPlayingMovies(page: 1)).thenAnswer(
+      when(() => _movieRepository.getNowPlayingMovies(page: 1)).thenAnswer(
         (_) async {
           return MovieResponse.fromJson(mockResponse10);
         },
       );
-
       await widgetTester.runAsync(() async {
         await widgetTester.pumpWidget(
           ProviderScope(
             overrides: [
-              movieControllerProvider.overrideWith(() => _movieController)
+              movieRepositoryProvider.overrideWith(() => _movieRepository)
             ],
             child: const MaterialApp(
               localizationsDelegates: AppLocalizations.localizationsDelegates,
@@ -102,9 +68,9 @@ void main() {
             ),
           ),
         );
-        expect(find.byType(MovieCardShimmer), findsWidgets);
+        expect(find.byType(CircularProgressIndicator), findsWidgets);
         await widgetTester.pump();
-        expect(find.byType(MovieCardShimmer), findsNothing);
+        expect(find.byType(CircularProgressIndicator), findsNothing);
         expect(find.text('Barbie'), findsOneWidget);
         await widgetTester.drag(
           find.byType(PagedGridView<int, Movie>),
@@ -112,6 +78,81 @@ void main() {
         );
         await widgetTester.pump();
         expect(find.text('Mob Land'), findsOneWidget);
+      });
+    });
+
+    testWidgets('2nd page load', (widgetTester) async {
+      final nowPlayingUrl = Uri(
+        scheme: 'https',
+        host: 'api.themoviedb.org',
+        path: '3/movie/now_playing',
+        queryParameters: {
+          'language': 'ja-JP',
+          'with_original_language': 'ja',
+          'api_key': Env.apiKey,
+          'include_adult': 'false',
+          'page': '1',
+        },
+      ).toString();
+      final nowPlayingUrl2 = Uri(
+        scheme: 'https',
+        host: 'api.themoviedb.org',
+        path: '3/movie/now_playing',
+        queryParameters: {
+          'language': 'ja-JP',
+          'with_original_language': 'ja',
+          'api_key': Env.apiKey,
+          'include_adult': 'false',
+          'page': '2',
+        },
+      ).toString();
+      when(() => _dio.get(nowPlayingUrl)).thenAnswer(
+        (_) async {
+          return Response(
+            statusCode: 200,
+            data: mockResponse10,
+            requestOptions: RequestOptions(baseUrl: nowPlayingUrl),
+          );
+        },
+      );
+      when(() => _dio.get(nowPlayingUrl2)).thenAnswer(
+        (_) async {
+          return Response(
+            statusCode: 200,
+            data: mockResponse20,
+            requestOptions: RequestOptions(baseUrl: nowPlayingUrl2),
+          );
+        },
+      );
+      // container = ProviderContainer();
+      await widgetTester.runAsync(() async {
+        await widgetTester.pumpWidget(
+          ProviderScope(
+            overrides: [
+              dioProvider.overrideWith((ref) => _dio),
+            ],
+            child: const MaterialApp(
+              localizationsDelegates: AppLocalizations.localizationsDelegates,
+              supportedLocales: AppLocalizations.supportedLocales,
+              locale: Locale('ja'),
+              home: Material(
+                child: NowPlayingMovieList(),
+              ),
+            ),
+          ),
+        );
+        await widgetTester.pump();
+        await widgetTester.drag(
+          find.byType(PagedGridView<int, Movie>),
+          const Offset(0.0, -1000),
+        );
+        await widgetTester.pump();
+        await widgetTester.drag(
+          find.byType(PagedGridView<int, Movie>),
+          const Offset(0.0, -2000),
+        );
+        await widgetTester.pump();
+        expect(find.text('The Mistress'), findsOneWidget);
       });
     });
   });
@@ -171,102 +212,6 @@ final Map<String, dynamic> mockResponse10 = {
     },
     {
       "adult": false,
-      "backdrop_path": "/55Rb9qt3yzyF4KQpC1c3T3Fbcao.jpg",
-      "genre_ids": [27, 53],
-      "id": 1008042,
-      "original_language": "en",
-      "original_title": "Talk to Me",
-      "overview": "",
-      "popularity": 1370.306,
-      "poster_path": "/kdPMUMJzyYAc4roD52qavX0nLIC.jpg",
-      "release_date": "2023-07-26",
-      "title": "Talk to Me",
-      "video": false,
-      "vote_average": 7.2,
-      "vote_count": 386
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/4fLZUr1e65hKPPVw0R3PmKFKxj1.jpg",
-      "genre_ids": [16, 35, 10751, 14, 10749],
-      "id": 976573,
-      "original_language": "en",
-      "original_title": "Elemental",
-      "overview": "",
-      "popularity": 1153.497,
-      "poster_path": "/6oH378KUfCEitzJkm07r97L0RsZ.jpg",
-      "release_date": "2023-06-14",
-      "title": "Elemental",
-      "video": false,
-      "vote_average": 7.8,
-      "vote_count": 1921
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/2ii07lSwHarg0gWnJoCYL3Gyd1j.jpg",
-      "genre_ids": [35, 12],
-      "id": 912908,
-      "original_language": "en",
-      "original_title": "Strays",
-      "overview": "",
-      "popularity": 849.081,
-      "poster_path": "/n1hqbSCtyBAxaXEl1Dj3ipXJAJG.jpg",
-      "release_date": "2023-08-17",
-      "title": "Strays",
-      "video": false,
-      "vote_average": 7.4,
-      "vote_count": 230
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/waBWlJlMpyFb7STkFHfFvJKgwww.jpg",
-      "genre_ids": [28, 18],
-      "id": 678512,
-      "original_language": "en",
-      "original_title": "Sound of Freedom",
-      "overview": "",
-      "popularity": 806.113,
-      "poster_path": "/kSf9svfL2WrKeuK8W08xeR5lTn8.jpg",
-      "release_date": "2023-07-03",
-      "title": "Sound of Freedom",
-      "video": false,
-      "vote_average": 8,
-      "vote_count": 442
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/w2nFc2Rsm93PDkvjY4LTn17ePO0.jpg",
-      "genre_ids": [16, 35, 28],
-      "id": 614930,
-      "original_language": "en",
-      "original_title": "Teenage Mutant Ninja Turtles: Mutant Mayhem",
-      "overview": "",
-      "popularity": 792.214,
-      "poster_path": "/ueO9MYIOHO7M1PiMUeX74uf8fB9.jpg",
-      "release_date": "2023-07-31",
-      "title": "Teenage Mutant Ninja Turtles: Mutant Mayhem",
-      "video": false,
-      "vote_average": 7.2,
-      "vote_count": 426
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/2vFuG6bWGyQUzYS9d69E5l85nIz.jpg",
-      "genre_ids": [28, 12, 878],
-      "id": 667538,
-      "original_language": "en",
-      "original_title": "Transformers: Rise of the Beasts",
-      "overview": "",
-      "popularity": 745.922,
-      "poster_path": "/gPbM0MK8CP8A174rmUwGsADNYKD.jpg",
-      "release_date": "2023-06-06",
-      "title": "Transformers: Rise of the Beasts",
-      "video": false,
-      "vote_average": 7.5,
-      "vote_count": 3136
-    },
-    {
-      "adult": false,
       "backdrop_path": "/3mrli3xsGrAieQks7KsBUm2LpCg.jpg",
       "genre_ids": [28, 80, 53],
       "id": 979275,
@@ -286,27 +231,75 @@ final Map<String, dynamic> mockResponse10 = {
   "total_results": 1812
 };
 
-final Map<String, dynamic> mockResponse = {
-  "dates": {"maximum": "2023-09-11", "minimum": "2023-07-25"},
-  "page": 1,
+final Map<String, dynamic> mockResponse20 = {
+  "dates": {"maximum": "2023-09-20", "minimum": "2023-08-03"},
+  "page": 2,
   "results": [
     {
       "adult": false,
-      "backdrop_path": "/65rFnxzirxQDM0rYWmtAUYnjc.jpg",
-      "genre_ids": [27, 53],
-      "id": 1094713,
+      "backdrop_path": "/c6Splshb8lb2Q9OvUfhpqXl7uP0.jpg",
+      "genre_ids": [28, 53],
+      "id": 717930,
+      "original_language": "en",
+      "original_title": "Kandahar",
+      "overview": "",
+      "popularity": 597.995,
+      "poster_path": "/lCanGgsqF4xD2WA5NF8PWeT3IXd.jpg",
+      "release_date": "2023-05-25",
+      "title": "Kandahar",
+      "video": false,
+      "vote_average": 6.7,
+      "vote_count": 441
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/h0nmmdFAdBjQttN8Y0q825MWzZp.jpg",
+      "genre_ids": [28, 53, 80],
+      "id": 926393,
+      "original_language": "en",
+      "original_title": "The Equalizer 3",
+      "overview": "",
+      "popularity": 405.449,
+      "poster_path": "/p0WBnzgyqxMxbF4UGiqTwBLnwht.jpg",
+      "release_date": "2023-08-30",
+      "title": "The Equalizer 3",
+      "video": false,
+      "vote_average": 6.9,
+      "vote_count": 163
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/jv4tiXAgaArMQo57jFMjvBEjmoa.jpg",
+      "genre_ids": [28, 18, 12],
+      "id": 980489,
+      "original_language": "en",
+      "original_title": "Gran Turismo",
+      "overview": "",
+      "popularity": 277.91,
+      "poster_path": "/51tqzRtKMMZEYUpSYkrUE7v9ehm.jpg",
+      "release_date": "2023-08-09",
+      "title": "Gran Turismo",
+      "video": false,
+      "vote_average": 7.5,
+      "vote_count": 266
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/jv4tiXAgaArMQo57jFMjvBEjmoa.jpg",
+      "genre_ids": [28, 18, 12],
+      "id": 980489,
       "original_language": "en",
       "original_title": "The Mistress",
-      "overview": "Newlyweds...",
-      "popularity": 382.497,
-      "poster_path": "/1kdmre0wlUAUk9BvySv4Xoveieg.jpg",
-      "release_date": "2023-07-28",
+      "overview": "",
+      "popularity": 277.91,
+      "poster_path": "/51tqzRtKMMZEYUpSYkrUE7v9ehm.jpg",
+      "release_date": "2023-08-09",
       "title": "The Mistress",
       "video": false,
-      "vote_average": 4.8,
-      "vote_count": 8
+      "vote_average": 7.5,
+      "vote_count": 266
     }
   ],
-  "total_pages": 96,
-  "total_results": 1908
+  "total_pages": 2,
+  "total_results": 1793
 };
