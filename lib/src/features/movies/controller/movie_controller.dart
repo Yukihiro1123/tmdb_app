@@ -14,15 +14,19 @@ class MovieController extends _$MovieController {
     return const AsyncData(null);
   }
 
-  Future<MovieResponse> getNowPlayingMovies({
+  Future<void> getNowPlayingMovies({
     required int page,
+    required void Function(MovieResponse) onSuccess,
+    required void Function(String) onError,
   }) async {
     try {
-      return await ref
+      print("page $page");
+      final response = await ref
           .read(movieRepositoryProvider.notifier)
           .getNowPlayingMovies(page: page);
+      onSuccess(response);
     } catch (e) {
-      rethrow;
+      onError('error');
     }
   }
 

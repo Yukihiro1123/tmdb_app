@@ -20,75 +20,43 @@ class MovieList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.sizeOf(context).width;
-    return PagedGridView<int, Movie>(
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        childAspectRatio: screenWidth <= BreakPoints.mobileSize
-            ? 1.4
-            : screenWidth <= BreakPoints.tabletSize
-                ? 1.25
-                : 1.4,
-        crossAxisSpacing: 5,
-        //TODO ここどうするか考える
-        crossAxisCount: screenWidth <= BreakPoints.mobileSize
-            ? 1
-            : screenWidth <= BreakPoints.tabletSize
-                ? 2
-                : 4,
+    return RefreshIndicator(
+      onRefresh: () => Future.sync(
+        () => pagingController.refresh(),
       ),
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      pagingController: pagingController,
-      builderDelegate: PagedChildBuilderDelegate<Movie>(
-        firstPageProgressIndicatorBuilder: (_) {
-          return AnimationLimiter(
-            child: GridView.builder(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisSpacing: 5, //ボックス左右間のスペース
-                crossAxisCount: screenWidth <= BreakPoints.mobileSize
-                    ? 1
-                    : screenWidth <= BreakPoints.tabletSize
-                        ? 2
-                        : 4,
-              ),
-              shrinkWrap: true,
-              itemCount: 5,
-              itemBuilder: (context, index) {
-                return const MovieCardShimmer();
-              },
-            ),
-          );
-        },
-        noItemsFoundIndicatorBuilder: (_) {
-          return noItemsFoundWidget;
-        },
-        itemBuilder: (context, item, index) {
-          return AnimationConfiguration.staggeredGrid(
-            delay: const Duration(milliseconds: 375),
-            position: index,
-            duration: const Duration(milliseconds: 375),
-            columnCount: screenWidth <= BreakPoints.mobileSize
-                ? 1
-                : screenWidth <= BreakPoints.tabletSize
-                    ? 2
-                    : 4,
-            child: SlideAnimation(
-              verticalOffset: 50.0,
-              child: FadeInAnimation(
-                child: MovieCard(
-                  item: item,
-                  onTap: () {
-                    context.goNamed(
-                      AppRoute.movie.name,
-                      queryParameters: {
-                        "movieId": item.id.toString(),
-                      },
-                    );
+      child: PagedGridView<int, Movie>(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          childAspectRatio: screenWidth <= BreakPoints.mobileSize
+              ? 1.4
+              : screenWidth <= BreakPoints.tabletSize
+                  ? 1.25
+                  : 1.4,
+          crossAxisSpacing: 5,
+          //TODO ここどうするか考える
+          crossAxisCount: screenWidth <= BreakPoints.mobileSize
+              ? 1
+              : screenWidth <= BreakPoints.tabletSize
+                  ? 2
+                  : 4,
+        ),
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        pagingController: pagingController,
+        builderDelegate: PagedChildBuilderDelegate<Movie>(
+          itemBuilder: (context, item, index) {
+            return MovieCard(
+              item: item,
+              onTap: () {
+                context.goNamed(
+                  AppRoute.movie.name,
+                  queryParameters: {
+                    "movieId": item.id.toString(),
                   },
-                ),
-              ),
-            ),
-          );
-        },
+                );
+              },
+            );
+          },
+        ),
       ),
     );
   }
