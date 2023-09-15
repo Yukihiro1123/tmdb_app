@@ -20,7 +20,6 @@ class MovieController extends _$MovieController {
     required void Function(String) onError,
   }) async {
     try {
-      print("page $page");
       final response = await ref
           .read(movieRepositoryProvider.notifier)
           .getNowPlayingMovies(page: page);
