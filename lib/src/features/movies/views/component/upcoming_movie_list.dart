@@ -49,17 +49,7 @@ class UpcomingMovieList extends ConsumerWidget {
             (Movie movie) {
               return SizedBox(
                 width: double.infinity,
-                child: MovieCard(
-                  item: movie,
-                  onTap: () {
-                    context.goNamed(
-                      AppRoute.movie.name,
-                      queryParameters: {
-                        "movieId": movie.id.toString(),
-                      },
-                    );
-                  },
-                ),
+                child: MovieCard(item: movie),
               );
             },
           ).toList(),

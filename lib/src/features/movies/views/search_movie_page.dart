@@ -66,58 +66,16 @@ class SearchMoviePage extends HookConsumerWidget {
             ),
             const SizedBox(height: 10),
             Expanded(
-              child: RefreshIndicator(
-                onRefresh: () => Future.sync(
-                  () => _pagingController.refresh(),
-                ),
-                child: PagedGridView(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    childAspectRatio: screenWidth <= BreakPoints.mobileSize
-                        ? 1.4
-                        : screenWidth <= BreakPoints.tabletSize
-                            ? 1.25
-                            : 1.4,
-                    crossAxisSpacing: 5,
-                    //TODO ここどうするか考える
-                    crossAxisCount: screenWidth <= BreakPoints.mobileSize
-                        ? 1
-                        : screenWidth <= BreakPoints.tabletSize
-                            ? 2
-                            : 4,
-                  ),
-                  pagingController: _pagingController,
-                  builderDelegate: PagedChildBuilderDelegate<Movie>(
-                    noItemsFoundIndicatorBuilder: (context) {
-                      return Center(
-                          child: Text(
-                        searchController.text.isEmpty
-                            ? AppLocalizations.of(context).searchByKeyword
-                            : AppLocalizations.of(context).movieNotFound,
-                        style: Theme.of(context).textTheme.bodyLarge,
-                      ));
-                    },
-                    itemBuilder: (context, item, index) {
-                      return AnimationConfiguration.staggeredGrid(
-                        position: index,
-                        columnCount: screenWidth <= BreakPoints.mobileSize
-                            ? 1
-                            : screenWidth <= BreakPoints.tabletSize
-                                ? 2
-                                : 4,
-                        child: SlideAnimation(
-                          child: FadeInAnimation(
-                            child: MovieCard(
-                              item: item,
-                              onTap: () {},
-                            ),
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                ),
-              ),
-            ),
+                child: MovieList(
+              pagingController: _pagingController,
+              noItemsFoundWidget: Center(
+                  child: Text(
+                searchController.text.isEmpty
+                    ? AppLocalizations.of(context).searchByKeyword
+                    : AppLocalizations.of(context).movieNotFound,
+                style: Theme.of(context).textTheme.bodyLarge,
+              )),
+            )),
           ],
         ),
       ),
