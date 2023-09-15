@@ -37,7 +37,7 @@ class MovieList extends StatelessWidget {
               ? 1
               : screenWidth <= BreakPoints.tabletSize
                   ? 2
-                  : 4,
+                  : 3,
         ),
         shrinkWrap: true,
         // physics: const NeverScrollableScrollPhysics(),

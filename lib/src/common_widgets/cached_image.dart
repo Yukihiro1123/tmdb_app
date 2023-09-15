@@ -24,8 +24,8 @@ class CachedImage extends StatelessWidget {
     return CachedNetworkImage(
       imageUrl: imageURL ?? '',
       imageBuilder: (context, imageProvider) => Container(
-        width: width,
-        height: height,
+        // width: width,
+        // height: height,
         decoration: BoxDecoration(
           shape: isCircle ? BoxShape.circle : BoxShape.rectangle,
           image: DecorationImage(
