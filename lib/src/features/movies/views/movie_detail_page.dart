@@ -136,7 +136,7 @@ class MovieDetailPage extends HookConsumerWidget {
                             ),
                             Text(AppLocalizations.of(context).review),
                             SizedBox(
-                              height: 300,
+                              height: MediaQuery.sizeOf(context).height * 0.3,
                               child: ReviewList(movieId: movieId),
                             ),
                           ],

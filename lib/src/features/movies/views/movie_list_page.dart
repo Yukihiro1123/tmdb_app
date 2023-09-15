@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:tmdb_app/src/features/movies/views/component/now_playing_movie_list.dart';
-import 'package:tmdb_app/src/features/movies/views/component/upcoming_movie_list.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:tmdb_app/src/features/movies/views/recommended_movie_list.dart';
 

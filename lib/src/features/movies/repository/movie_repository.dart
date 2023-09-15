@@ -65,6 +65,48 @@ class MovieRepository extends _$MovieRepository {
     }
   }
 
+  Future<MovieResponse> getPopularMovies() async {
+    try {
+      final String url = Uri(
+        scheme: 'https',
+        host: 'api.themoviedb.org',
+        path: '3/movie/popular',
+        queryParameters: {
+          'language': 'ja-JP',
+          'api_key': Env.apiKey,
+          'include_adult': 'false',
+          'page': '1',
+        },
+      ).toString();
+      final response = await state.get(url);
+      return MovieResponse.fromJson(response.data);
+    } on DioException catch (e) {
+      print(e);
+      rethrow;
+    }
+  }
+
+  Future<MovieResponse> getTopRatedMovies() async {
+    try {
+      final String url = Uri(
+        scheme: 'https',
+        host: 'api.themoviedb.org',
+        path: '3/movie/top_rated',
+        queryParameters: {
+          'language': 'ja-JP',
+          'api_key': Env.apiKey,
+          'include_adult': 'false',
+          'page': '1',
+        },
+      ).toString();
+      final response = await state.get(url);
+      return MovieResponse.fromJson(response.data);
+    } on DioException catch (e) {
+      print(e);
+      rethrow;
+    }
+  }
+
   Future<MovieResponse> searchMovie({
     required String query,
     required int page,
