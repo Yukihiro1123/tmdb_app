@@ -40,9 +40,12 @@ class MovieList extends StatelessWidget {
                   : 4,
         ),
         shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
+        // physics: const NeverScrollableScrollPhysics(),
         pagingController: pagingController,
         builderDelegate: PagedChildBuilderDelegate<Movie>(
+          noItemsFoundIndicatorBuilder: (context) {
+            return noItemsFoundWidget;
+          },
           itemBuilder: (context, item, index) {
             return MovieCard(item: item);
           },
