@@ -9,6 +9,7 @@ import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie_res
 import 'package:tmdb_app/src/features/movies/views/component/movie_card.dart';
 import 'package:tmdb_app/src/routing/router_utils.dart';
 import 'package:tmdb_app/src/utils/breakpoints.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class UpcomingMovieList extends ConsumerWidget {
   const UpcomingMovieList({super.key});
@@ -19,8 +20,9 @@ class UpcomingMovieList extends ConsumerWidget {
     final CarouselController controller = CarouselController();
     return ref.watch(watchUpcomingMoviesControllerProvider).when(
       error: (error, stackTrace) {
-        return const Center(
-          child: Text('最新コンテンツ取得の際にエラーが発生しました'),
+        return Center(
+          //TODO
+          child: Text(AppLocalizations.of(context).upcomingMovieError),
         );
       },
       loading: () {
@@ -47,17 +49,7 @@ class UpcomingMovieList extends ConsumerWidget {
             (Movie movie) {
               return SizedBox(
                 width: double.infinity,
-                child: MovieCard(
-                  item: movie,
-                  onTap: () {
-                    context.goNamed(
-                      AppRoute.movie.name,
-                      queryParameters: {
-                        "movieId": movie.id.toString(),
-                      },
-                    );
-                  },
-                ),
+                child: MovieCard(item: movie),
               );
             },
           ).toList(),

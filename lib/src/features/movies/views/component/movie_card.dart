@@ -1,6 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+// import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 // import 'package:tmdb_app/src/common_widgets/RateBar.dart';
 import 'package:tmdb_app/src/common_widgets/cached_image.dart';
@@ -9,18 +9,16 @@ import 'package:tmdb_app/src/routing/router_utils.dart';
 
 class MovieCard extends StatelessWidget {
   final Movie item;
-  final VoidCallback onTap;
 
   const MovieCard({
     super.key,
     required this.item,
-    required this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => context.goNamed(AppRoute.movie.name, queryParameters: {
+      onTap: () => context.goNamed(AppRoute.movie.name, pathParameters: {
         "movieId": item.id.toString(),
       }),
       child: Card(
@@ -40,7 +38,7 @@ class MovieCard extends StatelessWidget {
                     ? "https://image.tmdb.org/t/p/w500${item.backdropPath!}"
                     : "",
                 width: double.infinity,
-                height: 175.h,
+                height: 175,
                 isCircle: false,
               ),
             ),

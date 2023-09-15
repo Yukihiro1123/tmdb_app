@@ -1,26 +1,26 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'theme_controller.dart';
+part of 'lang_repository.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$themeControllerHash() => r'5b349f2bc4e0721e2bc0039f7bf1fad2e8ba7e0c';
+String _$langRepositoryHash() => r'178c551988653ed308759fe83c138d7fa0d7337c';
 
-/// See also [ThemeController].
-@ProviderFor(ThemeController)
-final themeControllerProvider =
-    AutoDisposeNotifierProvider<ThemeController, bool>.internal(
-  ThemeController.new,
-  name: r'themeControllerProvider',
+/// See also [LangRepository].
+@ProviderFor(LangRepository)
+final langRepositoryProvider =
+    AutoDisposeNotifierProvider<LangRepository, String>.internal(
+  LangRepository.new,
+  name: r'langRepositoryProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$themeControllerHash,
+      : _$langRepositoryHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$ThemeController = AutoDisposeNotifier<bool>;
+typedef _$LangRepository = AutoDisposeNotifier<String>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

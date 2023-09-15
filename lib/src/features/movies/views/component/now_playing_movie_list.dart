@@ -7,11 +7,11 @@ import 'package:tmdb_app/src/features/movies/controller/movie_controller.dart';
 import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie/movie.dart';
 import 'package:tmdb_app/src/features/movies/views/component/movie_card.dart';
 import 'package:tmdb_app/src/features/movies/views/component/movie_list.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:tmdb_app/src/utils/breakpoints.dart';
 
-class SearchMoviePage extends HookConsumerWidget {
-  const SearchMoviePage({super.key});
+class NowPlayingMovieList extends HookConsumerWidget {
+  const NowPlayingMovieList({super.key});
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final PagingController<int, Movie> _pagingController =
@@ -21,13 +21,10 @@ class SearchMoviePage extends HookConsumerWidget {
       movieControllerProvider.notifier,
     );
     final double screenWidth = MediaQuery.sizeOf(context).width;
-    final TextEditingController searchController = useTextEditingController();
-
     useEffect(
       () {
         _pagingController.addPageRequestListener((pageKey) {
-          usersViewModel.searchMovie(
-              query: searchController.text,
+          usersViewModel.getNowPlayingMovies(
               page: pageKey,
               onSuccess: (data) {
                 if (isMounted()) {
@@ -47,38 +44,9 @@ class SearchMoviePage extends HookConsumerWidget {
       },
       const [],
     );
-
-    return SafeArea(
-      child: Scaffold(
-        body: Column(
-          children: [
-            const SizedBox(height: 10),
-            SearchBar(
-              controller: searchController,
-              trailing: [
-                IconButton(
-                  icon: const Icon(Icons.search),
-                  onPressed: () {
-                    _pagingController.refresh();
-                  },
-                ),
-              ],
-            ),
-            const SizedBox(height: 10),
-            Expanded(
-                child: MovieList(
-              pagingController: _pagingController,
-              noItemsFoundWidget: Center(
-                  child: Text(
-                searchController.text.isEmpty
-                    ? AppLocalizations.of(context).searchByKeyword
-                    : AppLocalizations.of(context).movieNotFound,
-                style: Theme.of(context).textTheme.bodyLarge,
-              )),
-            )),
-          ],
-        ),
-      ),
+    return MovieList(
+      pagingController: _pagingController,
+      noItemsFoundWidget: const SizedBox.shrink(),
     );
   }
 }
