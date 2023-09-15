@@ -48,7 +48,7 @@ dependencies:
   freezed:
   freezed_annotation:
   cached_network_image:
-  flutter_screenutil:
+  # flutter_screenutil:
   carousel_slider:
   auto_size_text:
   flutter_native_splash: ^2.3.2
@@ -79,6 +79,9 @@ dev_dependencies:
   freeze:
   build_runner:
   flutter_svg:
+  http_mock_adapter:
+  mockito:
+  mocktail:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
