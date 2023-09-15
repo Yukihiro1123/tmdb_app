@@ -38,12 +38,6 @@ void main() {
     _dio = MockDio();
     _pagingController = MockPagingController();
     _movieRepository = MockMovieRepository();
-    // container = ProviderContainer(
-    //   overrides: [
-    //     dioProvider.overrideWith((ref) => _dio),
-    //     movieControllerProvider.overrideWith(() => _movieController)
-    //   ],
-    // );
   });
   group('NowPlayingMovieList', () {
     testWidgets('1st page load', (widgetTester) async {
