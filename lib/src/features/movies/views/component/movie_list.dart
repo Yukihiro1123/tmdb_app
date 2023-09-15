@@ -44,17 +44,7 @@ class MovieList extends StatelessWidget {
         pagingController: pagingController,
         builderDelegate: PagedChildBuilderDelegate<Movie>(
           itemBuilder: (context, item, index) {
-            return MovieCard(
-              item: item,
-              onTap: () {
-                context.goNamed(
-                  AppRoute.movie.name,
-                  queryParameters: {
-                    "movieId": item.id.toString(),
-                  },
-                );
-              },
-            );
+            return MovieCard(item: item);
           },
         ),
       ),

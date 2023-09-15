@@ -74,10 +74,7 @@ class NowPlayingMovieList extends HookConsumerWidget {
                       : 4,
               child: SlideAnimation(
                 child: FadeInAnimation(
-                  child: MovieCard(
-                    item: item,
-                    onTap: () => {},
-                  ),
+                  child: MovieCard(item: item),
                 ),
               ),
             );
