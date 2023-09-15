@@ -22,7 +22,7 @@ class MovieListPage extends HookConsumerWidget {
                   text: AppLocalizations.of(context).nowPlaying,
                 ),
                 Tab(
-                  text: AppLocalizations.of(context).upcoming,
+                  text: AppLocalizations.of(context).recommend,
                 ),
               ],
             ),

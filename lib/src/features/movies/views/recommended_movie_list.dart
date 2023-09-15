@@ -25,7 +25,7 @@ class RecommendedMovieList extends HookConsumerWidget {
               error: (error, stackTrace) {
                 return Center(
                   //TODO
-                  child: Text(AppLocalizations.of(context).upcomingMovieError),
+                  child: Text(AppLocalizations.of(context).error),
                 );
               },
               loading: () {
@@ -37,7 +37,7 @@ class RecommendedMovieList extends HookConsumerWidget {
                 );
               },
             ),
-            Text(AppLocalizations.of(context).upcoming,
+            Text(AppLocalizations.of(context).popular,
                 style: Theme.of(context).textTheme.bodyMedium),
             const SizedBox(height: 10),
             /* Popular */
@@ -45,7 +45,7 @@ class RecommendedMovieList extends HookConsumerWidget {
               error: (error, stackTrace) {
                 return Center(
                   //TODO
-                  child: Text(AppLocalizations.of(context).upcomingMovieError),
+                  child: Text(AppLocalizations.of(context).error),
                 );
               },
               loading: () {
@@ -57,7 +57,7 @@ class RecommendedMovieList extends HookConsumerWidget {
                 );
               },
             ),
-            Text(AppLocalizations.of(context).upcoming,
+            Text(AppLocalizations.of(context).topRated,
                 style: Theme.of(context).textTheme.bodyMedium),
             const SizedBox(height: 10),
             /* Top Rated */
@@ -65,7 +65,7 @@ class RecommendedMovieList extends HookConsumerWidget {
               error: (error, stackTrace) {
                 return Center(
                   //TODO
-                  child: Text(AppLocalizations.of(context).upcomingMovieError),
+                  child: Text(AppLocalizations.of(context).error),
                 );
               },
               loading: () {

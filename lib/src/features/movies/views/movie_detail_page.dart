@@ -26,7 +26,7 @@ class MovieDetailPage extends HookConsumerWidget {
             error: (error, stackTrace) {
               print(error);
               return Center(
-                child: Text(AppLocalizations.of(context).movieDetailError),
+                child: Text(AppLocalizations.of(context).error),
               );
             },
             loading: () => const MovieDetailShimmer(),
