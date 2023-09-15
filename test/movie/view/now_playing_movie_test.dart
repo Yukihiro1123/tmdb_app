@@ -29,7 +29,6 @@ class MockMovieRepository extends AutoDisposeNotifier<Dio>
 
 void main() {
   late MockDio _dio;
-  late ProviderContainer container;
   late MockMovieRepository _movieRepository;
   late MockPagingController _pagingController;
 
@@ -118,7 +117,6 @@ void main() {
           );
         },
       );
-      // container = ProviderContainer();
       await widgetTester.runAsync(() async {
         await widgetTester.pumpWidget(
           ProviderScope(
