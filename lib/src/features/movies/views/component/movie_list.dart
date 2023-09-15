@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie/movie.dart';
 import 'package:tmdb_app/src/features/movies/views/component/movie_card.dart';
@@ -42,8 +43,23 @@ class MovieList extends StatelessWidget {
           noItemsFoundIndicatorBuilder: (context) {
             return noItemsFoundWidget;
           },
+          newPageProgressIndicatorBuilder: (context) {
+            return const CircularProgressIndicator();
+          },
           itemBuilder: (context, item, index) {
-            return MovieCard(item: item);
+            return AnimationConfiguration.staggeredGrid(
+              duration: const Duration(milliseconds: 375),
+              columnCount: screenWidth <= BreakPoints.mobileSize
+                  ? 1
+                  : screenWidth <= BreakPoints.tabletSize
+                      ? 2
+                      : 3,
+              position: index,
+              child: SlideAnimation(
+                verticalOffset: 50.0,
+                child: FadeInAnimation(child: MovieCard(item: item)),
+              ),
+            );
           },
         ),
       ),
