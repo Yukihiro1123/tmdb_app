@@ -17,12 +17,12 @@ class CustomCarouselSlider extends StatelessWidget {
       carouselController: controller,
       options: CarouselOptions(
         aspectRatio: screenWidth <= BreakPoints.mobileSize
-            ? 1.75
+            ? 1.5
             : screenWidth <= BreakPoints.tabletSize
                 ? 3
                 : 4,
         viewportFraction: screenWidth <= BreakPoints.mobileSize
-            ? 1
+            ? 0.8
             : screenWidth <= BreakPoints.tabletSize
                 ? 0.5
                 : 0.33,
