@@ -1,14 +1,8 @@
-import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tmdb_app/env.dart';
-import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie_response.dart';
-import 'package:tmdb_app/src/features/movies/repository/movie_repository.dart';
-import 'package:tmdb_app/src/features/settings/theme/controller/theme_controller.dart';
 import 'package:tmdb_app/src/features/settings/theme/repository/theme_repository.dart';
-import 'package:tmdb_app/src/utils/dio/dio_provider.dart';
 import 'package:tmdb_app/src/utils/shared_preferences/shared_preferences_provider.dart';
 
 class MockSharedPreferences extends AutoDisposeNotifier<SharedPreferences>
@@ -28,6 +22,11 @@ void main() {
         // sharedPreferencesProvider.overrideWithValue(pref),
       ],
     );
+  });
+
+  tearDownAll(() {
+    reset(_sharedPreferences);
+    container.dispose();
   });
 
   group("toggle theme", () {
