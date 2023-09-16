@@ -24,4 +24,5 @@ jobs:
           key: build-runner-${{ hashFiles('**/asset_graph.json') }}-${{ hashFiles('**/pubspec.lock') }}
           restore-keys: |
             build-runner-
+      - run: flutter gen-l10n
       - run: flutter analyze
