@@ -12,7 +12,7 @@ extension AppRouteExtention on AppRoute {
       case AppRoute.movies:
         return '/movies';
       case AppRoute.movie:
-        return 'movieId';
+        return ':movieId';
       case AppRoute.search:
         return '/search';
       case AppRoute.settings:

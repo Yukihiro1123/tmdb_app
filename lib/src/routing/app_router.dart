@@ -48,7 +48,7 @@ GoRouter goRouter(GoRouterRef ref) {
                         name: AppRoute.movie.name,
                         pageBuilder: (context, state) {
                           final String movieId =
-                              state.uri.queryParameters['movieId']!;
+                              state.pathParameters['movieId']!;
                           return NoTransitionPage(
                             key: state.pageKey,
                             child: MovieDetailPage(

@@ -6,7 +6,6 @@ import 'package:tmdb_app/env.dart';
 import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie_response.dart';
 import 'package:tmdb_app/src/features/movies/repository/movie_repository.dart';
 import 'package:tmdb_app/src/utils/dio/dio_provider.dart';
-import 'package:http/http.dart' as http;
 
 class MockDio extends AutoDisposeNotifier<Dio> with Mock implements Dio {}
 

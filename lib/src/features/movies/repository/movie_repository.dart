@@ -31,7 +31,7 @@ class MovieRepository extends _$MovieRepository {
           'page': '$page',
         },
       ).toString();
-      print("repository $url");
+      print("repository $page");
       final response = await state.get(url);
       if (response.statusCode == 200) {
         return MovieResponse.fromJson(response.data);
@@ -50,6 +50,48 @@ class MovieRepository extends _$MovieRepository {
         scheme: 'https',
         host: 'api.themoviedb.org',
         path: '3/movie/upcoming',
+        queryParameters: {
+          'language': 'ja-JP',
+          'api_key': Env.apiKey,
+          'include_adult': 'false',
+          'page': '1',
+        },
+      ).toString();
+      final response = await state.get(url);
+      return MovieResponse.fromJson(response.data);
+    } on DioException catch (e) {
+      print(e);
+      rethrow;
+    }
+  }
+
+  Future<MovieResponse> getPopularMovies() async {
+    try {
+      final String url = Uri(
+        scheme: 'https',
+        host: 'api.themoviedb.org',
+        path: '3/movie/popular',
+        queryParameters: {
+          'language': 'ja-JP',
+          'api_key': Env.apiKey,
+          'include_adult': 'false',
+          'page': '1',
+        },
+      ).toString();
+      final response = await state.get(url);
+      return MovieResponse.fromJson(response.data);
+    } on DioException catch (e) {
+      print(e);
+      rethrow;
+    }
+  }
+
+  Future<MovieResponse> getTopRatedMovies() async {
+    try {
+      final String url = Uri(
+        scheme: 'https',
+        host: 'api.themoviedb.org',
+        path: '3/movie/top_rated',
         queryParameters: {
           'language': 'ja-JP',
           'api_key': Env.apiKey,
