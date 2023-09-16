@@ -22,11 +22,11 @@ jobs:
           channel: 'stable'
           cache: true
       - run: flutter pub get
+      - run: flutter gen-l10n
       - run: flutter pub run build_runner build --delete-conflicting-outputs
       - uses: vhanda/flutter-build-runner-action@v1
         with:
           output_paths: |
             lib/generated/
             lib/**/*.g.dart
-      - run: flutter gen-l10n
       - run: flutter test
