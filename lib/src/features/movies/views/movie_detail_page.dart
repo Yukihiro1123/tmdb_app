@@ -24,7 +24,7 @@ class MovieDetailPage extends HookConsumerWidget {
           .when(
             skipLoadingOnReload: true,
             error: (error, stackTrace) {
-              print(error);
+              debugPrint(error.toString());
               return Center(
                 child: Text(AppLocalizations.of(context).error),
               );

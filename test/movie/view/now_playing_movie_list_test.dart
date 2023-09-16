@@ -24,25 +24,25 @@ class MockMovieRepository extends AutoDisposeNotifier<Dio>
     implements MovieRepository {}
 
 void main() {
-  late MockDio _dio;
-  late MockMovieRepository _movieRepository;
-  late MockPagingController _pagingController;
+  late MockDio dio;
+  late MockMovieRepository movieRepository;
+  late MockPagingController pagingController;
 
   setUp(() {
     HttpOverrides.global = null;
-    _dio = MockDio();
-    _pagingController = MockPagingController();
-    _movieRepository = MockMovieRepository();
+    dio = MockDio();
+    pagingController = MockPagingController();
+    movieRepository = MockMovieRepository();
   });
 
   tearDownAll(() {
-    reset(_dio);
-    reset(_pagingController);
-    reset(_movieRepository);
+    reset(dio);
+    reset(pagingController);
+    reset(movieRepository);
   });
   group('NowPlayingMovieList', () {
     testWidgets('1st page load', (widgetTester) async {
-      when(() => _movieRepository.getNowPlayingMovies(page: 1)).thenAnswer(
+      when(() => movieRepository.getNowPlayingMovies(page: 1)).thenAnswer(
         (_) async {
           return MovieResponse.fromJson(mockResponse10);
         },
@@ -51,7 +51,7 @@ void main() {
         await widgetTester.pumpWidget(
           ProviderScope(
             overrides: [
-              movieRepositoryProvider.overrideWith(() => _movieRepository)
+              movieRepositoryProvider.overrideWith(() => movieRepository)
             ],
             child: const MaterialApp(
               localizationsDelegates: AppLocalizations.localizationsDelegates,
@@ -101,7 +101,7 @@ void main() {
           'page': '2',
         },
       ).toString();
-      when(() => _dio.get(nowPlayingUrl)).thenAnswer(
+      when(() => dio.get(nowPlayingUrl)).thenAnswer(
         (_) async {
           return Response(
             statusCode: 200,
@@ -110,7 +110,7 @@ void main() {
           );
         },
       );
-      when(() => _dio.get(nowPlayingUrl2)).thenAnswer(
+      when(() => dio.get(nowPlayingUrl2)).thenAnswer(
         (_) async {
           return Response(
             statusCode: 200,
@@ -123,7 +123,7 @@ void main() {
         await widgetTester.pumpWidget(
           ProviderScope(
             overrides: [
-              dioProvider.overrideWith((ref) => _dio),
+              dioProvider.overrideWith((ref) => dio),
             ],
             child: const MaterialApp(
               localizationsDelegates: AppLocalizations.localizationsDelegates,

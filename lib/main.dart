@@ -12,7 +12,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() async {
   final pref = await SharedPreferences.getInstance();
-  const flavor = String.fromEnvironment('flavor');
+  // const flavor = String.fromEnvironment('flavor');
   final devicePreview = DevicePreview(
     builder: (_) => ProviderScope(
       overrides: [

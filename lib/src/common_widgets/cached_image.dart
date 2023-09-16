@@ -20,7 +20,7 @@ class CachedImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // print(imageURL);
+    // debugPrint(imageURL);
     return CachedNetworkImage(
       imageUrl: imageURL ?? '',
       imageBuilder: (context, imageProvider) => Container(
@@ -44,7 +44,7 @@ class CachedImage extends StatelessWidget {
         ),
       ),
       errorWidget: (context, url, dynamic error) {
-        // print("エラー：$error, url: $imageURL");
+        // debugPrint("エラー：$error, url: $imageURL");
         return Container(
           width: width,
           height: height,

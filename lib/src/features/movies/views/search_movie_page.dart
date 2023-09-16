@@ -11,7 +11,7 @@ class SearchMoviePage extends HookConsumerWidget {
   const SearchMoviePage({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final PagingController<int, Movie> _pagingController =
+    final PagingController<int, Movie> pagingController =
         PagingController(firstPageKey: 1);
     final isMounted = useIsMounted();
     final usersViewModel = ref.watch(
@@ -21,25 +21,25 @@ class SearchMoviePage extends HookConsumerWidget {
 
     useEffect(
       () {
-        _pagingController.addPageRequestListener((pageKey) {
+        pagingController.addPageRequestListener((pageKey) {
           usersViewModel.searchMovie(
               query: searchController.text,
               page: pageKey,
               onSuccess: (data) {
                 if (isMounted()) {
                   if (data.page == data.totalPages) {
-                    _pagingController.appendLastPage(data.results);
+                    pagingController.appendLastPage(data.results);
                   } else {
-                    _pagingController.appendPage(data.results, pageKey + 1);
+                    pagingController.appendPage(data.results, pageKey + 1);
                   }
                 }
               },
               onError: (error) {
-                // print(error);
-                _pagingController.error = error;
+                // debugPrint(error);
+                pagingController.error = error;
               });
         });
-        return () => _pagingController.dispose();
+        return () => pagingController.dispose();
       },
       const [],
     );
@@ -55,7 +55,7 @@ class SearchMoviePage extends HookConsumerWidget {
                 IconButton(
                   icon: const Icon(Icons.search),
                   onPressed: () {
-                    _pagingController.refresh();
+                    pagingController.refresh();
                   },
                 ),
               ],
@@ -63,7 +63,7 @@ class SearchMoviePage extends HookConsumerWidget {
             const SizedBox(height: 10),
             Expanded(
                 child: MovieList(
-              pagingController: _pagingController,
+              pagingController: pagingController,
               noItemsFoundWidget: Center(
                   child: Text(
                 searchController.text.isEmpty

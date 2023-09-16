@@ -43,6 +43,7 @@ dependencies:
   flutter_hooks:
   riverpod_generator:
   riverpod_lint:
+  riverpod_annotation:
   go_router:
   json_annotation:
   freezed:
