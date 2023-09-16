@@ -20,13 +20,13 @@ class BottomNavigation extends StatelessWidget {
           // BottomNavigationBarItemは、ボトムナビゲーションバーのアイテムを実装しています。
           BottomNavigationBarItem(
               icon: const Icon(Icons.home),
-              label: AppLocalizations.of(context).home),
+              label: AppLocalizations.of(context).home.toString()),
           BottomNavigationBarItem(
               icon: const Icon(Icons.search),
-              label: AppLocalizations.of(context).search),
+              label: AppLocalizations.of(context).search.toString()),
           BottomNavigationBarItem(
               icon: const Icon(Icons.settings),
-              label: AppLocalizations.of(context).settings),
+              label: AppLocalizations.of(context).settings.toString()),
         ],
         onTap: _onTap,
       ),

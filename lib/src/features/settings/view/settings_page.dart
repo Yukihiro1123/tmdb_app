@@ -23,7 +23,7 @@ class SettingsPage extends HookConsumerWidget {
             tiles: <SettingsTile>[
               SettingsTile.navigation(
                 leading: const Icon(Icons.language),
-                title: Text(AppLocalizations.of(context).language),
+                title: Text(AppLocalizations.of(context).language.toString()),
                 //TODO 言語増えたら関数を作る
                 value: Text(lang == "ja" ? "日本語" : "English"),
                 onPressed: (context) {
@@ -36,7 +36,7 @@ class SettingsPage extends HookConsumerWidget {
                 },
                 initialValue: darkMode,
                 leading: const Icon(Icons.dark_mode),
-                title: Text(AppLocalizations.of(context).darkTheme),
+                title: Text(AppLocalizations.of(context).darkTheme.toString()),
               ),
             ],
           ),
