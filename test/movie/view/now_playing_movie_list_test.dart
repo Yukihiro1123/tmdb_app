@@ -34,6 +34,12 @@ void main() {
     _pagingController = MockPagingController();
     _movieRepository = MockMovieRepository();
   });
+
+  tearDownAll(() {
+    reset(_dio);
+    reset(_pagingController);
+    reset(_movieRepository);
+  });
   group('NowPlayingMovieList', () {
     testWidgets('1st page load', (widgetTester) async {
       when(() => _movieRepository.getNowPlayingMovies(page: 1)).thenAnswer(

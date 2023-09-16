@@ -22,6 +22,10 @@ void main() {
     );
   });
 
+  tearDownAll(() {
+    reset(_dio);
+    container.dispose();
+  });
   group('getNowPlayingMovies', () {
     final url = Uri(
       scheme: 'https',
@@ -58,10 +62,6 @@ void main() {
               .getNowPlayingMovies(page: 1),
           throwsA(isA<Exception>()));
     });
-  });
-
-  tearDownAll(() {
-    container.dispose();
   });
 }
 
