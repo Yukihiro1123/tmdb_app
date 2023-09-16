@@ -18,10 +18,10 @@ jobs:
           cache: true
       - run: flutter pub get
       - uses: actions/cache@v2
-      with:
-        path: |
-          **/.dart_tool/build
-        key: build-runner-${{ hashFiles('**/asset_graph.json') }}-${{ hashFiles('**/pubspec.lock') }}
-        restore-keys: |
-          build-runner-
+        with:
+          path: |
+            **/.dart_tool/build
+          key: build-runner-${{ hashFiles('**/asset_graph.json') }}-${{ hashFiles('**/pubspec.lock') }}
+          restore-keys: |
+            build-runner-
       - run: flutter analyze
