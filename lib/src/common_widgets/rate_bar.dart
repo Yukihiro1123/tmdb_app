@@ -22,7 +22,7 @@ class RateBar extends StatelessWidget {
         color: Colors.amber,
       ),
       onRatingUpdate: (rating) {
-        print(rating);
+        // debugPrint(rating);
       },
     );
   }

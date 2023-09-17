@@ -10,22 +10,22 @@ class MockSharedPreferences extends AutoDisposeNotifier<SharedPreferences>
     implements SharedPreferences {}
 
 void main() {
-  late MockSharedPreferences _sharedPreferences;
+  late MockSharedPreferences sharedPreferences;
   late ProviderContainer container;
 
   setUp(() async {
     // final pref = await SharedPreferences.getInstance();
-    _sharedPreferences = MockSharedPreferences();
+    sharedPreferences = MockSharedPreferences();
     container = ProviderContainer(
       overrides: [
-        sharedPreferencesProvider.overrideWith((ref) => _sharedPreferences),
+        sharedPreferencesProvider.overrideWith((ref) => sharedPreferences),
         // sharedPreferencesProvider.overrideWithValue(pref),
       ],
     );
   });
 
   tearDownAll(() {
-    reset(_sharedPreferences);
+    reset(sharedPreferences);
     container.dispose();
   });
 

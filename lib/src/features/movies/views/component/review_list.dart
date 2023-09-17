@@ -16,7 +16,7 @@ class ReviewList extends HookConsumerWidget {
   });
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final PagingController<int, Review> _pagingController =
+    final PagingController<int, Review> pagingController =
         PagingController(firstPageKey: 1);
     final isMounted = useIsMounted();
     final usersViewModel = ref.watch(
@@ -24,35 +24,35 @@ class ReviewList extends HookConsumerWidget {
     );
     useEffect(
       () {
-        _pagingController.addPageRequestListener((pageKey) {
+        pagingController.addPageRequestListener((pageKey) {
           usersViewModel.getMovieReview(
               movieId: int.parse(movieId),
               page: pageKey,
               onSuccess: (data) {
                 if (isMounted()) {
                   if (data.page == data.totalPages) {
-                    _pagingController.appendLastPage(data.results);
+                    pagingController.appendLastPage(data.results);
                   } else {
-                    _pagingController.appendPage(data.results, pageKey + 1);
+                    pagingController.appendPage(data.results, pageKey + 1);
                   }
                 }
               },
               onError: (error) {
-                // print(error);
-                _pagingController.error = error;
+                // debugPrint(error);
+                pagingController.error = error;
               });
         });
-        return () => _pagingController.dispose();
+        return () => pagingController.dispose();
       },
       const [],
     );
     return RefreshIndicator(
       onRefresh: () => Future.sync(
-        () => _pagingController.refresh(),
+        () => pagingController.refresh(),
       ),
       child: PagedListView<int, Review>(
         shrinkWrap: true,
-        pagingController: _pagingController,
+        pagingController: pagingController,
         builderDelegate: PagedChildBuilderDelegate<Review>(
           noItemsFoundIndicatorBuilder: (_) {
             return Center(

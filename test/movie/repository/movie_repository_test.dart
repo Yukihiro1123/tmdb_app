@@ -10,20 +10,20 @@ import 'package:tmdb_app/src/utils/dio/dio_provider.dart';
 class MockDio extends AutoDisposeNotifier<Dio> with Mock implements Dio {}
 
 void main() {
-  late MockDio _dio;
+  late MockDio dio;
   late ProviderContainer container;
 
   setUp(() {
-    _dio = MockDio();
+    dio = MockDio();
     container = ProviderContainer(
       overrides: [
-        dioProvider.overrideWith((ref) => _dio),
+        dioProvider.overrideWith((ref) => dio),
       ],
     );
   });
 
   tearDownAll(() {
-    reset(_dio);
+    reset(dio);
     container.dispose();
   });
   group('getNowPlayingMovies', () {
@@ -40,7 +40,7 @@ void main() {
       },
     ).toString();
     test('MovieResponse型のデータを返す.', () async {
-      when(() => _dio.get(url)).thenAnswer(
+      when(() => dio.get(url)).thenAnswer(
         (_) async => Response(
           statusCode: 200,
           data: mockResponse,
@@ -54,7 +54,7 @@ void main() {
     });
 
     test('API呼び出しの際にエラーが出たら例外を返す', () async {
-      when(() => _dio.get(url)).thenThrow(Exception('Failed to load movie'));
+      when(() => dio.get(url)).thenThrow(Exception('Failed to load movie'));
 
       expect(
           () => container

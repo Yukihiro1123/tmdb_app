@@ -11,7 +11,7 @@ class NowPlayingMovieList extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final PagingController<int, Movie> _pagingController =
+    final PagingController<int, Movie> pagingController =
         PagingController(firstPageKey: 1);
     final isMounted = useIsMounted();
     final usersViewModel = ref.watch(
@@ -19,29 +19,29 @@ class NowPlayingMovieList extends HookConsumerWidget {
     );
     useEffect(
       () {
-        _pagingController.addPageRequestListener((pageKey) {
+        pagingController.addPageRequestListener((pageKey) {
           usersViewModel.getNowPlayingMovies(
               page: pageKey,
               onSuccess: (data) {
                 if (isMounted()) {
                   if (data.page == data.totalPages) {
-                    _pagingController.appendLastPage(data.results);
+                    pagingController.appendLastPage(data.results);
                   } else {
-                    _pagingController.appendPage(data.results, pageKey + 1);
+                    pagingController.appendPage(data.results, pageKey + 1);
                   }
                 }
               },
               onError: (error) {
-                // print(error);
-                _pagingController.error = error;
+                // debugPrint(error);
+                pagingController.error = error;
               });
         });
-        return () => _pagingController.dispose();
+        return () => pagingController.dispose();
       },
       const [],
     );
     return MovieList(
-      pagingController: _pagingController,
+      pagingController: pagingController,
       noItemsFoundWidget: const SizedBox.shrink(),
     );
   }
