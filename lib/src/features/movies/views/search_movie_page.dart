@@ -67,11 +67,11 @@ class SearchMoviePage extends HookConsumerWidget {
             const SizedBox(height: 10),
             isSearching.value == false
                 ? Align(
-                    heightFactor: 12,
+                    heightFactor: 8,
                     alignment: Alignment.center,
                     child: Column(
                       children: [
-                        const Icon(Icons.movie),
+                        const Icon(Icons.movie, size: 30),
                         Text(AppLocalizations.of(context).searchByKeyword),
                       ],
                     ),
@@ -80,11 +80,11 @@ class SearchMoviePage extends HookConsumerWidget {
                     child: MovieList(
                     pagingController: pagingController,
                     noItemsFoundWidget: Align(
-                      heightFactor: 12,
+                      heightFactor: 8,
                       alignment: Alignment.center,
                       child: Column(
                         children: [
-                          const Icon(Icons.priority_high),
+                          const Icon(Icons.priority_high, size: 30),
                           Text(
                             AppLocalizations.of(context).movieNotFound,
                             style: Theme.of(context).textTheme.bodyLarge,
