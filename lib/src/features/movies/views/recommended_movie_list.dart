@@ -24,7 +24,6 @@ class RecommendedMovieList extends HookConsumerWidget {
             ref.watch(watchUpcomingMoviesControllerProvider).when(
               error: (error, stackTrace) {
                 return Center(
-                  //TODO
                   child: Text(AppLocalizations.of(context).error),
                 );
               },
@@ -44,7 +43,6 @@ class RecommendedMovieList extends HookConsumerWidget {
             ref.watch(watchPopularMoviesControllerProvider).when(
               error: (error, stackTrace) {
                 return Center(
-                  //TODO
                   child: Text(AppLocalizations.of(context).error),
                 );
               },
@@ -64,7 +62,6 @@ class RecommendedMovieList extends HookConsumerWidget {
             ref.watch(watchTopRatedMoviesControllerProvider).when(
               error: (error, stackTrace) {
                 return Center(
-                  //TODO
                   child: Text(AppLocalizations.of(context).error),
                 );
               },

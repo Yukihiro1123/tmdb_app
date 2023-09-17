@@ -24,7 +24,6 @@ class SettingsPage extends HookConsumerWidget {
               SettingsTile.navigation(
                 leading: const Icon(Icons.language),
                 title: Text(AppLocalizations.of(context).language),
-                //TODO 言語増えたら関数を作る
                 value: Text(lang == "ja" ? "日本語" : "English"),
                 onPressed: (context) {
                   context.goNamed(AppRoute.language.name);

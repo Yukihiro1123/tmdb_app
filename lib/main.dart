@@ -11,6 +11,7 @@ import 'src/utils/shared_preferences/shared_preferences_provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   final pref = await SharedPreferences.getInstance();
   // const flavor = String.fromEnvironment('flavor');
   final devicePreview = DevicePreview(
