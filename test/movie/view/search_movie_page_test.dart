@@ -11,7 +11,6 @@ import 'package:mocktail/mocktail.dart';
 import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie/movie.dart';
 import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie_response.dart';
 import 'package:tmdb_app/src/features/movies/repository/movie_repository.dart';
-import 'package:tmdb_app/src/features/movies/views/component/now_playing_movie_list.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:tmdb_app/src/features/movies/views/search_movie_page.dart';
 
