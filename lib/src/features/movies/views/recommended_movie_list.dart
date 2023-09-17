@@ -17,14 +17,14 @@ class RecommendedMovieList extends HookConsumerWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(AppLocalizations.of(context).upcoming,
+            Text(AppLocalizations.of(context)!.upcoming,
                 style: Theme.of(context).textTheme.bodyMedium),
             const SizedBox(height: 10),
             /* Upcoming */
             ref.watch(watchUpcomingMoviesControllerProvider).when(
               error: (error, stackTrace) {
                 return Center(
-                  child: Text(AppLocalizations.of(context).error),
+                  child: Text(AppLocalizations.of(context)!.error),
                 );
               },
               loading: () {
@@ -36,14 +36,14 @@ class RecommendedMovieList extends HookConsumerWidget {
                 );
               },
             ),
-            Text(AppLocalizations.of(context).popular,
+            Text(AppLocalizations.of(context)!.popular,
                 style: Theme.of(context).textTheme.bodyMedium),
             const SizedBox(height: 10),
             /* Popular */
             ref.watch(watchPopularMoviesControllerProvider).when(
               error: (error, stackTrace) {
                 return Center(
-                  child: Text(AppLocalizations.of(context).error),
+                  child: Text(AppLocalizations.of(context)!.error),
                 );
               },
               loading: () {
@@ -55,14 +55,14 @@ class RecommendedMovieList extends HookConsumerWidget {
                 );
               },
             ),
-            Text(AppLocalizations.of(context).topRated,
+            Text(AppLocalizations.of(context)!.topRated,
                 style: Theme.of(context).textTheme.bodyMedium),
             const SizedBox(height: 10),
             /* Top Rated */
             ref.watch(watchTopRatedMoviesControllerProvider).when(
               error: (error, stackTrace) {
                 return Center(
-                  child: Text(AppLocalizations.of(context).error),
+                  child: Text(AppLocalizations.of(context)!.error),
                 );
               },
               loading: () {

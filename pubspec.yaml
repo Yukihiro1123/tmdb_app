@@ -56,7 +56,7 @@ dependencies:
   adaptive_dialog: ^1.9.0-0
   device_preview:
   shimmer:
-  intl: ^0.18.1
+  intl:
   dio:
   infinite_scroll_pagination:
   flutter_rating_bar:

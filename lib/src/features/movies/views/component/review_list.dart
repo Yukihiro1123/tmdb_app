@@ -58,7 +58,7 @@ class ReviewList extends HookConsumerWidget {
             return Center(
               heightFactor: 10,
               child: Text(
-                AppLocalizations.of(context).reviewNotFound,
+                AppLocalizations.of(context)!.reviewNotFound,
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
             );
