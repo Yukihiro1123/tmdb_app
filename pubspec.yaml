@@ -64,7 +64,18 @@ dependencies:
   shared_preferences:
   settings_ui:
   flutter_staggered_animations:
+  flutter_launcher_icons:
 
+flutter_native_splash:        # 追加
+  image: "assets/images/tmdb_logo.png"  # 追加
+  color: "#ffffff"            # 追加
+  fullscreen: true            # 追加
+
+#  追加
+flutter_icons:       
+  android: true
+  ios: true
+  image_path: "assets/images/tmdb_logo.png"
 
 dev_dependencies:
   flutter_test:
