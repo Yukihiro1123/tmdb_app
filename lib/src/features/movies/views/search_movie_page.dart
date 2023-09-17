@@ -13,6 +13,7 @@ class SearchMoviePage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final PagingController<int, Movie> pagingController =
         PagingController(firstPageKey: 1);
+    final isSearching = useState(false);
     final isMounted = useIsMounted();
     final usersViewModel = ref.watch(
       movieControllerProvider.notifier,
@@ -21,6 +22,9 @@ class SearchMoviePage extends HookConsumerWidget {
 
     useEffect(
       () {
+        if (!isSearching.value) {
+          return null;
+        }
         pagingController.addPageRequestListener((pageKey) {
           usersViewModel.searchMovie(
               query: searchController.text,
@@ -41,9 +45,8 @@ class SearchMoviePage extends HookConsumerWidget {
         });
         return () => pagingController.dispose();
       },
-      const [],
+      [isSearching.value],
     );
-
     return SafeArea(
       child: Scaffold(
         body: Column(
@@ -55,23 +58,41 @@ class SearchMoviePage extends HookConsumerWidget {
                 IconButton(
                   icon: const Icon(Icons.search),
                   onPressed: () {
+                    isSearching.value = true;
                     pagingController.refresh();
                   },
                 ),
               ],
             ),
             const SizedBox(height: 10),
-            Expanded(
-                child: MovieList(
-              pagingController: pagingController,
-              noItemsFoundWidget: Center(
-                  child: Text(
-                searchController.text.isEmpty
-                    ? AppLocalizations.of(context).searchByKeyword
-                    : AppLocalizations.of(context).movieNotFound,
-                style: Theme.of(context).textTheme.bodyLarge,
-              )),
-            )),
+            isSearching.value == false
+                ? Align(
+                    heightFactor: 12,
+                    alignment: Alignment.center,
+                    child: Column(
+                      children: [
+                        const Icon(Icons.movie),
+                        Text(AppLocalizations.of(context).searchByKeyword),
+                      ],
+                    ),
+                  )
+                : Expanded(
+                    child: MovieList(
+                    pagingController: pagingController,
+                    noItemsFoundWidget: Align(
+                      heightFactor: 12,
+                      alignment: Alignment.center,
+                      child: Column(
+                        children: [
+                          const Icon(Icons.priority_high),
+                          Text(
+                            AppLocalizations.of(context).movieNotFound,
+                            style: Theme.of(context).textTheme.bodyLarge,
+                          ),
+                        ],
+                      ),
+                    ),
+                  )),
           ],
         ),
       ),
