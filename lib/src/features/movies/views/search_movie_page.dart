@@ -72,7 +72,7 @@ class SearchMoviePage extends HookConsumerWidget {
                     child: Column(
                       children: [
                         const Icon(Icons.movie, size: 30),
-                        Text(AppLocalizations.of(context).searchByKeyword),
+                        Text(AppLocalizations.of(context)!.searchByKeyword),
                       ],
                     ),
                   )
@@ -86,7 +86,7 @@ class SearchMoviePage extends HookConsumerWidget {
                         children: [
                           const Icon(Icons.priority_high, size: 30),
                           Text(
-                            AppLocalizations.of(context).movieNotFound,
+                            AppLocalizations.of(context)!.movieNotFound,
                             style: Theme.of(context).textTheme.bodyLarge,
                           ),
                         ],

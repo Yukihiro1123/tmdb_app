@@ -19,10 +19,10 @@ class MovieListPage extends HookConsumerWidget {
             bottom: TabBar(
               tabs: <Widget>[
                 Tab(
-                  text: AppLocalizations.of(context).nowPlaying,
+                  text: AppLocalizations.of(context)!.nowPlaying,
                 ),
                 Tab(
-                  text: AppLocalizations.of(context).recommend,
+                  text: AppLocalizations.of(context)!.recommend,
                 ),
               ],
             ),
