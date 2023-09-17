@@ -6,7 +6,7 @@ part of 'movie_repository.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$movieRepositoryHash() => r'3d091eaf32f837d0cfea94b9658f71a3981dfb58';
+String _$movieRepositoryHash() => r'cfe2ad9d533b332dc76faf0e2f1de10cbe3ab252';
 
 /// See also [MovieRepository].
 @ProviderFor(MovieRepository)

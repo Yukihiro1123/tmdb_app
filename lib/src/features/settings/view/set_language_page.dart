@@ -11,8 +11,8 @@ class SetLanguagePage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final String lang = ref.watch(langControllerProvider);
     final Map<String, String> langMap = {
-      AppLocalizations.of(context).ja.toString(): "ja",
-      AppLocalizations.of(context).en.toString(): "en"
+      AppLocalizations.of(context).ja: "ja",
+      AppLocalizations.of(context).en: "en"
     };
     return Scaffold(
       appBar: AppBar(),
@@ -23,7 +23,7 @@ class SetLanguagePage extends ConsumerWidget {
               return SettingsTile(
                 title: Text(entry.key),
                 value: Text(lang == entry.value
-                    ? AppLocalizations.of(context).currentLang.toString()
+                    ? AppLocalizations.of(context).currentLang
                     : ''),
                 onPressed: (context) async {
                   await ref

@@ -17,7 +17,7 @@ class RecommendedMovieList extends HookConsumerWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(AppLocalizations.of(context).upcoming.toString(),
+            Text(AppLocalizations.of(context).upcoming,
                 style: Theme.of(context).textTheme.bodyMedium),
             const SizedBox(height: 10),
             /* Upcoming */
@@ -25,7 +25,7 @@ class RecommendedMovieList extends HookConsumerWidget {
               error: (error, stackTrace) {
                 return Center(
                   //TODO
-                  child: Text(AppLocalizations.of(context).error.toString()),
+                  child: Text(AppLocalizations.of(context).error),
                 );
               },
               loading: () {
@@ -37,7 +37,7 @@ class RecommendedMovieList extends HookConsumerWidget {
                 );
               },
             ),
-            Text(AppLocalizations.of(context).popular.toString(),
+            Text(AppLocalizations.of(context).popular,
                 style: Theme.of(context).textTheme.bodyMedium),
             const SizedBox(height: 10),
             /* Popular */
@@ -45,7 +45,7 @@ class RecommendedMovieList extends HookConsumerWidget {
               error: (error, stackTrace) {
                 return Center(
                   //TODO
-                  child: Text(AppLocalizations.of(context).error.toString()),
+                  child: Text(AppLocalizations.of(context).error),
                 );
               },
               loading: () {
@@ -57,7 +57,7 @@ class RecommendedMovieList extends HookConsumerWidget {
                 );
               },
             ),
-            Text(AppLocalizations.of(context).topRated.toString(),
+            Text(AppLocalizations.of(context).topRated,
                 style: Theme.of(context).textTheme.bodyMedium),
             const SizedBox(height: 10),
             /* Top Rated */
@@ -65,7 +65,7 @@ class RecommendedMovieList extends HookConsumerWidget {
               error: (error, stackTrace) {
                 return Center(
                   //TODO
-                  child: Text(AppLocalizations.of(context).error.toString()),
+                  child: Text(AppLocalizations.of(context).error),
                 );
               },
               loading: () {

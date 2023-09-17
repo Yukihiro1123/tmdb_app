@@ -56,7 +56,7 @@ dependencies:
   adaptive_dialog: ^1.9.0-0
   device_preview:
   shimmer:
-  intl:
+  intl: ^0.18.1
   dio:
   infinite_scroll_pagination:
   flutter_rating_bar:
@@ -75,7 +75,7 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^2.0.0
+  flutter_lints:
   json_serializable:
   freeze:
   build_runner:

@@ -67,8 +67,8 @@ class SearchMoviePage extends HookConsumerWidget {
               noItemsFoundWidget: Center(
                   child: Text(
                 searchController.text.isEmpty
-                    ? AppLocalizations.of(context).searchByKeyword.toString()
-                    : AppLocalizations.of(context).movieNotFound.toString(),
+                    ? AppLocalizations.of(context).searchByKeyword
+                    : AppLocalizations.of(context).movieNotFound,
                 style: Theme.of(context).textTheme.bodyLarge,
               )),
             )),
