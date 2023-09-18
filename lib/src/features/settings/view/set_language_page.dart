@@ -25,10 +25,8 @@ class SetLanguagePage extends ConsumerWidget {
                 value: Text(lang == entry.value
                     ? AppLocalizations.of(context)!.currentLang
                     : ''),
-                onPressed: (context) async {
-                  await ref
-                      .read(langControllerProvider.notifier)
-                      .changeLang(lang: entry.value);
+                onPressed: (_) {
+                  _changeLang(ref: ref, lang: entry.value);
                 },
               );
             }).toList(),
@@ -36,5 +34,9 @@ class SetLanguagePage extends ConsumerWidget {
         ],
       ),
     );
+  }
+
+  void _changeLang({required WidgetRef ref, required String lang}) async {
+    await ref.read(langControllerProvider.notifier).changeLang(lang: lang);
   }
 }
