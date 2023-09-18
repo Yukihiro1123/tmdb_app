@@ -3,6 +3,8 @@ import 'package:go_router/go_router.dart';
 import 'package:tmdb_app/src/features/movies/views/movie_detail_page.dart';
 import 'package:tmdb_app/src/features/movies/views/search_movie_page.dart';
 import 'package:tmdb_app/src/features/navigation/bottom_navigation.dart';
+import 'package:tmdb_app/src/features/settings/view/set_language_page.dart';
+import 'package:tmdb_app/src/features/settings/view/settings_page.dart';
 import 'package:tmdb_app/src/routing/router_utils.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:tmdb_app/src/features/movies/views/movie_list_page.dart';
@@ -11,11 +13,11 @@ part 'app_router.g.dart';
 @riverpod
 GoRouter goRouter(GoRouterRef ref) {
   // このGlobalKeyは、GoRouterのインスタンスを取得するために必要です。
-  final _rootNavigatorKey = GlobalKey<NavigatorState>();
+  final rootNavigatorKey = GlobalKey<NavigatorState>();
 // このGlobalKeyは、各タブのGoRouterインスタンスを取得するために必要です。
-  final _sectionNavigatorKey = GlobalKey<NavigatorState>();
+  final sectionNavigatorKey = GlobalKey<NavigatorState>();
   return GoRouter(
-      navigatorKey: _rootNavigatorKey,
+      navigatorKey: rootNavigatorKey,
       debugLogDiagnostics: false,
       initialLocation: AppRoute.movies.path,
       routes: [
@@ -27,7 +29,7 @@ GoRouter goRouter(GoRouterRef ref) {
           },
           branches: [
             StatefulShellBranch(
-              navigatorKey: _sectionNavigatorKey,
+              navigatorKey: sectionNavigatorKey,
               // このブランチルートを追加する
               // 各ルートとそのサブルート (利用可能な場合) 例: feed/uuid/details
               routes: <RouteBase>[
@@ -46,7 +48,7 @@ GoRouter goRouter(GoRouterRef ref) {
                         name: AppRoute.movie.name,
                         pageBuilder: (context, state) {
                           final String movieId =
-                              state.uri.queryParameters['movieId']!;
+                              state.pathParameters['movieId']!;
                           return NoTransitionPage(
                             key: state.pageKey,
                             child: MovieDetailPage(
@@ -72,6 +74,34 @@ GoRouter goRouter(GoRouterRef ref) {
                       child: SearchMoviePage(key: state.pageKey),
                     );
                   },
+                ),
+              ],
+            ),
+            StatefulShellBranch(
+              // このブランチルートを追加する
+              // 各ルートとそのサブルート (利用可能な場合) 例: feed/uuid/details
+              routes: <RouteBase>[
+                GoRoute(
+                  path: AppRoute.settings.path,
+                  name: AppRoute.settings.name,
+                  pageBuilder: (context, state) {
+                    return NoTransitionPage(
+                      key: state.pageKey,
+                      child: SettingsPage(key: state.pageKey),
+                    );
+                  },
+                  routes: <RouteBase>[
+                    GoRoute(
+                      path: AppRoute.language.path,
+                      name: AppRoute.language.name,
+                      pageBuilder: (context, state) {
+                        return NoTransitionPage(
+                          key: state.pageKey,
+                          child: SetLanguagePage(key: state.pageKey),
+                        );
+                      },
+                    ),
+                  ],
                 ),
               ],
             ),
