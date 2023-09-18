@@ -26,12 +26,12 @@ class SettingsPage extends HookConsumerWidget {
                 title: Text(AppLocalizations.of(context)!.language),
                 value: Text(lang == "ja" ? "日本語" : "English"),
                 onPressed: (context) {
-                  context.goNamed(AppRoute.language.name);
+                  _goToLangPage(context);
                 },
               ),
               SettingsTile.switchTile(
-                onToggle: (_) async {
-                  ref.read(themeControllerProvider.notifier).toggleTheme();
+                onToggle: (_) {
+                  _toggleTheme(ref);
                 },
                 initialValue: darkMode,
                 leading: const Icon(Icons.dark_mode),
@@ -42,5 +42,15 @@ class SettingsPage extends HookConsumerWidget {
         ],
       ),
     );
+  }
+
+  void _goToLangPage(BuildContext context) {
+    if (context.mounted) {
+      context.goNamed(AppRoute.language.name);
+    }
+  }
+
+  void _toggleTheme(WidgetRef ref) {
+    ref.read(themeControllerProvider.notifier).toggleTheme();
   }
 }
