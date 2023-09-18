@@ -7,63 +7,46 @@ import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie/mov
 import 'package:tmdb_app/src/features/movies/views/component/movie_list.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class SearchMoviePage extends StatefulHookConsumerWidget {
+class SearchMoviePage extends HookConsumerWidget {
   const SearchMoviePage({super.key});
-
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() =>
-      _SearchMoviePageState();
-}
-
-class _SearchMoviePageState extends ConsumerState<SearchMoviePage> {
-  final PagingController<int, Movie> _pagingController =
-      PagingController(firstPageKey: 1);
-
-  String? _searchTerm;
-  @override
-  void initState() {
-    _pagingController.addPageRequestListener((pageKey) {
-      _fetchPage(pageKey);
-    });
-    super.initState();
-  }
-
-  Future<void> _fetchPage(int pageKey) async {
-    try {
-      final newItems = await ref
-          .read(movieControllerProvider.notifier)
-          .searchMovie(page: pageKey, query: _searchTerm ?? '');
-      if (mounted) {
-        final isLastPage = newItems.page == newItems.totalPages;
-
-        if (isLastPage) {
-          _pagingController.appendLastPage(newItems.results);
-        } else {
-          final nextPageKey = pageKey + 1;
-          _pagingController.appendPage(newItems.results, nextPageKey);
-        }
-      }
-    } catch (error) {
-      print(error);
-      _pagingController.error = error;
-    }
-  }
-
-  void _updateSearchTerm(String searchTerm) {
-    _searchTerm = searchTerm;
-    _pagingController.refresh();
-  }
-
-  @override
-  void dispose() {
-    _pagingController.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final PagingController<int, Movie> pagingController =
+        PagingController(firstPageKey: 1);
+    final isSearching = useState(false);
+    final isMounted = useIsMounted();
+    final usersViewModel = ref.watch(
+      movieControllerProvider.notifier,
+    );
     final TextEditingController searchController = useTextEditingController();
-    final hasSearched = useState(false);
+
+    useEffect(
+      () {
+        if (!isSearching.value) {
+          return null;
+        }
+        pagingController.addPageRequestListener((pageKey) {
+          usersViewModel.searchMovie(
+              query: searchController.text,
+              page: pageKey,
+              onSuccess: (data) {
+                if (isMounted()) {
+                  if (data.page == data.totalPages) {
+                    pagingController.appendLastPage(data.results);
+                  } else {
+                    pagingController.appendPage(data.results, pageKey + 1);
+                  }
+                }
+              },
+              onError: (error) {
+                // debugPrint(error);
+                pagingController.error = error;
+              });
+        });
+        return () => pagingController.dispose();
+      },
+      [isSearching.value],
+    );
     return SafeArea(
       child: Scaffold(
         body: Column(
@@ -75,33 +58,41 @@ class _SearchMoviePageState extends ConsumerState<SearchMoviePage> {
                 IconButton(
                   icon: const Icon(Icons.search),
                   onPressed: () {
-                    hasSearched.value = true;
-                    _updateSearchTerm(searchController.text);
+                    isSearching.value = true;
+                    pagingController.refresh();
                   },
                 ),
               ],
             ),
             const SizedBox(height: 10),
-            Expanded(
-              child: MovieList(
-                pagingController: _pagingController,
-                noItemsFoundWidget: Center(
-                  heightFactor: 6,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Icon(Icons.search, size: 50),
-                      Text(
-                        hasSearched.value == false
-                            ? AppLocalizations.of(context).searchByKeyword
-                            : AppLocalizations.of(context).movieNotFound,
-                        style: Theme.of(context).textTheme.bodyLarge,
-                      )
-                    ],
-                  ),
-                ),
-              ),
-            ),
+            isSearching.value == false
+                ? Align(
+                    heightFactor: 8,
+                    alignment: Alignment.center,
+                    child: Column(
+                      children: [
+                        const Icon(Icons.movie, size: 30),
+                        Text(AppLocalizations.of(context)!.searchByKeyword),
+                      ],
+                    ),
+                  )
+                : Expanded(
+                    child: MovieList(
+                    pagingController: pagingController,
+                    noItemsFoundWidget: Align(
+                      heightFactor: 8,
+                      alignment: Alignment.center,
+                      child: Column(
+                        children: [
+                          const Icon(Icons.priority_high, size: 30),
+                          Text(
+                            AppLocalizations.of(context)!.movieNotFound,
+                            style: Theme.of(context).textTheme.bodyLarge,
+                          ),
+                        ],
+                      ),
+                    ),
+                  )),
           ],
         ),
       ),

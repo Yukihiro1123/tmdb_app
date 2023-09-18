@@ -13,11 +13,11 @@ part 'app_router.g.dart';
 @riverpod
 GoRouter goRouter(GoRouterRef ref) {
   // このGlobalKeyは、GoRouterのインスタンスを取得するために必要です。
-  final _rootNavigatorKey = GlobalKey<NavigatorState>();
+  final rootNavigatorKey = GlobalKey<NavigatorState>();
 // このGlobalKeyは、各タブのGoRouterインスタンスを取得するために必要です。
-  final _sectionNavigatorKey = GlobalKey<NavigatorState>();
+  final sectionNavigatorKey = GlobalKey<NavigatorState>();
   return GoRouter(
-      navigatorKey: _rootNavigatorKey,
+      navigatorKey: rootNavigatorKey,
       debugLogDiagnostics: false,
       initialLocation: AppRoute.movies.path,
       routes: [
@@ -29,7 +29,7 @@ GoRouter goRouter(GoRouterRef ref) {
           },
           branches: [
             StatefulShellBranch(
-              navigatorKey: _sectionNavigatorKey,
+              navigatorKey: sectionNavigatorKey,
               // このブランチルートを追加する
               // 各ルートとそのサブルート (利用可能な場合) 例: feed/uuid/details
               routes: <RouteBase>[
@@ -48,7 +48,7 @@ GoRouter goRouter(GoRouterRef ref) {
                         name: AppRoute.movie.name,
                         pageBuilder: (context, state) {
                           final String movieId =
-                              state.uri.queryParameters['movieId']!;
+                              state.pathParameters['movieId']!;
                           return NoTransitionPage(
                             key: state.pageKey,
                             child: MovieDetailPage(

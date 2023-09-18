@@ -24,9 +24,9 @@ class MovieDetailPage extends HookConsumerWidget {
           .when(
             skipLoadingOnReload: true,
             error: (error, stackTrace) {
-              print(error);
+              debugPrint(error.toString());
               return Center(
-                child: Text(AppLocalizations.of(context).movieDetailError),
+                child: Text(AppLocalizations.of(context)!.error.toString()),
               );
             },
             loading: () => const MovieDetailShimmer(),
@@ -88,7 +88,7 @@ class MovieDetailPage extends HookConsumerWidget {
                             CategoryChips(movie: movie),
                             const SizedBox(height: 10),
                             Text(
-                                "${AppLocalizations.of(context).releaseDate}:${movie.releaseDate.toString()}"),
+                                "${AppLocalizations.of(context)!.releaseDate.toString()}:${movie.releaseDate.toString()}"),
                             const SizedBox(height: 10),
                             movie.productionCompanies == null
                                 ? const SizedBox.shrink()
@@ -96,8 +96,10 @@ class MovieDetailPage extends HookConsumerWidget {
                                     children: [
                                       Align(
                                         alignment: Alignment.topLeft,
-                                        child: Text(AppLocalizations.of(context)
-                                            .productionCompanies),
+                                        child: Text(
+                                            AppLocalizations.of(context)!
+                                                .productionCompanies
+                                                .toString()),
                                       ),
                                       Column(
                                         children: [
@@ -121,22 +123,25 @@ class MovieDetailPage extends HookConsumerWidget {
                                 _openExternalSite(movie.homepage);
                               },
                               icon: const Icon(Icons.link),
-                              label:
-                                  Text(AppLocalizations.of(context).homePage),
+                              label: Text(AppLocalizations.of(context)!
+                                  .homePage
+                                  .toString()),
                             ),
                             const SizedBox(height: 10),
                             Row(
                               children: [
                                 Text(
-                                    "${AppLocalizations.of(context).review}:${movie.voteAverage.toString()}/10"),
+                                    "${AppLocalizations.of(context)!.review.toString()}:${movie.voteAverage.toString()}/10"),
                                 const SizedBox(width: 10),
                                 Text(
-                                    "(${movie.voteCount}${AppLocalizations.of(context).reviewedBy})"),
+                                    "(${movie.voteCount}${AppLocalizations.of(context)!.reviewedBy.toString()})"),
                               ],
                             ),
-                            Text(AppLocalizations.of(context).review),
+                            Text(AppLocalizations.of(context)!
+                                .review
+                                .toString()),
                             SizedBox(
-                              height: 300,
+                              height: MediaQuery.sizeOf(context).height * 0.3,
                               child: ReviewList(movieId: movieId),
                             ),
                           ],

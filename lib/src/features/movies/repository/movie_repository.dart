@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:tmdb_app/env.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:tmdb_app/src/features/movies/dao/database.dart';
@@ -32,10 +33,15 @@ class MovieRepository extends _$MovieRepository {
           'page': '$page',
         },
       ).toString();
+      debugPrint("repository $page");
       final response = await state.get(url);
-      return MovieResponse.fromJson(response.data);
+      if (response.statusCode == 200) {
+        return MovieResponse.fromJson(response.data);
+      } else {
+        throw Exception('Failed to load movie');
+      }
     } on DioException catch (e) {
-      print(e);
+      debugPrint(e.toString());
       rethrow;
     }
   }
@@ -56,7 +62,49 @@ class MovieRepository extends _$MovieRepository {
       final response = await state.get(url);
       return MovieResponse.fromJson(response.data);
     } on DioException catch (e) {
-      print(e);
+      debugPrint(e.toString());
+      rethrow;
+    }
+  }
+
+  Future<MovieResponse> getPopularMovies() async {
+    try {
+      final String url = Uri(
+        scheme: 'https',
+        host: 'api.themoviedb.org',
+        path: '3/movie/popular',
+        queryParameters: {
+          'language': 'ja-JP',
+          'api_key': Env.apiKey,
+          'include_adult': 'false',
+          'page': '1',
+        },
+      ).toString();
+      final response = await state.get(url);
+      return MovieResponse.fromJson(response.data);
+    } on DioException catch (e) {
+      debugPrint(e.toString());
+      rethrow;
+    }
+  }
+
+  Future<MovieResponse> getTopRatedMovies() async {
+    try {
+      final String url = Uri(
+        scheme: 'https',
+        host: 'api.themoviedb.org',
+        path: '3/movie/top_rated',
+        queryParameters: {
+          'language': 'ja-JP',
+          'api_key': Env.apiKey,
+          'include_adult': 'false',
+          'page': '1',
+        },
+      ).toString();
+      final response = await state.get(url);
+      return MovieResponse.fromJson(response.data);
+    } on DioException catch (e) {
+      debugPrint(e.toString());
       rethrow;
     }
   }
@@ -82,7 +130,7 @@ class MovieRepository extends _$MovieRepository {
       final response = await state.get(url);
       return MovieResponse.fromJson(response.data);
     } on DioException catch (e) {
-      print(e);
+      debugPrint(e.toString());
       rethrow;
     }
   }
@@ -101,7 +149,7 @@ class MovieRepository extends _$MovieRepository {
       final response = await state.get(url);
       return Movie.fromJson(response.data);
     } on DioException catch (e) {
-      print(e);
+      debugPrint(e.toString());
       rethrow;
     }
   }
@@ -123,7 +171,7 @@ class MovieRepository extends _$MovieRepository {
       final response = await state.get(url);
       return ReviewResponse.fromJson(response.data);
     } on DioException catch (e) {
-      print(e);
+      debugPrint(e.toString());
       rethrow;
     }
   }

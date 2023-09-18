@@ -1,4 +1,3 @@
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie/movie.dart';
 import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie_response.dart';
@@ -14,51 +13,50 @@ class MovieController extends _$MovieController {
     return const AsyncData(null);
   }
 
-  Future<MovieResponse> getNowPlayingMovies({
+  Future<void> getNowPlayingMovies({
     required int page,
+    required void Function(MovieResponse) onSuccess,
+    required void Function(String) onError,
   }) async {
     try {
-      return await ref
+      final response = await ref
           .read(movieRepositoryProvider.notifier)
           .getNowPlayingMovies(page: page);
+      onSuccess(response);
     } catch (e) {
-      rethrow;
+      onError('error');
     }
   }
 
-  Future<MovieResponse> getUpcomingMovies() async {
-    try {
-      return await ref
-          .read(movieRepositoryProvider.notifier)
-          .getUpcomingMovies();
-    } catch (e) {
-      rethrow;
-    }
-  }
-
-  Future<ReviewResponse> getMovieReview({
+  Future<void> getMovieReview({
     required int movieId,
     required int page,
+    required void Function(ReviewResponse) onSuccess,
+    required void Function(String) onError,
   }) async {
     try {
-      return await ref
+      final response = await ref
           .read(movieRepositoryProvider.notifier)
           .getMovieReview(movieId: movieId, page: page);
+      onSuccess(response);
     } catch (e) {
-      rethrow;
+      onError('error');
     }
   }
 
-  Future<MovieResponse> searchMovie({
+  Future<void> searchMovie({
     required String query,
     required int page,
+    required void Function(MovieResponse) onSuccess,
+    required void Function(String) onError,
   }) async {
     try {
-      return await ref
+      final response = await ref
           .read(movieRepositoryProvider.notifier)
           .searchMovie(query: query, page: page);
+      onSuccess(response);
     } catch (e) {
-      rethrow;
+      onError('error');
     }
   }
 }
@@ -77,4 +75,16 @@ Future<Movie> watchMovieDetailController(
 Future<MovieResponse> watchUpcomingMoviesController(
     WatchUpcomingMoviesControllerRef ref) async {
   return await ref.read(movieRepositoryProvider.notifier).getUpcomingMovies();
+}
+
+@riverpod
+Future<MovieResponse> watchPopularMoviesController(
+    WatchPopularMoviesControllerRef ref) async {
+  return await ref.read(movieRepositoryProvider.notifier).getPopularMovies();
+}
+
+@riverpod
+Future<MovieResponse> watchTopRatedMoviesController(
+    WatchTopRatedMoviesControllerRef ref) async {
+  return await ref.read(movieRepositoryProvider.notifier).getTopRatedMovies();
 }

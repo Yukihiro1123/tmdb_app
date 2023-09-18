@@ -43,12 +43,13 @@ dependencies:
   flutter_hooks:
   riverpod_generator:
   riverpod_lint:
+  riverpod_annotation:
   go_router:
   json_annotation:
   freezed:
   freezed_annotation:
   cached_network_image:
-  flutter_screenutil:
+  # flutter_screenutil:
   carousel_slider:
   auto_size_text:
   flutter_native_splash: ^2.3.2
@@ -67,7 +68,18 @@ dependencies:
   sqlite3_flutter_libs:
   path_provider:
   path:
+  flutter_launcher_icons:
 
+flutter_native_splash:        # 追加
+  image: "assets/images/tmdb_logo.png"  # 追加
+  color: "#ffffff"            # 追加
+  fullscreen: true            # 追加
+
+#  追加
+flutter_icons:       
+  android: true
+  ios: true
+  image_path: "assets/images/tmdb_logo.png"
 
 dev_dependencies:
   flutter_test:
@@ -78,12 +90,15 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^2.0.0
+  flutter_lints:
   json_serializable:
   freeze:
   build_runner:
   drift_dev:
   flutter_svg:
+  http_mock_adapter:
+  mockito:
+  mocktail:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
