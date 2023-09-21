@@ -16,7 +16,7 @@ jobs:
       matrix:
         device:
           # The available simulators are listed by the "xcrun xctrace list devices" command
-          - "iPhone 14 Simulator (16.2)" 
+          - "iPhone 14 Simulator" 
       fail-fast: true
     steps:
       - name: "List all simulators"
