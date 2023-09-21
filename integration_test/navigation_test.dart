@@ -1,50 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-// import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tmdb_app/main.dart';
-// import 'package:tmdb_app/src/features/settings/lang/controller/lang_controller.dart';
-// import 'package:tmdb_app/src/features/settings/theme/controller/theme_controller.dart';
 import 'package:tmdb_app/src/routing/app_router.dart';
 import 'package:tmdb_app/src/utils/shared_preferences/shared_preferences_provider.dart';
-// import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MockSharedPreferences extends AutoDisposeNotifier<SharedPreferences>
     with Mock
     implements SharedPreferences {}
 
-// class MockThemeController extends AutoDisposeNotifier<bool>
-//     with Mock
-//     implements ThemeController {
-//   @override
-//   bool build() {
-//     return false;
-//   }
-// }
-
-// class MockLangController extends AutoDisposeNotifier<String>
-//     with Mock
-//     implements LangController {
-//   @override
-//   String build() {
-//     return 'ja';
-//   }
-// }
-
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group('end-to-end test', () {
-    // late MockLangController mockLangController;
-    // late MockThemeController mockThemeController;
     late MockSharedPreferences mockSharedPreferences;
     late ProviderContainer container;
     setUp(() {
-      // mockLangController = MockLangController();
-      // mockThemeController = MockThemeController();
       mockSharedPreferences = MockSharedPreferences();
       container = ProviderContainer();
     });
@@ -52,7 +26,7 @@ void main() {
       reset(mockSharedPreferences);
       container.dispose();
     });
-    testWidgets('ボトムナビゲーションから画面遷移が適切に行われる', (tester) async {
+    testWidgets('統合テスト', (tester) async {
       final router = container.read(goRouterProvider);
       await tester.pumpWidget(
         ProviderScope(
@@ -60,8 +34,6 @@ void main() {
             goRouterProvider.overrideWith((ref) => router),
             sharedPreferencesProvider
                 .overrideWith((ref) => mockSharedPreferences),
-            // langControllerProvider.overrideWith(() => mockLangController),
-            // themeControllerProvider.overrideWith(() => mockThemeController)
           ],
           child: const MyApp(),
         ),
@@ -76,6 +48,43 @@ void main() {
       await tester.tap(find.byIcon(Icons.settings));
       await tester.pumpAndSettle();
       expect(find.text('設定'), findsOneWidget);
+      expect(find.text("言語"), findsOneWidget);
+      //ダークモード切り替えテスト
+      expect(find.text("ダークモード"), findsOneWidget);
+      await tester.tap(find.text("ダークモード"));
+      await tester.pumpAndSettle();
+      expect(
+        Theme.of(tester.element(find.text("ダークモード"))).brightness,
+        equals(Brightness.dark),
+      );
+      //言語切り替えテスト
+      await tester.tap(find.text("言語"));
+      await tester.pumpAndSettle();
+      expect(find.text("英語"), findsOneWidget);
+      await tester.tap(find.text("英語"));
+      await tester.pumpAndSettle();
+      expect(find.text("Japanese"), findsOneWidget);
+      await tester.tap(find.byIcon(Icons.arrow_back_ios));
+      await tester.pumpAndSettle();
+      expect(find.text("Language"), findsOneWidget);
+      //ライトモード切り替えテスト
+      expect(find.text("dark theme"), findsOneWidget);
+      await tester.tap(find.text("dark theme"));
+      await tester.pumpAndSettle();
+      expect(
+        Theme.of(tester.element(find.text("dark theme"))).brightness,
+        equals(Brightness.light),
+      );
+      //言語切り替えテスト
+      await tester.tap(find.text("Language"));
+      await tester.pumpAndSettle();
+      expect(find.text("Japanese"), findsOneWidget);
+      await tester.tap(find.text("Japanese"));
+      await tester.pumpAndSettle();
+      expect(find.text("日本語"), findsOneWidget);
+      await tester.tap(find.byIcon(Icons.arrow_back_ios));
+      await tester.pumpAndSettle();
+      expect(find.text("言語"), findsOneWidget);
     });
   });
 }
