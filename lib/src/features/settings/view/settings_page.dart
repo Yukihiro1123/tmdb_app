@@ -30,9 +30,10 @@ class SettingsPage extends HookConsumerWidget {
                 },
               ),
               SettingsTile.switchTile(
-                onToggle: (_) {
+                onPressed: (_) {
                   _toggleTheme(ref);
                 },
+                onToggle: (_) {},
                 initialValue: darkMode,
                 leading: const Icon(Icons.dark_mode),
                 title: Text(AppLocalizations.of(context)!.darkTheme),

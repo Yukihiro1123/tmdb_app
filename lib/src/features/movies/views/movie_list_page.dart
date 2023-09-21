@@ -31,8 +31,8 @@ class MovieListPage extends HookConsumerWidget {
             padding: EdgeInsets.all(8.0),
             child: TabBarView(
               children: [
-                Expanded(child: NowPlayingMovieList()),
-                Expanded(child: RecommendedMovieList()),
+                NowPlayingMovieList(),
+                RecommendedMovieList(),
               ],
             ),
           ),
