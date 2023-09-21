@@ -1,0 +1,81 @@
+name: Flutter_Integration_Test
+
+#on: [] で、[]が実行された際に
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+env:
+  API_KEY: ${{secrets.API_KEY}}
+
+jobs:
+  ios:
+    flutter_integration_test:
+      runs-on: macos-latest
+      timeout-minutes: 10
+      strategy:
+        matrix:
+          device:
+            # The available simulators are listed by the "xcrun xctrace list devices" command
+            - "iPhone 14 Simulator (16.4)" 
+        fail-fast: true
+      steps:
+        - name: "List all simulators"
+          run: "xcrun xctrace list devices"
+        - name: "Start Simulator"
+          run: |
+              UDID=$(xcrun xctrace list devices | grep "^${{ matrix.device }}" | awk '{gsub(/[()]/,""); print $NF}')
+              echo $UDID
+              xcrun simctl boot "${UDID:?No Simulator with this name found}"
+        #ソースコードを取得
+        - uses: actions/checkout@v3
+          with:
+            #fetch-depth を指定しないと、
+            #push 直前のコミットが取得できない
+            fetch-depth: 1
+        - uses: subosito/flutter-action@v2
+          with:
+            channel: 'stable'
+            cache: true
+        - run: flutter pub get
+        - run: flutter gen-l10n
+        - run: flutter pub run build_runner build --delete-conflicting-outputs
+        - uses: vhanda/flutter-build-runner-action@v1
+          with:
+            output_paths: |
+              lib/generated/
+              lib/**/*.g.dart
+        - run: flutter test integration_test
+  # android:
+  #   runs-on: macos-latest
+  #   strategy:
+  #     matrix:
+  #       api-level:
+  #         - 33
+  #         # you can add more API level if you want to run your tests on different API
+  #     fail-fast: true
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #         with:
+  #           #fetch-depth を指定しないと、
+  #           #push 直前のコミットが取得できない
+  #           fetch-depth: 1
+  #       - uses: subosito/flutter-action@v2
+  #         with:
+  #           channel: 'stable'
+  #           cache: true
+  #       - run: flutter pub get
+  #       - run: flutter gen-l10n
+  #       - run: flutter pub run build_runner build --delete-conflicting-outputs
+  #       - uses: vhanda/flutter-build-runner-action@v1
+  #         with:
+  #           output_paths: |
+  #             lib/generated/
+  #             lib/**/*.g.dart
+  #       - run: flutter test integration_test
+  #       - uses: reactivecircus/android-emulator-runner@v2
+  #       with:
+  #         api-level: ${{ matrix.api-level }}
+  #         arch: x86_64
+  #         profile: Nexus 6
+  #         script: flutter test integration_test
