@@ -113,6 +113,7 @@ class MovieRepository extends _$MovieRepository {
     required int page,
   }) async {
     try {
+      print(page);
       final String url = Uri(
         scheme: 'https',
         host: 'api.themoviedb.org',

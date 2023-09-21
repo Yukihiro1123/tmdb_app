@@ -43,9 +43,6 @@ class MovieList extends StatelessWidget {
           noItemsFoundIndicatorBuilder: (context) {
             return noItemsFoundWidget;
           },
-          newPageProgressIndicatorBuilder: (context) {
-            return const CircularProgressIndicator();
-          },
           itemBuilder: (context, item, index) {
             return AnimationConfiguration.staggeredGrid(
               duration: const Duration(milliseconds: 375),

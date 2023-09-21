@@ -49,6 +49,7 @@ class SearchMoviePage extends HookConsumerWidget {
     );
     return SafeArea(
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         body: Column(
           children: [
             const SizedBox(height: 10),
