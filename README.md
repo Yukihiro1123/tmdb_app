@@ -6,7 +6,13 @@ TMDB APIを用いて作成した映画アプリ
 
 - 無限スクロールの実装（リストの下までスクロールするとapiからデータを追加で読み込み表示する）
 - アニメーション
-- Github Actionによる自動コード解析、Unit/Widget Test
+- Github Actionによる自動コード解析、Unit/Widget/Integration Testつき
+
+## TODO
+
+- 統合テストもっとゆっくりスクロール
+- 映画詳細画面、おすすめ映画画面のテスト
+- 映画詳細画面のホームページから外部サイトに飛べるかテスト
 
 ## プレビュー
 
@@ -17,6 +23,3 @@ TMDB APIを用いて作成した映画アプリ
 | 設定画面(ダークモード、言語設定変更)   | ![download-3](https://github.com/Yukihiro1123/tmdb_app/assets/85789574/0aff7dae-5008-4ebf-87d6-826562f3f203) |
 |レスポンシブ対応 | <img width="200" alt="スクリーンショット 2023-09-18 20 21 46" src="https://github.com/Yukihiro1123/tmdb_app/assets/85789574/4de3bff2-1c7e-4728-95c5-0b6dfefcf29d"><img width="400" alt="スクリーンショット 2023-09-18 20 22 52" src="https://github.com/Yukihiro1123/tmdb_app/assets/85789574/f1db8339-e8d1-4910-a2a6-54b2fa58d0c1"> |
 | ------------- | ------------- |
-
-
-Github Actionによるコード解析、Unit/Widget Testつき
