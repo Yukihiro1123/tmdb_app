@@ -16,15 +16,20 @@ jobs:
       matrix:
         device:
           # The available simulators are listed by the "xcrun xctrace list devices" command
-          - "iPhone 14 Simulator (16.4)" 
+          - "iPhone 14 Simulator (16.2)" 
       fail-fast: true
     steps:
       - name: "List all simulators"
         run: "xcrun xctrace list devices"
       - name: "Start Simulator"
         run: |
-          UDID=$(xcrun xctrace list devices | grep "^${{ matrix.device }}" | awk '{gsub(/[()]/,""); print $NF}')
-          echo $UDID
+          UDID=$(
+            xcrun instruments -s |
+            awk \
+              -F ' *[][]' \
+              -v 'device=${{ matrix.device }}' \
+              '$1 == device { print $2 }'
+          )
           xcrun simctl boot "${UDID:?No Simulator with this name found}"
       #ソースコードを取得
       - uses: actions/checkout@v3
