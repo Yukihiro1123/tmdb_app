@@ -23,7 +23,7 @@ jobs:
         run: "xcrun xctrace list devices"
       - name: "Start Simulator"
         run: |
-          UDID=$(xcrun xctrace list devices | grep "^${{ matrix.device }}" | awk '{gsub(/[()]/,""); print $NF}')
+          UDID=$(xcrun xctrace list devices | grep "^${{ matrix.device }}" | grep -v "Apple Watch" | awk '{gsub(/[()]/,""); print $NF}')
           echo $UDID
           xcrun simctl boot "${UDID:?No Simulator with this name found}"
       #ソースコードを取得
