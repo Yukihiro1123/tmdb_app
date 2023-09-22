@@ -16,8 +16,6 @@ import 'package:tmdb_app/src/features/movies/views/search_movie_page.dart';
 
 class MockDio extends AutoDisposeNotifier<Dio> with Mock implements Dio {}
 
-class MockPagingController with Mock implements PagingController<int, Movie> {}
-
 class MockMovieRepository extends AutoDisposeNotifier<Dio>
     with Mock
     implements MovieRepository {}
@@ -25,18 +23,15 @@ class MockMovieRepository extends AutoDisposeNotifier<Dio>
 void main() {
   late MockDio dio;
   late MockMovieRepository movieRepository;
-  late MockPagingController pagingController;
 
   setUp(() {
     HttpOverrides.global = null;
     dio = MockDio();
-    pagingController = MockPagingController();
     movieRepository = MockMovieRepository();
   });
 
   tearDownAll(() {
     reset(dio);
-    reset(pagingController);
     reset(movieRepository);
   });
   group('NowPlayingMovieList', () {

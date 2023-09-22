@@ -44,7 +44,7 @@ class CachedImage extends StatelessWidget {
         ),
       ),
       errorWidget: (context, url, dynamic error) {
-        // debugPrint("エラー：$error, url: $imageURL");
+        debugPrint("エラー：$error, url: $imageURL");
         return Container(
           width: width,
           height: height,
