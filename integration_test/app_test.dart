@@ -44,12 +44,20 @@ void main() {
       mockSharedPreferences = MockSharedPreferences();
       mockMovieRepository = MockMovieRepository();
       container = ProviderContainer();
-
+      when(() => mockDio.get(nowPlayingUrl)).thenAnswer(
+        (_) async {
+          return Response(
+            statusCode: 200,
+            data: mockNowPlayingResponse,
+            requestOptions: RequestOptions(baseUrl: searchPage1Url),
+          );
+        },
+      );
       when(() => mockDio.get(searchPage1Url)).thenAnswer(
         (_) async {
           return Response(
             statusCode: 200,
-            data: mockPage1Response,
+            data: mockSearchPage1Response,
             requestOptions: RequestOptions(baseUrl: searchPage1Url),
           );
         },
@@ -58,7 +66,7 @@ void main() {
         (_) async {
           return Response(
             statusCode: 200,
-            data: mockPage2Response,
+            data: mockSearchPage2Response,
             requestOptions: RequestOptions(baseUrl: searchPage2Url),
           );
         },
@@ -107,7 +115,7 @@ void main() {
       //スクロール
       await tester.drag(
         find.byType(PagedGridView<int, Movie>),
-        const Offset(0.0, -5000),
+        const Offset(0.0, -6000),
       );
 
       await tester.pumpAndSettle();
