@@ -59,7 +59,6 @@ class SearchMoviePage extends HookConsumerWidget {
                 IconButton(
                   icon: const Icon(Icons.search),
                   onPressed: () {
-                    primaryFocus?.unfocus();
                     isSearching.value = true;
                     pagingController.refresh();
                   },
