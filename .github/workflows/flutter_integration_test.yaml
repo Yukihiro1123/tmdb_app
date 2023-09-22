@@ -11,7 +11,7 @@ env:
 jobs:
   flutter_integration_test:
     runs-on: macos-latest
-    timeout-minutes: 10
+    timeout-minutes: 20
     strategy:
       matrix:
         device:
