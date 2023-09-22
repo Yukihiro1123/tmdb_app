@@ -59,6 +59,7 @@ class SearchMoviePage extends HookConsumerWidget {
                 IconButton(
                   icon: const Icon(Icons.search),
                   onPressed: () {
+                    primaryFocus?.unfocus();
                     isSearching.value = true;
                     pagingController.refresh();
                   },
@@ -67,10 +68,9 @@ class SearchMoviePage extends HookConsumerWidget {
             ),
             const SizedBox(height: 10),
             isSearching.value == false
-                ? Align(
-                    heightFactor: 8,
-                    alignment: Alignment.center,
+                ? Expanded(
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const Icon(Icons.movie, size: 30),
                         Text(AppLocalizations.of(context)!.searchByKeyword),
