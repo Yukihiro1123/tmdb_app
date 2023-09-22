@@ -61,6 +61,7 @@ class MovieDetailPage extends HookConsumerWidget {
                   ];
                 },
                 body: SingleChildScrollView(
+                  key: const Key("singleChildScrollView"),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: AnimationLimiter(

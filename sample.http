@@ -1,11 +1,11 @@
-# GET https://api.themoviedb.org/3/movie/popular?language=en-US&page=1&api_key=YOUR_API_KEY
+# GET https://api.themoviedb.org/3/movie/popular?language=ja-JP&page=1&api_key=YOUR_API_KEY
 
-# GET https://api.themoviedb.org/3/movie/1083862?api_key=YOUR_API_KEY
+# GET https://api.themoviedb.org/3/movie/1083862?language=ja-JP&api_key=YOUR_API_KEY
 
 # GET https://api.themoviedb.org/3/search/movie?include_adult=false&language=ja-JP&page=1&query=犬&api_key=YOUR_API_KEY
 
-# GET https://api.themoviedb.org/3/movie/upcoming?include_adult=false&language=en-US&page=1&api_key=YOUR_API_KEY
+# GET https://api.themoviedb.org/3/movie/upcoming?include_adult=false&language=ja-JP&page=1&api_key=YOUR_API_KEY
 
-# GET https://api.themoviedb.org/3/movie/now_playing?include_adult=false&language=en-US&page=1&api_key=YOUR_API_KEY
+# GET https://api.themoviedb.org/3/movie/now_playing?include_adult=false&language=ja-JP&with_original_language=ja&page=1&api_key=YOUR_API_KEY
 
-# GET https://api.themoviedb.org/3/movie/1083862/reviews?language=en-US&page=1&api_key=YOUR_API_KEY
+# GET https://api.themoviedb.org/3/movie/1083862/reviews?page=1&api_key=YOUR_API_KEY

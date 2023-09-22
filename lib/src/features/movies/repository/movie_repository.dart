@@ -32,7 +32,7 @@ class MovieRepository extends _$MovieRepository {
           'page': '$page',
         },
       ).toString();
-      debugPrint("repository $page");
+      debugPrint("now playing movie page$page");
       final response = await state.get(url);
       if (response.statusCode == 200) {
         return MovieResponse.fromJson(response.data);
@@ -113,7 +113,7 @@ class MovieRepository extends _$MovieRepository {
     required int page,
   }) async {
     try {
-      debugPrint(page.toString());
+      debugPrint("search page:${page.toString()}");
       final String url = Uri(
         scheme: 'https',
         host: 'api.themoviedb.org',
