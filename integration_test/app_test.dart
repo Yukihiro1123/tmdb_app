@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+// import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tmdb_app/main.dart';
-import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie/movie.dart';
+// import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie/movie.dart';
 import 'package:tmdb_app/src/routing/app_router.dart';
 import 'package:tmdb_app/src/utils/shared_preferences/shared_preferences_provider.dart';
 
