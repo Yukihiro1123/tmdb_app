@@ -5,6 +5,10 @@ on:
   pull_request:
     types: [opened, synchronize]
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 env:
   API_KEY: ${{secrets.API_KEY}}
 
@@ -17,7 +21,7 @@ jobs:
         device:
           # The available simulators are listed by the "xcrun xctrace list devices" command
           - "iPhone 14 Simulator (16.2)" 
-      fail-fast: true
+      fail-fast: false
     steps:
       - name: "List all simulators"
         run: "xcrun xctrace list devices"
