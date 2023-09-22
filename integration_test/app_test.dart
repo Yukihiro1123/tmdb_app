@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+// import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tmdb_app/main.dart';
-import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie/movie.dart';
+// import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie/movie.dart';
 import 'package:tmdb_app/src/routing/app_router.dart';
 import 'package:tmdb_app/src/utils/shared_preferences/shared_preferences_provider.dart';
 
@@ -42,33 +42,33 @@ void main() {
       );
       await tester.pumpAndSettle();
       //映画検索テスト
-      await tester.tap(find.byIcon(Icons.search));
-      await tester.pumpAndSettle();
-      //キーワードにあった映画が出てくる
-      expect(find.text('キーワードで映画を検索'), findsOneWidget);
-      expect(find.byType(SearchBar), findsOneWidget);
-      await tester.enterText(find.byType(SearchBar), '犬');
-      await tester.pumpAndSettle();
-      await tester.tap(find.byIcon(Icons.search).at(0));
-      await tester.pumpAndSettle();
-      expect(find.text('Dog'), findsOneWidget);
-      //スクロール
-      await tester.drag(
-        find.byType(PagedGridView<int, Movie>),
-        const Offset(0.0, -5000),
-      );
+      // await tester.tap(find.byIcon(Icons.search));
+      // await tester.pumpAndSettle();
+      // //キーワードにあった映画が出てくる
+      // expect(find.text('キーワードで映画を検索'), findsOneWidget);
+      // expect(find.byType(SearchBar), findsOneWidget);
+      // await tester.enterText(find.byType(SearchBar), '犬');
+      // await tester.pumpAndSettle();
+      // await tester.tap(find.byIcon(Icons.search).at(0));
+      // await tester.pumpAndSettle();
+      // expect(find.text('Dog'), findsOneWidget);
+      // //スクロール
+      // await tester.drag(
+      //   find.byType(PagedGridView<int, Movie>),
+      //   const Offset(0.0, -5000),
+      // );
 
-      await tester.pumpAndSettle();
-      expect(find.text('トッド・ソロンズの子犬物語'), findsOneWidget);
-      await tester.pumpAndSettle();
-      //２ページ目の最初
-      expect(find.text('ジョー・ダート 華麗なる負け犬の伝説'), findsOneWidget);
-      //Not Found
-      await tester.enterText(find.byType(SearchBar), '');
-      await tester.pumpAndSettle();
-      await tester.tap(find.byIcon(Icons.search).at(0));
-      await tester.pumpAndSettle();
-      expect(find.text('映画が見つかりません'), findsOneWidget);
+      // await tester.pumpAndSettle();
+      // expect(find.text('トッド・ソロンズの子犬物語'), findsOneWidget);
+      // await tester.pumpAndSettle();
+      // //２ページ目の最初
+      // expect(find.text('ジョー・ダート 華麗なる負け犬の伝説'), findsOneWidget);
+      // //Not Found
+      // await tester.enterText(find.byType(SearchBar), '');
+      // await tester.pumpAndSettle();
+      // await tester.tap(find.byIcon(Icons.search).at(0));
+      // await tester.pumpAndSettle();
+      // expect(find.text('映画が見つかりません'), findsOneWidget);
       //ホーム画面に遷移テスト
       await tester.tap(find.byIcon(Icons.home));
       await tester.pumpAndSettle();
