@@ -127,7 +127,15 @@ class MovieRepository extends _$MovieRepository {
           'page': '$page',
         },
       ).toString();
-      final response = await state.get(url);
+      final response = await state.get(
+        url,
+        options: Options(
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": " Bearer ${Env.apiKey}",
+          },
+        ),
+      );
       return MovieResponse.fromJson(response.data);
     } on DioException catch (e) {
       debugPrint(e.toString());
