@@ -13,6 +13,16 @@ final String nowPlayingUrl = Uri(
   },
 ).toString();
 
+final String detailPageUrl = Uri(
+  scheme: 'https',
+  host: 'api.themoviedb.org',
+  path: '3/movie/1083862',
+  queryParameters: {
+    'language': 'ja-JP',
+    'api_key': Env.apiKey,
+  },
+).toString();
+
 final String searchPage1Url = Uri(
   scheme: 'https',
   host: 'api.themoviedb.org',
@@ -50,5 +60,15 @@ final String noResultUrl = Uri(
     'api_key': Env.apiKey,
     'include_adult': 'false',
     'page': '1',
+  },
+).toString();
+
+final String reviewUrl = Uri(
+  scheme: 'https',
+  host: 'api.themoviedb.org',
+  path: '3/movie/1083862/reviews',
+  queryParameters: {
+    // 'language': 'ja-JP',
+    'api_key': Env.apiKey,
   },
 ).toString();

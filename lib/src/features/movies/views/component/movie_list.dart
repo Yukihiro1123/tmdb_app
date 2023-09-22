@@ -22,6 +22,7 @@ class MovieList extends StatelessWidget {
         () => pagingController.refresh(),
       ),
       child: PagedGridView<int, Movie>(
+        key: const Key('searchPageGridView'),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           childAspectRatio: screenWidth <= BreakPoints.mobileSize
               ? 1.4
