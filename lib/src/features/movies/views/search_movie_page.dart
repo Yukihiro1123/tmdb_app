@@ -59,6 +59,9 @@ class SearchMoviePage extends HookConsumerWidget {
                 IconButton(
                   icon: const Icon(Icons.search),
                   onPressed: () {
+                    if (searchController.text.isEmpty) {
+                      return;
+                    }
                     isSearching.value = true;
                     pagingController.refresh();
                   },
