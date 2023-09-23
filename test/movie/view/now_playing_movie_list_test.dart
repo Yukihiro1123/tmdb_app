@@ -10,6 +10,7 @@ import 'package:sembast/sembast_memory.dart';
 import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie/movie.dart';
 import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie_response.dart';
 import 'package:tmdb_app/src/features/movies/repository/movie_repository.dart';
+import 'package:tmdb_app/src/features/movies/views/component/movie_card.dart';
 import 'package:tmdb_app/src/features/movies/views/component/now_playing_movie_list.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:tmdb_app/src/utils/database/database_provider.dart';
@@ -38,7 +39,6 @@ void main() async {
 
   tearDownAll(() {
     reset(mockMovieRepository);
-    mockDatabase.close();
   });
   group('NowPlayingMovieList', () {
     testWidgets('上映中の映画一覧が表示されること', (widgetTester) async {
@@ -68,10 +68,11 @@ void main() async {
           ),
         );
         await widgetTester.pumpAndSettle();
+        expect(find.byType(MovieCard), findsWidgets);
         expect(find.text('バイオハザード：デスアイランド'), findsOneWidget);
         await widgetTester.drag(
           find.byType(PagedGridView<int, Movie>),
-          const Offset(0.0, -4000),
+          const Offset(0.0, -2000),
         );
         await widgetTester.pumpAndSettle();
         expect(find.text('シン・エヴァンゲリオン劇場版'), findsOneWidget);
