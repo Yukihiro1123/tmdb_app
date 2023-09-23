@@ -15,6 +15,8 @@ import 'package:tmdb_app/src/features/movies/repository/movie_repository.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:tmdb_app/src/features/movies/views/search_movie_page.dart';
 
+import '../../../integration_test/helper/mock_response.dart';
+
 class MockDio extends AutoDisposeNotifier<Dio> with Mock implements Dio {}
 
 class MockMovieRepository extends AutoDisposeNotifier<StoreRef>
@@ -37,9 +39,9 @@ void main() {
   });
   group('NowPlayingMovieList', () {
     testWidgets('検索結果がヒットして、映画リストが出てくる', (widgetTester) async {
-      when(() => movieRepository.searchMovie(query: "すずめ", page: 1)).thenAnswer(
+      when(() => movieRepository.searchMovie(query: "犬", page: 1)).thenAnswer(
         (_) async {
-          return MovieResponse.fromJson(mockResponse);
+          return MovieResponse.fromJson(mockSearchPage1Response);
         },
       );
       await widgetTester.runAsync(() async {
@@ -58,25 +60,23 @@ void main() {
             ),
           ),
         );
-        await widgetTester.pump();
+        await widgetTester.pumpAndSettle();
         //検索フォーム
         expect(find.byIcon(Icons.search), findsOneWidget);
         expect(find.text('キーワードで映画を検索'), findsOneWidget);
         final queryForm = find.byType(SearchBar);
-        await widgetTester.enterText(queryForm, 'すずめ');
+        await widgetTester.enterText(queryForm, '犬');
         await widgetTester.tap(find.byIcon(Icons.search));
-        await widgetTester.pump();
+        await widgetTester.pumpAndSettle();
         expect(find.text('キーワードで映画を検索'), findsNothing);
-        expect(find.byType(CircularProgressIndicator), findsWidgets);
-        await widgetTester.pump();
-        expect(find.byType(CircularProgressIndicator), findsNothing);
-        expect(find.text('Suzume'), findsOneWidget);
+        await widgetTester.pumpAndSettle();
+        expect(find.text('Dog'), findsOneWidget);
         await widgetTester.drag(
           find.byType(PagedGridView<int, Movie>),
           const Offset(0.0, -2000),
         );
-        await widgetTester.pump();
-        expect(find.text("Benisuzume's Weekend"), findsOneWidget);
+        await widgetTester.pumpAndSettle();
+        expect(find.text("トッド・ソロンズの子犬物語"), findsOneWidget);
       });
     });
 
@@ -103,18 +103,16 @@ void main() {
             ),
           ),
         );
-        await widgetTester.pump();
+        await widgetTester.pumpAndSettle();
         //検索フォーム
         expect(find.byIcon(Icons.search), findsOneWidget);
         expect(find.text('キーワードで映画を検索'), findsOneWidget);
         final queryForm = find.byType(SearchBar);
         await widgetTester.enterText(queryForm, 'dddd');
         await widgetTester.tap(find.byIcon(Icons.search));
-        await widgetTester.pump();
+        await widgetTester.pumpAndSettle();
         expect(find.text('キーワードで映画を検索'), findsNothing);
-        expect(find.byType(CircularProgressIndicator), findsWidgets);
-        await widgetTester.pump();
-        expect(find.byType(CircularProgressIndicator), findsNothing);
+        await widgetTester.pumpAndSettle();
         expect(find.text('映画が見つかりません'), findsOneWidget);
       });
     });

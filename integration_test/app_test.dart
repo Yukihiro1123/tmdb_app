@@ -59,7 +59,7 @@ void main() {
         (_) async {
           return Response(
             statusCode: 200,
-            data: mockNowPlayingResponse,
+            data: mockNowPlayingResponsePage1,
             requestOptions: RequestOptions(baseUrl: nowPlayingUrlPage1),
           );
         },
