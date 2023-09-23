@@ -7,6 +7,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 // import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:sembast/sembast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tmdb_app/main.dart';
 import 'package:tmdb_app/src/features/movies/repository/movie_repository.dart';
@@ -26,7 +27,7 @@ class MockSharedPreferences extends AutoDisposeNotifier<SharedPreferences>
     with Mock
     implements SharedPreferences {}
 
-class MockMovieRepository extends AutoDisposeNotifier<Dio>
+class MockMovieRepository extends AutoDisposeNotifier<StoreRef>
     with Mock
     implements MovieRepository {}
 

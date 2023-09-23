@@ -7,6 +7,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:sembast/sembast.dart';
 
 import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie/movie.dart';
 import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie_response.dart';
@@ -16,7 +17,7 @@ import 'package:tmdb_app/src/features/movies/views/search_movie_page.dart';
 
 class MockDio extends AutoDisposeNotifier<Dio> with Mock implements Dio {}
 
-class MockMovieRepository extends AutoDisposeNotifier<Dio>
+class MockMovieRepository extends AutoDisposeNotifier<StoreRef>
     with Mock
     implements MovieRepository {}
 

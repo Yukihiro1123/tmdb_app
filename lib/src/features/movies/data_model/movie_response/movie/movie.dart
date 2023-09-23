@@ -1,31 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:drift/drift.dart' hide JsonKey;
-import 'package:tmdb_app/src/features/movies/database/type_converter.dart';
 part 'movie.freezed.dart';
 part 'movie.g.dart';
-
-@UseRowClass(Movie)
-class Movies extends Table {
-  TextColumn get movieId => text()();
-  TextColumn get title => text()();
-  TextColumn get overview => text()();
-  TextColumn get genreIds => text()();
-  RealColumn get voteAverage => real()();
-  IntColumn get voteCount => integer()();
-  TextColumn get releaseDate => text()();
-  TextColumn get backdropPath => text()();
-  TextColumn get originalLanguage => text()();
-  TextColumn get posterPath => text()();
-  BoolColumn get isAdult => boolean()();
-  BoolColumn get isVideo => boolean()();
-  TextColumn get genres => text().map(MapConverter())();
-  TextColumn get homepage => text()();
-  TextColumn get productionCompanies => text().map(MapConverter())();
-  TextColumn get productionCountries => text().map(MapConverter())();
-  IntColumn get revenue => integer()();
-  TextColumn get status => text()();
-  TextColumn get tagline => text()();
-}
 
 @freezed
 class Movie with _$Movie {

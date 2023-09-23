@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:sembast/sembast.dart';
 import 'package:tmdb_app/env.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -13,8 +14,8 @@ part 'movie_repository.g.dart';
 @riverpod
 class MovieRepository extends _$MovieRepository {
   @override
-  Dio build() {
-    return ref.read(dioProvider);
+  StoreRef build() {
+    return StoreRef.main();
   }
 
   Future<MovieResponse> getNowPlayingMovies({
@@ -34,7 +35,7 @@ class MovieRepository extends _$MovieRepository {
         },
       ).toString();
       debugPrint("now playing movie page$page");
-      final response = await state.get(url);
+      final response = await ref.read(dioProvider).get(url);
       if (response.statusCode == 200) {
         return MovieResponse.fromJson(response.data);
       } else {
@@ -59,7 +60,7 @@ class MovieRepository extends _$MovieRepository {
           'page': '1',
         },
       ).toString();
-      final response = await state.get(url);
+      final response = await ref.read(dioProvider).get(url);
       return MovieResponse.fromJson(response.data);
     } on DioException catch (e) {
       debugPrint(e.toString());
@@ -80,7 +81,7 @@ class MovieRepository extends _$MovieRepository {
           'page': '1',
         },
       ).toString();
-      final response = await state.get(url);
+      final response = await ref.read(dioProvider).get(url);
       return MovieResponse.fromJson(response.data);
     } on DioException catch (e) {
       debugPrint(e.toString());
@@ -101,7 +102,7 @@ class MovieRepository extends _$MovieRepository {
           'page': '1',
         },
       ).toString();
-      final response = await state.get(url);
+      final response = await ref.read(dioProvider).get(url);
       return MovieResponse.fromJson(response.data);
     } on DioException catch (e) {
       debugPrint(e.toString());
@@ -128,7 +129,7 @@ class MovieRepository extends _$MovieRepository {
           'page': '$page',
         },
       ).toString();
-      final response = await state.get(url);
+      final response = await ref.read(dioProvider).get(url);
       return MovieResponse.fromJson(response.data);
     } on DioException catch (e) {
       debugPrint(e.toString());
@@ -147,7 +148,7 @@ class MovieRepository extends _$MovieRepository {
           'api_key': Env.apiKey,
         },
       ).toString();
-      final response = await state.get(url);
+      final response = await ref.read(dioProvider).get(url);
       return Movie.fromJson(response.data);
     } on DioException catch (e) {
       debugPrint(e.toString());
@@ -169,7 +170,7 @@ class MovieRepository extends _$MovieRepository {
           'api_key': Env.apiKey,
         },
       ).toString();
-      final response = await state.get(url);
+      final response = await ref.read(dioProvider).get(url);
       return ReviewResponse.fromJson(response.data);
     } on DioException catch (e) {
       debugPrint(e.toString());

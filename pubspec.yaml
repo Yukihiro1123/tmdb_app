@@ -64,8 +64,7 @@ dependencies:
   shared_preferences:
   settings_ui:
   flutter_staggered_animations:
-  drift:
-  sqlite3_flutter_libs:
+  sembast:
   path_provider:
   path:
   flutter_launcher_icons:
@@ -96,7 +95,6 @@ dev_dependencies:
   json_serializable:
   freeze:
   build_runner:
-  drift_dev:
   flutter_svg:
   http_mock_adapter:
   mockito:
