@@ -7,6 +7,10 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 // import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:path/path.dart' as path;
+import 'package:path_provider/path_provider.dart';
+import 'package:sembast/sembast.dart';
+import 'package:sembast/sembast_io.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tmdb_app/main.dart';
 import 'package:tmdb_app/src/features/movies/repository/movie_repository.dart';
@@ -14,6 +18,7 @@ import 'package:tmdb_app/src/features/movies/views/component/movie_card.dart';
 import 'package:tmdb_app/src/features/movies/views/component/review_list.dart';
 // import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie/movie.dart';
 import 'package:tmdb_app/src/routing/app_router.dart';
+import 'package:tmdb_app/src/utils/database/database_provider.dart';
 import 'package:tmdb_app/src/utils/dio/dio_provider.dart';
 import 'package:tmdb_app/src/utils/shared_preferences/shared_preferences_provider.dart';
 
@@ -22,11 +27,15 @@ import 'helper/mock_url.dart';
 
 class MockDio extends AutoDisposeNotifier<Dio> with Mock implements Dio {}
 
+class MockDatabase extends AutoDisposeNotifier<Database>
+    with Mock
+    implements Database {}
+
 class MockSharedPreferences extends AutoDisposeNotifier<SharedPreferences>
     with Mock
     implements SharedPreferences {}
 
-class MockMovieRepository extends AutoDisposeNotifier<Dio>
+class MockMovieRepository extends AutoDisposeNotifier<StoreRef>
     with Mock
     implements MovieRepository {}
 
@@ -35,21 +44,23 @@ void main() {
 
   group('end-to-end test', () {
     late MockDio mockDio;
+    late MockDatabase mockDatabase;
     late MockSharedPreferences mockSharedPreferences;
     late ProviderContainer container;
     late MockMovieRepository mockMovieRepository;
     setUp(() {
       HttpOverrides.global = null;
       mockDio = MockDio();
+      mockDatabase = MockDatabase();
       mockSharedPreferences = MockSharedPreferences();
       mockMovieRepository = MockMovieRepository();
       container = ProviderContainer();
-      when(() => mockDio.get(nowPlayingUrl)).thenAnswer(
+      when(() => mockDio.get(nowPlayingUrlPage1)).thenAnswer(
         (_) async {
           return Response(
             statusCode: 200,
-            data: mockNowPlayingResponse,
-            requestOptions: RequestOptions(baseUrl: nowPlayingUrl),
+            data: mockNowPlayingResponsePage1,
+            requestOptions: RequestOptions(baseUrl: nowPlayingUrlPage1),
           );
         },
       );
@@ -101,17 +112,24 @@ void main() {
     });
     tearDown(() {
       reset(mockDio);
+      reset(mockDatabase);
       reset(mockMovieRepository);
       reset(mockSharedPreferences);
       container.dispose();
     });
     testWidgets('統合テスト', (tester) async {
       final router = container.read(goRouterProvider);
+      final appPath = await getApplicationDocumentsDirectory();
+      appPath.createSync(recursive: true);
+      final dbPath = path.join(appPath.path, 'movies_test.db');
+      final database = await databaseFactoryIo.openDatabase(dbPath);
       await tester.pumpWidget(
         ProviderScope(
           overrides: [
             dioProvider.overrideWith((ref) => mockDio),
             goRouterProvider.overrideWith((ref) => router),
+            databaseProvider.overrideWith((ref) => mockDatabase),
+            databaseProvider.overrideWithValue(database),
             sharedPreferencesProvider
                 .overrideWith((ref) => mockSharedPreferences),
           ],

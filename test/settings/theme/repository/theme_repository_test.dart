@@ -14,12 +14,10 @@ void main() {
   late ProviderContainer container;
 
   setUp(() async {
-    // final pref = await SharedPreferences.getInstance();
     sharedPreferences = MockSharedPreferences();
     container = ProviderContainer(
       overrides: [
         sharedPreferencesProvider.overrideWith((ref) => sharedPreferences),
-        // sharedPreferencesProvider.overrideWithValue(pref),
       ],
     );
   });
