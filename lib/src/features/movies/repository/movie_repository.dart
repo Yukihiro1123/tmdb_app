@@ -7,6 +7,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie/movie.dart';
 import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie_response.dart';
 import 'package:tmdb_app/src/features/movies/data_model/review_response/review_response.dart';
+import 'package:tmdb_app/src/utils/database/database_provider.dart';
 
 import 'package:tmdb_app/src/utils/dio/dio_provider.dart';
 part 'movie_repository.g.dart';
@@ -16,6 +17,21 @@ class MovieRepository extends _$MovieRepository {
   @override
   StoreRef build() {
     return StoreRef.main();
+  }
+
+  Future<MovieResponse> insertAndReadMovieFromDB({
+    required String storePath,
+    required Map<String, dynamic> response,
+  }) async {
+    //delete
+    await state.record(storePath).delete(ref.read(databaseProvider));
+    //insert
+    await state.record(storePath).add(ref.read(databaseProvider), response);
+    //read
+    final result = await state.record(storePath).get(ref.read(databaseProvider))
+        as Map<String, dynamic>;
+
+    return MovieResponse.fromJson(result);
   }
 
   Future<MovieResponse> getNowPlayingMovies({
@@ -37,7 +53,10 @@ class MovieRepository extends _$MovieRepository {
       debugPrint("now playing movie page$page");
       final response = await ref.read(dioProvider).get(url);
       if (response.statusCode == 200) {
-        return MovieResponse.fromJson(response.data);
+        return await insertAndReadMovieFromDB(
+          storePath: "nowPlaying",
+          response: response.data,
+        );
       } else {
         throw Exception('Failed to load movie');
       }
