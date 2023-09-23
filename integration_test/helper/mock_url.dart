@@ -1,6 +1,6 @@
 import 'package:tmdb_app/env.dart';
 
-final String nowPlayingUrl = Uri(
+final String nowPlayingUrlPage1 = Uri(
   scheme: 'https',
   host: 'api.themoviedb.org',
   path: '3/movie/now_playing',
@@ -10,6 +10,19 @@ final String nowPlayingUrl = Uri(
     'api_key': Env.apiKey,
     'include_adult': 'false',
     'page': '1',
+  },
+).toString();
+
+final String nowPlayingUrlPage2 = Uri(
+  scheme: 'https',
+  host: 'api.themoviedb.org',
+  path: '3/movie/now_playing',
+  queryParameters: {
+    'language': 'ja-JP',
+    'with_original_language': 'ja',
+    'api_key': Env.apiKey,
+    'include_adult': 'false',
+    'page': '2',
   },
 ).toString();
 

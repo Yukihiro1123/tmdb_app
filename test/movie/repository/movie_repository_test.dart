@@ -7,6 +7,8 @@ import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie_res
 import 'package:tmdb_app/src/features/movies/repository/movie_repository.dart';
 import 'package:tmdb_app/src/utils/dio/dio_provider.dart';
 
+import '../../../integration_test/helper/mock_url.dart';
+
 class MockDio extends AutoDisposeNotifier<Dio> with Mock implements Dio {}
 
 void main() {
@@ -27,24 +29,13 @@ void main() {
     container.dispose();
   });
   group('getNowPlayingMovies', () {
-    final url = Uri(
-      scheme: 'https',
-      host: 'api.themoviedb.org',
-      path: '3/movie/now_playing',
-      queryParameters: {
-        'language': 'ja-JP',
-        'with_original_language': 'ja',
-        'api_key': Env.apiKey,
-        'include_adult': 'false',
-        'page': '1',
-      },
-    ).toString();
+    //TODO
     test('MovieResponse型のデータを返す.', () async {
-      when(() => dio.get(url)).thenAnswer(
+      when(() => dio.get(nowPlayingUrlPage1)).thenAnswer(
         (_) async => Response(
           statusCode: 200,
           data: mockResponse,
-          requestOptions: RequestOptions(baseUrl: url),
+          requestOptions: RequestOptions(baseUrl: nowPlayingUrlPage1),
         ),
       );
       final movieResponse = await container
@@ -54,7 +45,8 @@ void main() {
     });
 
     test('API呼び出しの際にエラーが出たら例外を返す', () async {
-      when(() => dio.get(url)).thenThrow(Exception('Failed to load movie'));
+      when(() => dio.get(nowPlayingUrlPage1))
+          .thenThrow(Exception('Failed to load movie'));
 
       expect(
           () => container

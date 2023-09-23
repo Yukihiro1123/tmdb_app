@@ -8,46 +8,44 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:sembast/sembast.dart';
-import 'package:tmdb_app/env.dart';
 import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie/movie.dart';
 import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie_response.dart';
 import 'package:tmdb_app/src/features/movies/repository/movie_repository.dart';
 import 'package:tmdb_app/src/features/movies/views/component/now_playing_movie_list.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:tmdb_app/src/utils/dio/dio_provider.dart';
-
-class MockDio extends AutoDisposeNotifier<Dio> with Mock implements Dio {}
 
 class MockMovieRepository extends AutoDisposeNotifier<StoreRef>
     with Mock
     implements MovieRepository {}
 
 void main() {
-  late MockDio dio;
-  late MockMovieRepository movieRepository;
+  late MockMovieRepository mockMovieRepository;
 
-  setUp(() {
+  setUpAll(() {
     HttpOverrides.global = null;
-    dio = MockDio();
-    movieRepository = MockMovieRepository();
+    mockMovieRepository = MockMovieRepository();
+    when(() => mockMovieRepository.getNowPlayingMovies(page: 1)).thenAnswer(
+      (_) async {
+        return MovieResponse.fromJson(mockResponse10);
+      },
+    );
+    when(() => mockMovieRepository.getNowPlayingMovies(page: 2)).thenAnswer(
+      (_) async {
+        return MovieResponse.fromJson(mockResponse20);
+      },
+    );
   });
 
   tearDownAll(() {
-    reset(dio);
-    reset(movieRepository);
+    reset(mockMovieRepository);
   });
   group('NowPlayingMovieList', () {
     testWidgets('1st page load', (widgetTester) async {
-      when(() => movieRepository.getNowPlayingMovies(page: 1)).thenAnswer(
-        (_) async {
-          return MovieResponse.fromJson(mockResponse10);
-        },
-      );
       await widgetTester.runAsync(() async {
         await widgetTester.pumpWidget(
           ProviderScope(
             overrides: [
-              movieRepositoryProvider.overrideWith(() => movieRepository)
+              movieRepositoryProvider.overrideWith(() => mockMovieRepository)
             ],
             child: const MaterialApp(
               localizationsDelegates: AppLocalizations.localizationsDelegates,
@@ -60,66 +58,24 @@ void main() {
           ),
         );
         expect(find.byType(CircularProgressIndicator), findsWidgets);
-        await widgetTester.pump();
+        await widgetTester.pumpAndSettle();
         expect(find.byType(CircularProgressIndicator), findsNothing);
         expect(find.text('Barbie'), findsOneWidget);
         await widgetTester.drag(
           find.byType(PagedGridView<int, Movie>),
           const Offset(0.0, -2000),
         );
-        await widgetTester.pump();
+        await widgetTester.pumpAndSettle();
         expect(find.text('Mob Land'), findsOneWidget);
       });
     });
-
+    //TODO
     testWidgets('2nd page load', (widgetTester) async {
-      final nowPlayingUrl = Uri(
-        scheme: 'https',
-        host: 'api.themoviedb.org',
-        path: '3/movie/now_playing',
-        queryParameters: {
-          'language': 'ja-JP',
-          'with_original_language': 'ja',
-          'api_key': Env.apiKey,
-          'include_adult': 'false',
-          'page': '1',
-        },
-      ).toString();
-      final nowPlayingUrl2 = Uri(
-        scheme: 'https',
-        host: 'api.themoviedb.org',
-        path: '3/movie/now_playing',
-        queryParameters: {
-          'language': 'ja-JP',
-          'with_original_language': 'ja',
-          'api_key': Env.apiKey,
-          'include_adult': 'false',
-          'page': '2',
-        },
-      ).toString();
-      when(() => dio.get(nowPlayingUrl)).thenAnswer(
-        (_) async {
-          return Response(
-            statusCode: 200,
-            data: mockResponse10,
-            requestOptions: RequestOptions(baseUrl: nowPlayingUrl),
-          );
-        },
-      );
-      when(() => dio.get(nowPlayingUrl2)).thenAnswer(
-        (_) async {
-          return Response(
-            statusCode: 200,
-            data: mockResponse20,
-            requestOptions: RequestOptions(baseUrl: nowPlayingUrl2),
-          );
-        },
-      );
       await widgetTester.runAsync(() async {
         await widgetTester.pumpWidget(
           ProviderScope(
             overrides: [
-              dioProvider.overrideWith((ref) => dio),
+              movieRepositoryProvider.overrideWith(() => mockMovieRepository)
             ],
             child: const MaterialApp(
               localizationsDelegates: AppLocalizations.localizationsDelegates,
@@ -131,18 +87,27 @@ void main() {
             ),
           ),
         );
-        await widgetTester.pump();
-        await widgetTester.drag(
-          find.byType(PagedGridView<int, Movie>),
-          const Offset(0.0, -1000),
-        );
-        await widgetTester.pump();
+        expect(find.byType(CircularProgressIndicator), findsWidgets);
+        await widgetTester.pumpAndSettle();
+        expect(find.byType(CircularProgressIndicator), findsNothing);
+        expect(find.text('Barbie'), findsOneWidget);
         await widgetTester.drag(
           find.byType(PagedGridView<int, Movie>),
           const Offset(0.0, -2000),
         );
-        await widgetTester.pump();
+        await widgetTester.pumpAndSettle();
+        expect(find.text('Mob Land'), findsOneWidget);
+        await widgetTester.drag(
+          find.byType(PagedGridView<int, Movie>),
+          const Offset(0.0, -2000),
+        );
+        await widgetTester.pumpAndSettle();
         expect(find.text('The Mistress'), findsOneWidget);
+        await widgetTester.drag(
+          find.byType(PagedGridView<int, Movie>),
+          const Offset(0.0, -2000),
+        );
+        await widgetTester.pumpAndSettle();
       });
     });
   });
