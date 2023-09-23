@@ -64,6 +64,9 @@ dependencies:
   shared_preferences:
   settings_ui:
   flutter_staggered_animations:
+  sembast:
+  path_provider:
+  path:
   flutter_launcher_icons:
 
 flutter_native_splash:        # 追加

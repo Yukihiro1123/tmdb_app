@@ -2,22 +2,31 @@ import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tmdb_app/src/features/settings/lang/controller/lang_controller.dart';
 import 'package:tmdb_app/src/routing/app_router.dart';
+import 'package:tmdb_app/src/utils/database/database_provider.dart';
 
 import 'src/features/settings/theme/controller/theme_controller.dart';
 import 'src/utils/shared_preferences/shared_preferences_provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:path/path.dart';
+import 'package:sembast/sembast_io.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final pref = await SharedPreferences.getInstance();
+  final appPath = await getApplicationDocumentsDirectory();
+  appPath.createSync(recursive: true);
+  final dbPath = join(appPath.path, 'movies.db');
+  final database = await databaseFactoryIo.openDatabase(dbPath);
   // const flavor = String.fromEnvironment('flavor');
   final devicePreview = DevicePreview(
     builder: (_) => ProviderScope(
       overrides: [
         sharedPreferencesProvider.overrideWithValue(pref),
+        databaseProvider.overrideWithValue(database)
       ],
       child: const MyApp(),
     ),
