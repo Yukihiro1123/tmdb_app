@@ -30,7 +30,7 @@ class MovieRepository extends _$MovieRepository {
     //read
     final result = await state.record(storePath).get(ref.read(databaseProvider))
         as Map<String, dynamic>;
-
+    debugPrint('data cleaned, saved and read from db');
     return MovieResponse.fromJson(result);
   }
 
