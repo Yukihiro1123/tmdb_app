@@ -6,6 +6,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:sembast/sembast.dart';
+import 'package:sembast/sembast_memory.dart';
 import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie/movie.dart';
 import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie_response.dart';
 import 'package:tmdb_app/src/features/movies/repository/movie_repository.dart';
@@ -71,7 +72,9 @@ void main() {
     });
     //TODO
     testWidgets('2nd page load', (widgetTester) async {
+      disableSembastCooperator();
       await widgetTester.runAsync(() async {
+        await databaseFactoryMemory.openDatabase('database');
         await widgetTester.pumpWidget(
           ProviderScope(
             overrides: [
@@ -102,7 +105,7 @@ void main() {
           const Offset(0.0, -2000),
         );
         await widgetTester.pumpAndSettle();
-        expect(find.text('シン・エヴァンゲリオン劇場版'), findsOneWidget);
+        expect(find.text('忌怪島／きかいじま'), findsOneWidget);
       });
     });
   });
