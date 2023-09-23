@@ -40,7 +40,7 @@ class MovieCard extends StatelessWidget {
                 child: CachedImage(
                   imageURL: item.backdropPath != null
                       ? "https://image.tmdb.org/t/p/w500${item.backdropPath!}"
-                      : "",
+                      : "https://picsum.photos/250?image=9",
                   width: double.infinity,
                   height: screenWidth < BreakPoints.mobileSize
                       ? MediaQuery.sizeOf(context).height * 0.3

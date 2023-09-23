@@ -22,6 +22,7 @@ class MovieList extends StatelessWidget {
         () => pagingController.refresh(),
       ),
       child: PagedGridView<int, Movie>(
+        key: const Key('searchPageGridView'),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           childAspectRatio: screenWidth <= BreakPoints.mobileSize
               ? 1.4
@@ -42,9 +43,6 @@ class MovieList extends StatelessWidget {
         builderDelegate: PagedChildBuilderDelegate<Movie>(
           noItemsFoundIndicatorBuilder: (context) {
             return noItemsFoundWidget;
-          },
-          newPageProgressIndicatorBuilder: (context) {
-            return const CircularProgressIndicator();
           },
           itemBuilder: (context, item, index) {
             return AnimationConfiguration.staggeredGrid(
