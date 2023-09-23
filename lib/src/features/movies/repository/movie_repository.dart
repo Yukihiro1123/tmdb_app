@@ -23,6 +23,15 @@ class MovieRepository extends _$MovieRepository {
     required String storePath,
     required Map<String, dynamic> response,
   }) async {
+    // 以下のコードだとunit testでmovieRecord.get(txn) as Map<String, dynamic>;がnullになる
+    // 実際は問題なさそうだが
+    // final store = intMapStoreFactory.store(storePath);
+    // var movieRecord = state.record(storePath);
+    // final result = await ref.read(databaseProvider).transaction((txn) async {
+    //   await store.delete(txn);
+    //   await store.add(txn, response);
+    //   return await movieRecord.get(txn) as Map<String, dynamic>;
+    // });
     //delete
     await state.record(storePath).delete(ref.read(databaseProvider));
     //insert
