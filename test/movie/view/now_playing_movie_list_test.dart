@@ -47,7 +47,6 @@ void main() async {
           return MovieResponse.fromJson(mockNowPlayingResponsePage1);
         },
       );
-      disableSembastCooperator();
       Database mockDb = await databaseFactoryMemory.openDatabase('database');
       await widgetTester.runAsync(() async {
         await widgetTester.pumpWidget(

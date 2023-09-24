@@ -68,6 +68,8 @@ dependencies:
   path_provider:
   path:
   flutter_launcher_icons:
+  golden_toolkit:
+  flutter_cache_manager:
 
 flutter_native_splash:        # 追加
   image: "assets/images/tmdb_logo.png"  # 追加

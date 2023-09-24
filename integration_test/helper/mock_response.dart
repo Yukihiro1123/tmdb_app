@@ -3,7 +3,7 @@ const Map<String, dynamic> mockNowPlayingResponsePage1 = {
   "results": [
     {
       "adult": false,
-      "backdrop_path": "/7drO1kYgQ0PnnU87sAnBEphYrSM.jpg",
+      "backdrop_path": "assets/images/cinema.jpeg",
       "genre_ids": [16, 28, 27],
       "id": 1083862,
       "original_language": "ja",
@@ -20,7 +20,7 @@ const Map<String, dynamic> mockNowPlayingResponsePage1 = {
     },
     {
       "adult": false,
-      "backdrop_path": "/5Jfk2p3iGrChUKkl0cBD5krr2u8.jpg",
+      "backdrop_path": "assets/images/cinema.jpeg",
       "genre_ids": [16, 10749],
       "id": 998731,
       "original_language": "ja",
@@ -37,7 +37,7 @@ const Map<String, dynamic> mockNowPlayingResponsePage1 = {
     },
     {
       "adult": false,
-      "backdrop_path": "/zjmHE7pDSOFVOsfDTwSsczwXPdP.jpg",
+      "backdrop_path": "assets/images/cinema.jpeg",
       "genre_ids": [16, 35, 18],
       "id": 783675,
       "original_language": "ja",
@@ -54,7 +54,7 @@ const Map<String, dynamic> mockNowPlayingResponsePage1 = {
     },
     {
       "adult": false,
-      "backdrop_path": "/jabZjTUhuJuE2XjpssijrwLiRLy.jpg",
+      "backdrop_path": "assets/images/cinema.jpeg",
       "genre_ids": [18],
       "id": 927594,
       "original_language": "ja",
@@ -70,7 +70,7 @@ const Map<String, dynamic> mockNowPlayingResponsePage1 = {
     },
     {
       "adult": false,
-      "backdrop_path": "/1EAxNqdkVnp48a7NUuNBHGflowM.jpg",
+      "backdrop_path": "assets/images/cinema.jpeg",
       "genre_ids": [16, 28, 878, 18],
       "id": 283566,
       "original_language": "ja",
@@ -95,7 +95,7 @@ const Map<String, dynamic> mockNowPlayingResponsePage2 = {
   "results": [
     {
       "adult": false,
-      "backdrop_path": "/1Kqp15MtZED7IVXFxNy9jXlX6xd.jpg",
+      "backdrop_path": "assets/images/cinema.jpeg",
       "genre_ids": [27, 9648, 878],
       "id": 1114205,
       "original_language": "ja",
@@ -111,7 +111,7 @@ const Map<String, dynamic> mockNowPlayingResponsePage2 = {
     },
     {
       "adult": false,
-      "backdrop_path": "/uHyg0pGMC6Ut0gJWfvVpPtKxHm9.jpg",
+      "backdrop_path": "assets/images/cinema.jpeg",
       "genre_ids": [16, 18],
       "id": 1056803,
       "original_language": "ja",
@@ -127,7 +127,7 @@ const Map<String, dynamic> mockNowPlayingResponsePage2 = {
     },
     {
       "adult": false,
-      "backdrop_path": "/uQH89ABEDUzgVr06ILurTDO60jw.jpg",
+      "backdrop_path": "assets/images/cinema.jpeg",
       "genre_ids": [18, 53],
       "id": 869886,
       "original_language": "ja",
@@ -144,7 +144,7 @@ const Map<String, dynamic> mockNowPlayingResponsePage2 = {
     },
     {
       "adult": false,
-      "backdrop_path": "/cu4RB859vbrim0GCM0swmGAKN70.jpg",
+      "backdrop_path": "assets/images/cinema.jpeg",
       "genre_ids": [16, 28, 878],
       "id": 915403,
       "original_language": "ja",
@@ -161,7 +161,7 @@ const Map<String, dynamic> mockNowPlayingResponsePage2 = {
     },
     {
       "adult": false,
-      "backdrop_path": "/lgUpstSykB9uuVfDjjG5bU8BEqm.jpg",
+      "backdrop_path": "assets/images/cinema.jpeg",
       "genre_ids": [10751, 18],
       "id": 749927,
       "original_language": "ja",
@@ -183,12 +183,12 @@ const Map<String, dynamic> mockNowPlayingResponsePage2 = {
 
 const Map<String, dynamic> mockDetailPageResponse = {
   "adult": false,
-  "backdrop_path": "/7drO1kYgQ0PnnU87sAnBEphYrSM.jpg",
+  "backdrop_path": "assets/images/cinema.jpeg",
   "belongs_to_collection": {
     "id": 133352,
     "name": "バイオハザード シリーズ（アニメ）",
     "poster_path": "/i5BkIcEPSXqEcPiwrbwsVjS95FK.jpg",
-    "backdrop_path": "/uj2duAkn6zUmRSbjyEr7XUeIWsJ.jpg"
+    "backdrop_path": "assets/images/cinema.jpeg"
   },
   "budget": 0,
   "genres": [
@@ -208,43 +208,43 @@ const Map<String, dynamic> mockDetailPageResponse = {
   "production_companies": [
     {
       "id": 7220,
-      "logo_path": "/dD0x5awPmtx4sAr2pNvkmxkCODh.png",
+      "logo_path": "assets/images/cinema.jpeg",
       "name": "CAPCOM",
       "origin_country": "JP"
     },
     {
       "id": 7164,
-      "logo_path": "/vHsaqTkQ2ZTbdqrCA272YahoVlg.png",
+      "logo_path": "assets/images/cinema.jpeg",
       "name": "TMS Entertainment",
       "origin_country": "JP"
     },
     {
       "id": 140891,
-      "logo_path": null,
+      "logo_path": "assets/images/cinema.jpeg",
       "name": "Quebico",
       "origin_country": "JP"
     },
     {
       "id": 172244,
-      "logo_path": "/lz8CdepJJMQiZZ9Cf192IZkGNAG.png",
+      "logo_path": "assets/images/cinema.jpeg",
       "name": "UNLIMITED PRODUCE by TMS",
       "origin_country": "JP"
     },
     {
       "id": 82346,
-      "logo_path": "/jqgK6CSkPrEsIv6Nk390JaBcXYF.png",
+      "logo_path": "assets/images/cinema.jpeg",
       "name": "Sony Pictures",
       "origin_country": "JP"
     },
     {
       "id": 36342,
-      "logo_path": "/3xYrMZn6SrupK4R83EUgNPjzqj4.png",
+      "logo_path": "assets/images/cinema.jpeg",
       "name": "Sammy",
       "origin_country": "JP"
     },
     {
       "id": 12386,
-      "logo_path": "/oxvw2Mrq3GcTxFc2mlT7E5tpek7.png",
+      "logo_path": "assets/images/cinema.jpeg",
       "name": "Robot Communications",
       "origin_country": "JP"
     }
@@ -271,7 +271,7 @@ const Map<String, dynamic> mockSearchPage1Response = {
   "results": [
     {
       "adult": false,
-      "backdrop_path": null,
+      "backdrop_path": "assets/images/cinema.jpeg",
       "genre_ids": [],
       "id": 983331,
       "original_language": "zh",
@@ -288,7 +288,7 @@ const Map<String, dynamic> mockSearchPage1Response = {
     },
     {
       "adult": false,
-      "backdrop_path": "/v4aulZlrAASAduoBw5ZYdsTR0E5.jpg",
+      "backdrop_path": "assets/images/cinema.jpeg",
       "genre_ids": [16, 14, 12],
       "id": 34295,
       "original_language": "ja",
@@ -305,7 +305,7 @@ const Map<String, dynamic> mockSearchPage1Response = {
     },
     {
       "adult": false,
-      "backdrop_path": "/40XTRnRRDZ4TzbjcrfW3WvtSsKW.jpg",
+      "backdrop_path": "assets/images/cinema.jpeg",
       "genre_ids": [28, 16, 12, 14],
       "id": 22537,
       "original_language": "ja",
@@ -322,7 +322,7 @@ const Map<String, dynamic> mockSearchPage1Response = {
     },
     {
       "adult": false,
-      "backdrop_path": "/dEeclgUEcAOhBRwLjW58Qk6lRvi.jpg",
+      "backdrop_path": "assets/images/cinema.jpeg",
       "genre_ids": [14, 16, 12],
       "id": 34297,
       "original_language": "ja",
@@ -339,7 +339,7 @@ const Map<String, dynamic> mockSearchPage1Response = {
     },
     {
       "adult": false,
-      "backdrop_path": "/aWg40fkUvghFwrCya2fHvAEvjud.jpg",
+      "backdrop_path": "assets/images/cinema.jpeg",
       "genre_ids": [28, 16, 12, 14],
       "id": 42360,
       "original_language": "ja",
@@ -356,7 +356,7 @@ const Map<String, dynamic> mockSearchPage1Response = {
     },
     {
       "adult": false,
-      "backdrop_path": "/kxjGNQVB7bvWQSisIOEgTT2TXp.jpg",
+      "backdrop_path": "assets/images/cinema.jpeg",
       "genre_ids": [35, 18],
       "id": 326094,
       "original_language": "en",
@@ -380,7 +380,7 @@ const Map<String, dynamic> mockSearchPage2Response = {
   "results": [
     {
       "adult": false,
-      "backdrop_path": "/8xpVDoRy0fZzhMSUBG8nksctu9i.jpg",
+      "backdrop_path": "assets/images/cinema.jpeg",
       "genre_ids": [35],
       "id": 335970,
       "original_language": "en",
@@ -397,7 +397,7 @@ const Map<String, dynamic> mockSearchPage2Response = {
     },
     {
       "adult": false,
-      "backdrop_path": "/vRT2Iend2CzgvpDyFRWK51l2tuY.jpg",
+      "backdrop_path": "assets/images/cinema.jpeg",
       "genre_ids": [9648, 80],
       "id": 886024,
       "original_language": "ja",
@@ -414,7 +414,7 @@ const Map<String, dynamic> mockSearchPage2Response = {
     },
     {
       "adult": false,
-      "backdrop_path": "/96sS0woEzf0zFSWjHVblOhsBfGd.jpg",
+      "backdrop_path": "assets/images/cinema.jpeg",
       "genre_ids": [18, 10749, 35, 10751],
       "id": 522924,
       "original_language": "en",
@@ -431,7 +431,7 @@ const Map<String, dynamic> mockSearchPage2Response = {
     },
     {
       "adult": false,
-      "backdrop_path": "/lkBwfDDgLw1giIdmJCbVObkTzFr.jpg",
+      "backdrop_path": "assets/images/cinema.jpeg",
       "genre_ids": [16, 12, 10751],
       "id": 82703,
       "original_language": "en",
@@ -480,7 +480,7 @@ const Map<String, dynamic> mockReviewResponse = {
       "author_details": {
         "name": "Yvonnelim99",
         "username": "Yvonnelim99",
-        "avatar_path": "/GuilMK4JA6hjJspzlRuopBcZ0i.png",
+        "avatar_path": null,
         "rating": 8.0
       },
       "content": "This new movie is very awesome!!👍🏻👍🏻 Go team!!👏🏻👏🏻",
