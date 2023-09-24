@@ -6,7 +6,7 @@ TMDB APIを用いて作成した映画アプリ
 
 - 無限スクロールの実装（リストの下までスクロールするとapiからデータを追加で読み込み表示する）
 - アニメーション
-- Github Actionによる自動コード解析、Unit/Widget/Integration Testつき
+- Github Actionによる自動コード解析、Unit Test/Widget Test/Golden Test/Integration Testつき
 
 ## プレビュー
 
