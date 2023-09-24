@@ -22,14 +22,12 @@ class MockDatabase extends AutoDisposeNotifier<Database>
 
 void main() {
   late MockMovieRepository mockMovieRepository;
-  late MockDatabase mockDatabase;
   disableSembastCooperator();
 
   setUpAll(() async {
     TestWidgetsFlutterBinding.ensureInitialized();
     HttpOverrides.global = null;
     mockMovieRepository = MockMovieRepository();
-    mockDatabase = MockDatabase();
   });
 
   tearDownAll(() {
