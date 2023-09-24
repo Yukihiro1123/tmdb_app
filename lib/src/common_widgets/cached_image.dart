@@ -1,7 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:tmdb_app/src/utils/cached_manager/cache_manager_provider.dart';
 
-class CachedImage extends StatelessWidget {
+class CachedImage extends ConsumerWidget {
   final String? imageURL;
   final double width;
   final double height;
@@ -19,9 +21,10 @@ class CachedImage extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     // debugPrint(imageURL);
     return CachedNetworkImage(
+      cacheManager: ref.read(cachedManagerProvider),
       imageUrl: imageURL ?? '',
       imageBuilder: (context, imageProvider) => Container(
         width: width,

@@ -45,3 +45,6 @@ app.*.map.json
 
 .env
 env.g.dart
+
+# don't check in golden failure output
+**/failures/*.png
