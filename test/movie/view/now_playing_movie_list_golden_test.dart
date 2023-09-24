@@ -1,29 +1,20 @@
 // test/golden_test.dart
 import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:sembast/sembast.dart';
-import 'package:sembast/sembast_memory.dart';
 import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie_response.dart';
 import 'package:tmdb_app/src/features/movies/repository/movie_repository.dart';
 import 'package:tmdb_app/src/features/movies/views/movie_list_page.dart';
-import 'package:tmdb_app/src/utils/cached_manager/cache_manager_provider.dart';
-import 'package:tmdb_app/src/utils/database/database_provider.dart';
 import '../../../integration_test/helper/mock_response.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MockMovieRepository extends AutoDisposeNotifier<StoreRef>
     with Mock
     implements MovieRepository {}
-
-class MockCacheManager extends AutoDisposeNotifier<CacheManager>
-    with Mock
-    implements CacheManager {}
 
 class MockDatabase extends AutoDisposeNotifier<Database>
     with Mock
@@ -32,7 +23,6 @@ class MockDatabase extends AutoDisposeNotifier<Database>
 void main() {
   late MockMovieRepository mockMovieRepository;
   late MockDatabase mockDatabase;
-  late MockCacheManager mockCacheManager;
   disableSembastCooperator();
 
   setUpAll(() async {
@@ -40,7 +30,6 @@ void main() {
     HttpOverrides.global = null;
     mockMovieRepository = MockMovieRepository();
     mockDatabase = MockDatabase();
-    mockCacheManager = MockCacheManager();
   });
 
   tearDownAll(() {
@@ -59,15 +48,12 @@ void main() {
         return MovieResponse.fromJson(mockNowPlayingResponsePage1);
       },
     );
-
-    Database mockDb = await databaseFactoryMemory.openDatabase('database');
     await tester.pumpWidgetBuilder(
       ProviderScope(
         overrides: [
-          databaseProvider.overrideWith((ref) => mockDatabase),
-          databaseProvider.overrideWithValue(mockDb),
+          // databaseProvider.overrideWith((ref) => mockDatabase),
+          // databaseProvider.overrideWithValue(mockDb),
           movieRepositoryProvider.overrideWith(() => mockMovieRepository),
-          cachedManagerProvider.overrideWithValue(mockCacheManager)
         ],
         child: MaterialApp(
           localizationsDelegates: AppLocalizations.localizationsDelegates,
