@@ -10,8 +10,7 @@ env:
 
 jobs:
   flutter_test:
-    #最新バージョンのubuntu環境を準備する
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     timeout-minutes: 10
     steps:
     
