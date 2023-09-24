@@ -480,7 +480,7 @@ const Map<String, dynamic> mockReviewResponse = {
       "author_details": {
         "name": "Yvonnelim99",
         "username": "Yvonnelim99",
-        "avatar_path": "/GuilMK4JA6hjJspzlRuopBcZ0i.png",
+        "avatar_path": null,
         "rating": 8.0
       },
       "content": "This new movie is very awesome!!👍🏻👍🏻 Go team!!👏🏻👏🏻",
