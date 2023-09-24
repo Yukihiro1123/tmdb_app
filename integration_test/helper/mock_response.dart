@@ -208,43 +208,43 @@ const Map<String, dynamic> mockDetailPageResponse = {
   "production_companies": [
     {
       "id": 7220,
-      "logo_path": "/dD0x5awPmtx4sAr2pNvkmxkCODh.png",
+      "logo_path": "assets/images/cinema.jpeg",
       "name": "CAPCOM",
       "origin_country": "JP"
     },
     {
       "id": 7164,
-      "logo_path": "/vHsaqTkQ2ZTbdqrCA272YahoVlg.png",
+      "logo_path": "assets/images/cinema.jpeg",
       "name": "TMS Entertainment",
       "origin_country": "JP"
     },
     {
       "id": 140891,
-      "logo_path": null,
+      "logo_path": "assets/images/cinema.jpeg",
       "name": "Quebico",
       "origin_country": "JP"
     },
     {
       "id": 172244,
-      "logo_path": "/lz8CdepJJMQiZZ9Cf192IZkGNAG.png",
+      "logo_path": "assets/images/cinema.jpeg",
       "name": "UNLIMITED PRODUCE by TMS",
       "origin_country": "JP"
     },
     {
       "id": 82346,
-      "logo_path": "/jqgK6CSkPrEsIv6Nk390JaBcXYF.png",
+      "logo_path": "assets/images/cinema.jpeg",
       "name": "Sony Pictures",
       "origin_country": "JP"
     },
     {
       "id": 36342,
-      "logo_path": "/3xYrMZn6SrupK4R83EUgNPjzqj4.png",
+      "logo_path": "assets/images/cinema.jpeg",
       "name": "Sammy",
       "origin_country": "JP"
     },
     {
       "id": 12386,
-      "logo_path": "/oxvw2Mrq3GcTxFc2mlT7E5tpek7.png",
+      "logo_path": "assets/images/cinema.jpeg",
       "name": "Robot Communications",
       "origin_country": "JP"
     }
