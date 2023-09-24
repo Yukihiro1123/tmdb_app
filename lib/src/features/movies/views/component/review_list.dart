@@ -75,7 +75,7 @@ class ReviewList extends HookConsumerWidget {
                     leading: CachedImage(
                       imageURL: item.authorDetails["avatar_path"] != null
                           ? "https://image.tmdb.org/t/p/w500${item.authorDetails["avatar_path"]}"
-                          : "https://picsum.photos/250?image=9",
+                          : "assets/images/cinema.jpeg",
                       width: 50,
                       height: 50,
                       isCircle: true,
