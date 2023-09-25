@@ -15,7 +15,7 @@ class SearchMoviePage extends HookConsumerWidget {
         PagingController(firstPageKey: 1);
     final isSearching = useState(false);
     final isMounted = useIsMounted();
-    final usersViewModel = ref.watch(
+    final movieController = ref.watch(
       movieControllerProvider.notifier,
     );
     final TextEditingController searchController = useTextEditingController();
@@ -26,7 +26,7 @@ class SearchMoviePage extends HookConsumerWidget {
           return null;
         }
         pagingController.addPageRequestListener((pageKey) {
-          usersViewModel.searchMovie(
+          movieController.searchMovie(
               query: searchController.text,
               page: pageKey,
               onSuccess: (data) {

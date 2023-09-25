@@ -6,7 +6,6 @@ import 'package:go_router/go_router.dart';
 import 'package:tmdb_app/src/common_widgets/cached_image.dart';
 import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie/movie.dart';
 import 'package:tmdb_app/src/routing/router_utils.dart';
-import 'package:tmdb_app/src/utils/breakpoints.dart';
 
 class MovieCard extends StatelessWidget {
   final Movie item;

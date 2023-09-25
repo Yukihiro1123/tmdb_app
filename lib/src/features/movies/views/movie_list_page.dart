@@ -12,7 +12,7 @@ class MovieListPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final PagingController<int, Movie> pagingController =
-        PagingController(firstPageKey: 1);
+        useMemoized(() => PagingController(firstPageKey: 1));
     final isMounted = useIsMounted();
     final movieController = ref.watch(
       movieControllerProvider.notifier,
@@ -47,7 +47,9 @@ class MovieListPage extends HookConsumerWidget {
             ),
             /* Upcoming movie */
             const UpcomingMovieList(),
+            /* Now Playing movie */
             MovieList(
+              keyName: "movieListGridView",
               pagingController: pagingController,
               noItemsFoundWidget: const SizedBox.shrink(),
             )

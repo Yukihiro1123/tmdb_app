@@ -8,6 +8,7 @@ import 'package:mocktail/mocktail.dart';
 import 'package:sembast/sembast.dart';
 import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie_response.dart';
 import 'package:tmdb_app/src/features/movies/repository/movie_repository.dart';
+import 'package:tmdb_app/src/features/movies/views/component/movie_card.dart';
 import 'package:tmdb_app/src/features/movies/views/movie_list_page.dart';
 import '../integration_test/helper/mock_response.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -22,6 +23,7 @@ class MockDatabase extends AutoDisposeNotifier<Database>
 
 void main() {
   late MockMovieRepository mockMovieRepository;
+
   disableSembastCooperator();
 
   setUpAll(() async {
@@ -39,6 +41,45 @@ void main() {
     Device(size: Size(428, 926), name: '6.7_inch'),
     Device(size: Size(1024, 1366), name: '12.9_inch'),
   ];
+
+  testWidgets('上映中の映画一覧が表示されること', (widgetTester) async {
+    when(() => mockMovieRepository.getNowPlayingMovies(page: 1)).thenAnswer(
+      (_) async {
+        return MovieResponse.fromJson(mockNowPlayingResponsePage1);
+      },
+    );
+    await widgetTester.runAsync(() async {
+      await widgetTester.pumpWidget(
+        ProviderScope(
+          overrides: [
+            movieRepositoryProvider.overrideWith(() => mockMovieRepository),
+          ],
+          child: const MaterialApp(
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
+            supportedLocales: AppLocalizations.supportedLocales,
+            locale: Locale('ja'),
+            home: Material(
+              child: MovieListPage(),
+            ),
+          ),
+        ),
+      );
+      await widgetTester.pumpAndSettle();
+      expect(find.byType(MovieCard), findsWidgets);
+      expect(find.text('バイオハザード：デスアイランド'), findsOneWidget);
+      //TODO drag使えないので修正
+      await widgetTester.scrollUntilVisible(
+        find.text('シン・エヴァンゲリオン劇場版'),
+        50,
+        scrollable: find.descendant(
+          of: find.byKey(const Key('movieListGridView')),
+          matching: find.byType(Scrollable).at(1),
+        ),
+      );
+      await widgetTester.pumpAndSettle();
+      expect(find.text('シン・エヴァンゲリオン劇場版'), findsOneWidget);
+    });
+  });
 
   testGoldens('golden_test', (WidgetTester tester) async {
     when(() => mockMovieRepository.getNowPlayingMovies(page: 1)).thenAnswer(
