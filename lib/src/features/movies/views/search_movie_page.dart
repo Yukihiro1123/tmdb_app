@@ -12,7 +12,7 @@ class SearchMoviePage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final PagingController<int, Movie> pagingController =
-        PagingController(firstPageKey: 1);
+        useMemoized(() => PagingController(firstPageKey: 1));
     final isSearching = useState(false);
     final isMounted = useIsMounted();
     final movieController = ref.watch(

@@ -5,11 +5,8 @@ import 'package:flutter/material.dart';
 // import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:sembast/sembast.dart';
-
-import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie/movie.dart';
 import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie_response.dart';
 import 'package:tmdb_app/src/features/movies/repository/movie_repository.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -72,7 +69,7 @@ void main() {
         await widgetTester.pumpAndSettle();
         expect(find.text('Dog'), findsOneWidget);
         await widgetTester.drag(
-          find.byType(PagedSliverList<int, Movie>),
+          find.byType(CustomScrollView),
           const Offset(0.0, -2000),
         );
         await widgetTester.pumpAndSettle();

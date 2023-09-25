@@ -25,7 +25,7 @@ class MovieList extends ConsumerWidget {
       pagingController: pagingController,
       builderDelegate: PagedChildBuilderDelegate<Movie>(
         noItemsFoundIndicatorBuilder: (context) {
-          return const SizedBox.shrink();
+          return noItemsFoundWidget;
         },
         itemBuilder: (context, item, index) {
           return AnimationConfiguration.staggeredGrid(

@@ -67,14 +67,9 @@ void main() {
       await widgetTester.pumpAndSettle();
       expect(find.byType(MovieCard), findsWidgets);
       expect(find.text('バイオハザード：デスアイランド'), findsOneWidget);
-      //TODO drag使えないので修正
-      await widgetTester.scrollUntilVisible(
-        find.text('シン・エヴァンゲリオン劇場版'),
-        50,
-        scrollable: find.descendant(
-          of: find.byKey(const Key('movieListGridView')),
-          matching: find.byType(Scrollable).at(1),
-        ),
+      await widgetTester.drag(
+        find.byType(CustomScrollView),
+        const Offset(0.0, -2000),
       );
       await widgetTester.pumpAndSettle();
       expect(find.text('シン・エヴァンゲリオン劇場版'), findsOneWidget);
