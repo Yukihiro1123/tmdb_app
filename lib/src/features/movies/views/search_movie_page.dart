@@ -50,27 +50,36 @@ class SearchMoviePage extends HookConsumerWidget {
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        body: Column(
-          children: [
-            const SizedBox(height: 10),
-            SearchBar(
-              controller: searchController,
-              trailing: [
-                IconButton(
-                  icon: const Icon(Icons.search),
-                  onPressed: () {
-                    if (searchController.text.isEmpty) {
-                      return;
-                    }
-                    isSearching.value = true;
-                    pagingController.refresh();
-                  },
-                ),
-              ],
+        body: CustomScrollView(
+          slivers: [
+            const SliverAppBar(
+              title: Text('TMDB'),
             ),
-            const SizedBox(height: 10),
+            SliverList(
+              delegate: SliverChildListDelegate(
+                [
+                  const SizedBox(height: 10),
+                  SearchBar(
+                    controller: searchController,
+                    trailing: [
+                      IconButton(
+                        icon: const Icon(Icons.search),
+                        onPressed: () {
+                          if (searchController.text.isEmpty) {
+                            return;
+                          }
+                          isSearching.value = true;
+                          pagingController.refresh();
+                        },
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 10),
+                ],
+              ),
+            ),
             isSearching.value == false
-                ? Expanded(
+                ? SliverToBoxAdapter(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -79,8 +88,8 @@ class SearchMoviePage extends HookConsumerWidget {
                       ],
                     ),
                   )
-                : Expanded(
-                    child: MovieList(
+                : MovieList(
+                    keyName: 'searchPageGridView',
                     pagingController: pagingController,
                     noItemsFoundWidget: Align(
                       heightFactor: 8,
@@ -95,7 +104,7 @@ class SearchMoviePage extends HookConsumerWidget {
                         ],
                       ),
                     ),
-                  )),
+                  ),
           ],
         ),
       ),

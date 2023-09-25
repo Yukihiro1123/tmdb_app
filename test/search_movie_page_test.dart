@@ -72,7 +72,7 @@ void main() {
         await widgetTester.pumpAndSettle();
         expect(find.text('Dog'), findsOneWidget);
         await widgetTester.drag(
-          find.byType(PagedGridView<int, Movie>),
+          find.byType(PagedSliverList<int, Movie>),
           const Offset(0.0, -2000),
         );
         await widgetTester.pumpAndSettle();

@@ -70,7 +70,7 @@ void main() async {
         expect(find.byType(MovieCard), findsWidgets);
         expect(find.text('バイオハザード：デスアイランド'), findsOneWidget);
         await widgetTester.drag(
-          find.byType(PagedGridView<int, Movie>),
+          find.byType(PagedSliverList<int, Movie>),
           const Offset(0.0, -2000),
         );
         await widgetTester.pumpAndSettle();
