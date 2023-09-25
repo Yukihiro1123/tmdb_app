@@ -9,7 +9,7 @@ import 'package:sembast/sembast.dart';
 import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie_response.dart';
 import 'package:tmdb_app/src/features/movies/repository/movie_repository.dart';
 import 'package:tmdb_app/src/features/movies/views/movie_list_page.dart';
-import '../../../integration_test/helper/mock_response.dart';
+import '../integration_test/helper/mock_response.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MockMovieRepository extends AutoDisposeNotifier<StoreRef>
@@ -79,6 +79,6 @@ void main() {
         ),
       ),
     );
-    await multiScreenGolden(tester, 'now_playing_movie_list', devices: devices);
+    await multiScreenGolden(tester, 'movie_list_page', devices: devices);
   });
 }
