@@ -7,21 +7,18 @@ import 'package:tmdb_app/src/features/movies/views/component/movie_card.dart';
 import 'package:tmdb_app/src/utils/breakpoints.dart';
 
 class MovieList extends ConsumerWidget {
-  final String? keyName;
   final PagingController<int, Movie> pagingController;
   final Widget noItemsFoundWidget;
   const MovieList({
     super.key,
     required this.pagingController,
     required this.noItemsFoundWidget,
-    this.keyName,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final double screenWidth = MediaQuery.sizeOf(context).width;
     return PagedSliverList<int, Movie>(
-      key: Key(keyName ?? ''),
       pagingController: pagingController,
       builderDelegate: PagedChildBuilderDelegate<Movie>(
         noItemsFoundIndicatorBuilder: (context) {

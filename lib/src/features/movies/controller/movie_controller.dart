@@ -76,15 +76,3 @@ Future<MovieResponse> watchUpcomingMoviesController(
     WatchUpcomingMoviesControllerRef ref) async {
   return await ref.read(movieRepositoryProvider.notifier).getUpcomingMovies();
 }
-
-@riverpod
-Future<MovieResponse> watchPopularMoviesController(
-    WatchPopularMoviesControllerRef ref) async {
-  return await ref.read(movieRepositoryProvider.notifier).getPopularMovies();
-}
-
-@riverpod
-Future<MovieResponse> watchTopRatedMoviesController(
-    WatchTopRatedMoviesControllerRef ref) async {
-  return await ref.read(movieRepositoryProvider.notifier).getTopRatedMovies();
-}

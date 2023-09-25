@@ -49,7 +49,6 @@ class MovieListPage extends HookConsumerWidget {
             const UpcomingMovieList(),
             /* Now Playing movie */
             MovieList(
-              keyName: "movieListGridView",
               pagingController: pagingController,
               noItemsFoundWidget: const SizedBox.shrink(),
             )

@@ -177,42 +177,6 @@ final watchUpcomingMoviesControllerProvider =
 
 typedef WatchUpcomingMoviesControllerRef
     = AutoDisposeFutureProviderRef<MovieResponse>;
-String _$watchPopularMoviesControllerHash() =>
-    r'5ec49976eb584efa71724a3a3993bec780044425';
-
-/// See also [watchPopularMoviesController].
-@ProviderFor(watchPopularMoviesController)
-final watchPopularMoviesControllerProvider =
-    AutoDisposeFutureProvider<MovieResponse>.internal(
-  watchPopularMoviesController,
-  name: r'watchPopularMoviesControllerProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$watchPopularMoviesControllerHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-typedef WatchPopularMoviesControllerRef
-    = AutoDisposeFutureProviderRef<MovieResponse>;
-String _$watchTopRatedMoviesControllerHash() =>
-    r'825aa2665e9bc53328eb6feb53156aa3d125dbc8';
-
-/// See also [watchTopRatedMoviesController].
-@ProviderFor(watchTopRatedMoviesController)
-final watchTopRatedMoviesControllerProvider =
-    AutoDisposeFutureProvider<MovieResponse>.internal(
-  watchTopRatedMoviesController,
-  name: r'watchTopRatedMoviesControllerProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$watchTopRatedMoviesControllerHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-typedef WatchTopRatedMoviesControllerRef
-    = AutoDisposeFutureProviderRef<MovieResponse>;
 String _$movieControllerHash() => r'540aa7d8d898ac43a10dcdef00cff92d4d8e3747';
 
 /// See also [MovieController].

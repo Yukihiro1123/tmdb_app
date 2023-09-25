@@ -51,6 +51,7 @@ class SearchMoviePage extends HookConsumerWidget {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         body: CustomScrollView(
+          key: const Key('searchPageScrollView'),
           slivers: [
             const SliverAppBar(
               title: Text('TMDB'),
@@ -89,7 +90,6 @@ class SearchMoviePage extends HookConsumerWidget {
                     ),
                   )
                 : MovieList(
-                    keyName: 'searchPageGridView',
                     pagingController: pagingController,
                     noItemsFoundWidget: Align(
                       heightFactor: 8,
