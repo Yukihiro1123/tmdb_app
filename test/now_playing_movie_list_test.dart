@@ -15,7 +15,7 @@ import 'package:tmdb_app/src/features/movies/views/component/now_playing_movie_l
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:tmdb_app/src/utils/database/database_provider.dart';
 
-import '../../../integration_test/helper/mock_response.dart';
+import '../integration_test/helper/mock_response.dart';
 
 class MockMovieRepository extends AutoDisposeNotifier<StoreRef>
     with Mock

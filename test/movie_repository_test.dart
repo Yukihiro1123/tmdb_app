@@ -8,8 +8,8 @@ import 'package:tmdb_app/src/features/movies/repository/movie_repository.dart';
 import 'package:tmdb_app/src/utils/database/database_provider.dart';
 import 'package:tmdb_app/src/utils/dio/dio_provider.dart';
 import 'package:sembast/sembast_memory.dart';
-import '../../../integration_test/helper/mock_response.dart';
-import '../../../integration_test/helper/mock_url.dart';
+import '../integration_test/helper/mock_response.dart';
+import '../integration_test/helper/mock_url.dart';
 
 class MockDio extends AutoDisposeNotifier<Dio> with Mock implements Dio {}
 
