@@ -51,6 +51,7 @@ class SearchMoviePage extends HookConsumerWidget {
       child: Scaffold(
         appBar: AppBar(
           title: const Text('TMDB'),
+          centerTitle: true,
           bottom: PreferredSize(
             preferredSize: const Size.fromHeight(60),
             child: SearchBar(

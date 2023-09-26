@@ -44,6 +44,7 @@ class MovieListPage extends HookConsumerWidget {
           slivers: [
             const SliverAppBar(
               title: Text('TMDB'),
+              centerTitle: true,
             ),
             /* Upcoming movie */
             const UpcomingMovieList(),

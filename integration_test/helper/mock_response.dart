@@ -3,7 +3,7 @@ const Map<String, dynamic> mockUpcomingResponse = {
   "results": [
     {
       "adult": false,
-      "backdrop_path": "/H6j5smdpRqP9a8UnhWp6zfl0SC.jpg",
+      "backdrop_path": "assets/images/cinema.jpeg",
       "genre_ids": [28, 878, 12],
       "id": 565770,
       "original_language": "en",
@@ -19,7 +19,7 @@ const Map<String, dynamic> mockUpcomingResponse = {
     },
     {
       "adult": false,
-      "backdrop_path": "/iIvQnZyzgx9TkbrOgcXx0p7aLiq.jpg",
+      "backdrop_path": "assets/images/cinema.jpeg",
       "genre_ids": [27, 53],
       "id": 1008042,
       "original_language": "en",
@@ -35,7 +35,7 @@ const Map<String, dynamic> mockUpcomingResponse = {
     },
     {
       "adult": false,
-      "backdrop_path": "/iiXliCeykkzmJ0Eg9RYJ7F2CWSz.jpg",
+      "backdrop_path": "assets/images/cinema.jpeg",
       "genre_ids": [28, 9648, 53, 80],
       "id": 762430,
       "original_language": "en",
@@ -51,7 +51,7 @@ const Map<String, dynamic> mockUpcomingResponse = {
     },
     {
       "adult": false,
-      "backdrop_path": "/53z2fXEKfnNg2uSOPss2unPBGX1.jpg",
+      "backdrop_path": "assets/images/cinema.jpeg",
       "genre_ids": [27, 9648, 53],
       "id": 968051,
       "original_language": "en",

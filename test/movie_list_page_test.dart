@@ -1,17 +1,23 @@
 // test/golden_test.dart
 import 'dart:io';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:sembast/sembast.dart';
+import 'package:sembast/sembast_memory.dart';
 import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie_response.dart';
 import 'package:tmdb_app/src/features/movies/repository/movie_repository.dart';
 import 'package:tmdb_app/src/features/movies/views/component/movie_card.dart';
 import 'package:tmdb_app/src/features/movies/views/movie_list_page.dart';
+import 'package:tmdb_app/src/utils/database/database_provider.dart';
+import 'package:tmdb_app/src/utils/dio/dio_provider.dart';
 import '../integration_test/helper/mock_response.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../integration_test/helper/mock_url.dart';
 
 class MockMovieRepository extends AutoDisposeNotifier<StoreRef>
     with Mock
@@ -23,13 +29,17 @@ class MockDatabase extends AutoDisposeNotifier<Database>
 
 void main() {
   late MockMovieRepository mockMovieRepository;
+  late MockDatabase mockDatabase;
+  late Database mockDb;
 
   disableSembastCooperator();
 
-  setUpAll(() async {
+  setUp(() async {
     TestWidgetsFlutterBinding.ensureInitialized();
     HttpOverrides.global = null;
+    mockDb = await databaseFactoryMemory.openDatabase('database');
     mockMovieRepository = MockMovieRepository();
+    mockDatabase = MockDatabase();
   });
 
   tearDownAll(() {
@@ -53,6 +63,8 @@ void main() {
         ProviderScope(
           overrides: [
             movieRepositoryProvider.overrideWith(() => mockMovieRepository),
+            databaseProvider.overrideWith((ref) => mockDatabase),
+            databaseProvider.overrideWithValue(mockDb),
           ],
           child: const MaterialApp(
             localizationsDelegates: AppLocalizations.localizationsDelegates,
@@ -82,11 +94,16 @@ void main() {
         return MovieResponse.fromJson(mockNowPlayingResponsePage1);
       },
     );
+    when(() => mockMovieRepository.getUpcomingMovies()).thenAnswer(
+      (_) async {
+        return MovieResponse.fromJson(mockUpcomingResponse);
+      },
+    );
     await tester.pumpWidgetBuilder(
       ProviderScope(
         overrides: [
-          // databaseProvider.overrideWith((ref) => mockDatabase),
-          // databaseProvider.overrideWithValue(mockDb),
+          databaseProvider.overrideWith((ref) => mockDatabase),
+          databaseProvider.overrideWithValue(mockDb),
           movieRepositoryProvider.overrideWith(() => mockMovieRepository),
         ],
         child: MaterialApp(
@@ -115,6 +132,7 @@ void main() {
         ),
       ),
     );
+    await tester.pumpAndSettle();
     await multiScreenGolden(tester, 'movie_list_page', devices: devices);
   });
 }
