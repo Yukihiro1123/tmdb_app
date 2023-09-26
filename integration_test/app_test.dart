@@ -186,6 +186,8 @@ void main() {
       await tester.pumpAndSettle();
       expect(find.byType(MovieCard), findsWidgets);
       //映画詳細ページに遷移
+      await tester.ensureVisible(find.text("バイオハザード：デスアイランド"));
+      await tester.pumpAndSettle();
       await tester.tap(find.text("バイオハザード：デスアイランド"));
       await tester.pumpAndSettle();
       expect(find.text('絡み合う運命。狂い出す世界。'), findsOneWidget);
