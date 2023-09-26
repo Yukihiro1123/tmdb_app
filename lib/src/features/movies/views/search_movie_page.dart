@@ -49,64 +49,56 @@ class SearchMoviePage extends HookConsumerWidget {
     );
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          title: const Text('TMDB'),
+          bottom: PreferredSize(
+            preferredSize: const Size.fromHeight(60),
+            child: SearchBar(
+              controller: searchController,
+              trailing: [
+                IconButton(
+                  icon: const Icon(Icons.search),
+                  onPressed: () {
+                    if (searchController.text.isEmpty) {
+                      return;
+                    }
+                    isSearching.value = true;
+                    pagingController.refresh();
+                  },
+                ),
+              ],
+            ),
+          ),
+        ),
         resizeToAvoidBottomInset: false,
-        body: CustomScrollView(
-          key: const Key('searchPageScrollView'),
-          slivers: [
-            const SliverAppBar(
-              title: Text('TMDB'),
-            ),
-            SliverList(
-              delegate: SliverChildListDelegate(
-                [
-                  const SizedBox(height: 10),
-                  SearchBar(
-                    controller: searchController,
-                    trailing: [
-                      IconButton(
-                        icon: const Icon(Icons.search),
-                        onPressed: () {
-                          if (searchController.text.isEmpty) {
-                            return;
-                          }
-                          isSearching.value = true;
-                          pagingController.refresh();
-                        },
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 10),
-                ],
-              ),
-            ),
-            isSearching.value == false
-                ? SliverToBoxAdapter(
-                    child: Column(
+        body: isSearching.value == false
+            ? Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Icon(Icons.movie, size: 30),
+                    Text(AppLocalizations.of(context)!.searchByKeyword),
+                  ],
+                ),
+              )
+            : CustomScrollView(
+                key: const Key('searchPageScrollView'),
+                slivers: [
+                  MovieList(
+                    pagingController: pagingController,
+                    noItemsFoundWidget: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Icon(Icons.movie, size: 30),
-                        Text(AppLocalizations.of(context)!.searchByKeyword),
+                        const Icon(Icons.priority_high, size: 30),
+                        Text(
+                          AppLocalizations.of(context)!.movieNotFound,
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        ),
                       ],
                     ),
-                  )
-                : MovieList(
-                    pagingController: pagingController,
-                    noItemsFoundWidget: Align(
-                      heightFactor: 8,
-                      alignment: Alignment.center,
-                      child: Column(
-                        children: [
-                          const Icon(Icons.priority_high, size: 30),
-                          Text(
-                            AppLocalizations.of(context)!.movieNotFound,
-                            style: Theme.of(context).textTheme.bodyLarge,
-                          ),
-                        ],
-                      ),
-                    ),
                   ),
-          ],
-        ),
+                ],
+              ),
       ),
     );
   }

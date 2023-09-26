@@ -18,7 +18,13 @@ class MovieList extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final double screenWidth = MediaQuery.sizeOf(context).width;
-    return PagedSliverList<int, Movie>(
+    return PagedSliverGrid<int, Movie>(
+      gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+        maxCrossAxisExtent: 500.0,
+        mainAxisSpacing: 5.0,
+        crossAxisSpacing: 5.0,
+        childAspectRatio: 1.5,
+      ),
       pagingController: pagingController,
       builderDelegate: PagedChildBuilderDelegate<Movie>(
         noItemsFoundIndicatorBuilder: (context) {

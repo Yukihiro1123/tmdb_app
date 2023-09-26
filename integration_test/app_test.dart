@@ -59,8 +59,8 @@ void main() {
         (_) async {
           return Response(
             statusCode: 200,
-            data: mockNowPlayingResponsePage1,
-            requestOptions: RequestOptions(baseUrl: nowPlayingUrlPage1),
+            data: mockUpcomingResponse,
+            requestOptions: RequestOptions(baseUrl: upcomingUrl),
           );
         },
       );
@@ -158,25 +158,17 @@ void main() {
       await tester.tap(find.byIcon(Icons.search).at(0));
       await tester.pumpAndSettle();
       expect(find.text('Dog'), findsOneWidget);
-      //TODO スクロールのテスト
       //スクロール
-      // await tester.scrollUntilVisible(
-      //   find.text('トッド・ソロンズの子犬物語'),
-      //   50,
-      //   scrollable: find.descendant(
-      //     of: find.byKey(const Key('searchPageScrollView')),
-      //     matching: find.byType(Scrollable).at(0),
-      //   ),
-      // );
-      // //２ページ目の最初
-      // await tester.scrollUntilVisible(
-      //   find.text('ジョー・ダート 華麗なる負け犬の伝説'),
-      //   50,
-      //   scrollable: find.descendant(
-      //     of: find.byKey(const Key('searchPageScrollView')),
-      //     matching: find.byType(Scrollable).at(1),
-      //   ),
-      // );
+      await tester.dragUntilVisible(
+        find.text('トッド・ソロンズの子犬物語'),
+        find.byType(CustomScrollView),
+        const Offset(0, -50),
+      );
+      await tester.dragUntilVisible(
+        find.text('ジョー・ダート 華麗なる負け犬の伝説'),
+        find.byType(CustomScrollView),
+        const Offset(0, -50),
+      );
 
       //Not Found
       await tester.enterText(find.byType(SearchBar), '');
@@ -194,7 +186,7 @@ void main() {
       await tester.pumpAndSettle();
       expect(find.byType(MovieCard), findsWidgets);
       //映画詳細ページに遷移
-      await tester.tap(find.byType(MovieCard).at(0));
+      await tester.tap(find.text("バイオハザード：デスアイランド"));
       await tester.pumpAndSettle();
       expect(find.text('絡み合う運命。狂い出す世界。'), findsOneWidget);
       // await tester.drag(
