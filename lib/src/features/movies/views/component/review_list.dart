@@ -19,13 +19,13 @@ class ReviewList extends HookConsumerWidget {
     final PagingController<int, Review> pagingController =
         PagingController(firstPageKey: 1);
     final isMounted = useIsMounted();
-    final usersViewModel = ref.watch(
+    final movieController = ref.watch(
       movieControllerProvider.notifier,
     );
     useEffect(
       () {
         pagingController.addPageRequestListener((pageKey) {
-          usersViewModel.getMovieReview(
+          movieController.getMovieReview(
               movieId: int.parse(movieId),
               page: pageKey,
               onSuccess: (data) {

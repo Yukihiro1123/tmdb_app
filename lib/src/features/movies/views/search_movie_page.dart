@@ -12,10 +12,10 @@ class SearchMoviePage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final PagingController<int, Movie> pagingController =
-        PagingController(firstPageKey: 1);
+        useMemoized(() => PagingController(firstPageKey: 1));
     final isSearching = useState(false);
     final isMounted = useIsMounted();
-    final usersViewModel = ref.watch(
+    final movieController = ref.watch(
       movieControllerProvider.notifier,
     );
     final TextEditingController searchController = useTextEditingController();
@@ -26,7 +26,7 @@ class SearchMoviePage extends HookConsumerWidget {
           return null;
         }
         pagingController.addPageRequestListener((pageKey) {
-          usersViewModel.searchMovie(
+          movieController.searchMovie(
               query: searchController.text,
               page: pageKey,
               onSuccess: (data) {
@@ -49,11 +49,12 @@ class SearchMoviePage extends HookConsumerWidget {
     );
     return SafeArea(
       child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: Column(
-          children: [
-            const SizedBox(height: 10),
-            SearchBar(
+        appBar: AppBar(
+          title: const Text('TMDB'),
+          centerTitle: true,
+          bottom: PreferredSize(
+            preferredSize: const Size.fromHeight(60),
+            child: SearchBar(
               controller: searchController,
               trailing: [
                 IconButton(
@@ -68,36 +69,37 @@ class SearchMoviePage extends HookConsumerWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 10),
-            isSearching.value == false
-                ? Expanded(
-                    child: Column(
+          ),
+        ),
+        resizeToAvoidBottomInset: false,
+        body: isSearching.value == false
+            ? Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Icon(Icons.movie, size: 30),
+                    Text(AppLocalizations.of(context)!.searchByKeyword),
+                  ],
+                ),
+              )
+            : CustomScrollView(
+                key: const Key('searchPageScrollView'),
+                slivers: [
+                  MovieList(
+                    pagingController: pagingController,
+                    noItemsFoundWidget: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Icon(Icons.movie, size: 30),
-                        Text(AppLocalizations.of(context)!.searchByKeyword),
+                        const Icon(Icons.priority_high, size: 30),
+                        Text(
+                          AppLocalizations.of(context)!.movieNotFound,
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        ),
                       ],
                     ),
-                  )
-                : Expanded(
-                    child: MovieList(
-                    pagingController: pagingController,
-                    noItemsFoundWidget: Align(
-                      heightFactor: 8,
-                      alignment: Alignment.center,
-                      child: Column(
-                        children: [
-                          const Icon(Icons.priority_high, size: 30),
-                          Text(
-                            AppLocalizations.of(context)!.movieNotFound,
-                            style: Theme.of(context).textTheme.bodyLarge,
-                          ),
-                        ],
-                      ),
-                    ),
-                  )),
-          ],
-        ),
+                  ),
+                ],
+              ),
       ),
     );
   }

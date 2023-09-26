@@ -1,4 +1,3 @@
-// test/golden_test.dart
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -6,10 +5,13 @@ import 'package:golden_toolkit/golden_toolkit.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:sembast/sembast.dart';
+import 'package:sembast/sembast_memory.dart';
 import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie_response.dart';
 import 'package:tmdb_app/src/features/movies/repository/movie_repository.dart';
+import 'package:tmdb_app/src/features/movies/views/component/movie_card.dart';
 import 'package:tmdb_app/src/features/movies/views/movie_list_page.dart';
-import '../../../integration_test/helper/mock_response.dart';
+import 'package:tmdb_app/src/utils/database/database_provider.dart';
+import '../integration_test/helper/mock_response.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MockMovieRepository extends AutoDisposeNotifier<StoreRef>
@@ -22,12 +24,17 @@ class MockDatabase extends AutoDisposeNotifier<Database>
 
 void main() {
   late MockMovieRepository mockMovieRepository;
+  late MockDatabase mockDatabase;
+  late Database mockDb;
+
   disableSembastCooperator();
 
-  setUpAll(() async {
+  setUp(() async {
     TestWidgetsFlutterBinding.ensureInitialized();
     HttpOverrides.global = null;
+    mockDb = await databaseFactoryMemory.openDatabase('database');
     mockMovieRepository = MockMovieRepository();
+    mockDatabase = MockDatabase();
   });
 
   tearDownAll(() {
@@ -40,17 +47,58 @@ void main() {
     Device(size: Size(1024, 1366), name: '12.9_inch'),
   ];
 
+  testWidgets('上映中の映画一覧が表示されること', (widgetTester) async {
+    when(() => mockMovieRepository.getNowPlayingMovies(page: 1)).thenAnswer(
+      (_) async {
+        return MovieResponse.fromJson(mockNowPlayingResponsePage1);
+      },
+    );
+    await widgetTester.runAsync(() async {
+      await widgetTester.pumpWidget(
+        ProviderScope(
+          overrides: [
+            movieRepositoryProvider.overrideWith(() => mockMovieRepository),
+            databaseProvider.overrideWith((ref) => mockDatabase),
+            databaseProvider.overrideWithValue(mockDb),
+          ],
+          child: const MaterialApp(
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
+            supportedLocales: AppLocalizations.supportedLocales,
+            locale: Locale('ja'),
+            home: Material(
+              child: MovieListPage(),
+            ),
+          ),
+        ),
+      );
+      await widgetTester.pumpAndSettle();
+      expect(find.byType(MovieCard), findsWidgets);
+      expect(find.text('バイオハザード：デスアイランド'), findsOneWidget);
+      await widgetTester.drag(
+        find.byType(CustomScrollView),
+        const Offset(0.0, -2000),
+      );
+      await widgetTester.pumpAndSettle();
+      expect(find.text('シン・エヴァンゲリオン劇場版'), findsOneWidget);
+    });
+  });
+
   testGoldens('golden_test', (WidgetTester tester) async {
     when(() => mockMovieRepository.getNowPlayingMovies(page: 1)).thenAnswer(
       (_) async {
         return MovieResponse.fromJson(mockNowPlayingResponsePage1);
       },
     );
+    when(() => mockMovieRepository.getUpcomingMovies()).thenAnswer(
+      (_) async {
+        return MovieResponse.fromJson(mockUpcomingResponse);
+      },
+    );
     await tester.pumpWidgetBuilder(
       ProviderScope(
         overrides: [
-          // databaseProvider.overrideWith((ref) => mockDatabase),
-          // databaseProvider.overrideWithValue(mockDb),
+          databaseProvider.overrideWith((ref) => mockDatabase),
+          databaseProvider.overrideWithValue(mockDb),
           movieRepositoryProvider.overrideWith(() => mockMovieRepository),
         ],
         child: MaterialApp(
@@ -79,6 +127,7 @@ void main() {
         ),
       ),
     );
-    await multiScreenGolden(tester, 'now_playing_movie_list', devices: devices);
+    await tester.pumpAndSettle();
+    await multiScreenGolden(tester, 'movie_list_page', devices: devices);
   });
 }

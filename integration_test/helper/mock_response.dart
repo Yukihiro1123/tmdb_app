@@ -1,3 +1,75 @@
+const Map<String, dynamic> mockUpcomingResponse = {
+  "page": 1,
+  "results": [
+    {
+      "adult": false,
+      "backdrop_path": "assets/images/cinema.jpeg",
+      "genre_ids": [28, 878, 12],
+      "id": 565770,
+      "original_language": "en",
+      "original_title": "Blue Beetle",
+      "overview": "",
+      "popularity": 4198.111,
+      "poster_path": "/vNfL4DYnonltukBrrgMmw94zMYL.jpg",
+      "release_date": "2023-08-16",
+      "title": "Blue Beetle",
+      "video": false,
+      "vote_average": 7.1,
+      "vote_count": 824
+    },
+    {
+      "adult": false,
+      "backdrop_path": "assets/images/cinema.jpeg",
+      "genre_ids": [27, 53],
+      "id": 1008042,
+      "original_language": "en",
+      "original_title": "Talk to Me",
+      "overview": "",
+      "popularity": 1762.732,
+      "poster_path": "/kdPMUMJzyYAc4roD52qavX0nLIC.jpg",
+      "release_date": "2023-07-26",
+      "title": "トーク・トゥ・ミー",
+      "video": false,
+      "vote_average": 7.2,
+      "vote_count": 826
+    },
+    {
+      "adult": false,
+      "backdrop_path": "assets/images/cinema.jpeg",
+      "genre_ids": [28, 9648, 53, 80],
+      "id": 762430,
+      "original_language": "en",
+      "original_title": "Retribution",
+      "overview": "",
+      "popularity": 2304.763,
+      "poster_path": "/w3CEN9I7eNfs0fcaL6fxzbFLtdI.jpg",
+      "release_date": "2023-08-23",
+      "title": "バッド・デイ・ドライブ",
+      "video": false,
+      "vote_average": 6.8,
+      "vote_count": 199
+    },
+    {
+      "adult": false,
+      "backdrop_path": "assets/images/cinema.jpeg",
+      "genre_ids": [27, 9648, 53],
+      "id": 968051,
+      "original_language": "en",
+      "original_title": "The Nun II",
+      "overview": "",
+      "popularity": 1428.836,
+      "poster_path": "/zITEUNN0p6AO9LlQbbSIaAEJ1nC.jpg",
+      "release_date": "2023-09-06",
+      "title": "死霊館のシスター 呪いの秘密",
+      "video": false,
+      "vote_average": 6.6,
+      "vote_count": 300
+    },
+  ],
+  "total_pages": 94,
+  "total_results": 1867
+};
+
 const Map<String, dynamic> mockNowPlayingResponsePage1 = {
   "page": 1,
   "results": [
