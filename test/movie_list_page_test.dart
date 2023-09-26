@@ -1,6 +1,4 @@
-// test/golden_test.dart
 import 'dart:io';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
@@ -13,11 +11,8 @@ import 'package:tmdb_app/src/features/movies/repository/movie_repository.dart';
 import 'package:tmdb_app/src/features/movies/views/component/movie_card.dart';
 import 'package:tmdb_app/src/features/movies/views/movie_list_page.dart';
 import 'package:tmdb_app/src/utils/database/database_provider.dart';
-import 'package:tmdb_app/src/utils/dio/dio_provider.dart';
 import '../integration_test/helper/mock_response.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
-import '../integration_test/helper/mock_url.dart';
 
 class MockMovieRepository extends AutoDisposeNotifier<StoreRef>
     with Mock
