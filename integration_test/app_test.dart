@@ -55,6 +55,15 @@ void main() {
       mockSharedPreferences = MockSharedPreferences();
       mockMovieRepository = MockMovieRepository();
       container = ProviderContainer();
+      when(() => mockDio.get(upcomingUrl)).thenAnswer(
+        (_) async {
+          return Response(
+            statusCode: 200,
+            data: mockUpcomingResponse,
+            requestOptions: RequestOptions(baseUrl: upcomingUrl),
+          );
+        },
+      );
       when(() => mockDio.get(nowPlayingUrlPage1)).thenAnswer(
         (_) async {
           return Response(
@@ -150,22 +159,15 @@ void main() {
       await tester.pumpAndSettle();
       expect(find.text('Dog'), findsOneWidget);
       //スクロール
-      await tester.scrollUntilVisible(
+      await tester.dragUntilVisible(
         find.text('トッド・ソロンズの子犬物語'),
-        50,
-        scrollable: find.descendant(
-          of: find.byKey(const Key('searchPageGridView')),
-          matching: find.byType(Scrollable).at(1),
-        ),
+        find.byType(CustomScrollView),
+        const Offset(0, -50),
       );
-      //２ページ目の最初
-      await tester.scrollUntilVisible(
+      await tester.dragUntilVisible(
         find.text('ジョー・ダート 華麗なる負け犬の伝説'),
-        50,
-        scrollable: find.descendant(
-          of: find.byKey(const Key('searchPageGridView')),
-          matching: find.byType(Scrollable).at(1),
-        ),
+        find.byType(CustomScrollView),
+        const Offset(0, -50),
       );
 
       //Not Found
@@ -184,7 +186,9 @@ void main() {
       await tester.pumpAndSettle();
       expect(find.byType(MovieCard), findsWidgets);
       //映画詳細ページに遷移
-      await tester.tap(find.byType(MovieCard).at(0));
+      await tester.ensureVisible(find.text("バイオハザード：デスアイランド"));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text("バイオハザード：デスアイランド"));
       await tester.pumpAndSettle();
       expect(find.text('絡み合う運命。狂い出す世界。'), findsOneWidget);
       // await tester.drag(

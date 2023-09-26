@@ -1,5 +1,17 @@
 import 'package:tmdb_app/env.dart';
 
+final String upcomingUrl = Uri(
+  scheme: 'https',
+  host: 'api.themoviedb.org',
+  path: '3/movie/upcoming',
+  queryParameters: {
+    'language': 'ja-JP',
+    'api_key': Env.apiKey,
+    'include_adult': 'false',
+    'page': '1',
+  },
+).toString();
+
 final String nowPlayingUrlPage1 = Uri(
   scheme: 'https',
   host: 'api.themoviedb.org',

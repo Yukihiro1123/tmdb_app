@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:tmdb_app/src/utils/cached_manager/cache_manager_provider.dart';
 
 class CachedImage extends ConsumerWidget {
   final String imageURL;
@@ -28,7 +27,6 @@ class CachedImage extends ConsumerWidget {
         ? Image.asset(
             imageURL.replaceFirst('https://image.tmdb.org/t/p/w500', ''))
         : CachedNetworkImage(
-            cacheManager: ref.read(cachedManagerProvider),
             imageUrl: imageURL,
             imageBuilder: (context, imageProvider) => Container(
               width: width,

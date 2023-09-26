@@ -33,7 +33,9 @@ class SettingsPage extends HookConsumerWidget {
                 onPressed: (_) {
                   _toggleTheme(ref);
                 },
-                onToggle: (_) {},
+                onToggle: (_) {
+                  _toggleTheme(ref);
+                },
                 initialValue: darkMode,
                 leading: const Icon(Icons.dark_mode),
                 title: Text(AppLocalizations.of(context)!.darkTheme),
