@@ -26,7 +26,7 @@ class MovieDetailPage extends HookConsumerWidget {
             error: (error, stackTrace) {
               debugPrint(error.toString());
               return Center(
-                child: Text(AppLocalizations.of(context)!.error.toString()),
+                child: Text(AppLocalizations.of(context)!.error),
               );
             },
             loading: () => const MovieDetailShimmer(),
@@ -89,7 +89,7 @@ class MovieDetailPage extends HookConsumerWidget {
                             CategoryChips(movie: movie),
                             const SizedBox(height: 10),
                             Text(
-                                "${AppLocalizations.of(context)!.releaseDate.toString()}:${movie.releaseDate.toString()}"),
+                                "${AppLocalizations.of(context)!.releaseDate}:${movie.releaseDate}"),
                             const SizedBox(height: 10),
                             movie.productionCompanies == null
                                 ? const SizedBox.shrink()
@@ -99,8 +99,7 @@ class MovieDetailPage extends HookConsumerWidget {
                                         alignment: Alignment.topLeft,
                                         child: Text(
                                             AppLocalizations.of(context)!
-                                                .productionCompanies
-                                                .toString()),
+                                                .productionCompanies),
                                       ),
                                       Column(
                                         children: [
@@ -124,23 +123,20 @@ class MovieDetailPage extends HookConsumerWidget {
                                 _openExternalSite(movie.homepage);
                               },
                               icon: const Icon(Icons.link),
-                              label: Text(AppLocalizations.of(context)!
-                                  .homePage
-                                  .toString()),
+                              label:
+                                  Text(AppLocalizations.of(context)!.homePage),
                             ),
                             const SizedBox(height: 10),
                             Row(
                               children: [
                                 Text(
-                                    "${AppLocalizations.of(context)!.review.toString()}:${movie.voteAverage.toString()}/10"),
+                                    "${AppLocalizations.of(context)!.review}:${movie.voteAverage}/10"),
                                 const SizedBox(width: 10),
                                 Text(
-                                    "(${movie.voteCount}${AppLocalizations.of(context)!.reviewedBy.toString()})"),
+                                    "(${movie.voteCount}${AppLocalizations.of(context)!.reviewedBy})"),
                               ],
                             ),
-                            Text(AppLocalizations.of(context)!
-                                .review
-                                .toString()),
+                            Text(AppLocalizations.of(context)!.review),
                             SizedBox(
                               height: MediaQuery.sizeOf(context).height * 0.3,
                               child: ReviewList(movieId: movieId),
