@@ -65,9 +65,9 @@ class ReviewList extends HookConsumerWidget {
           },
           itemBuilder: (context, item, index) {
             return AnimationConfiguration.staggeredList(
-              delay: const Duration(milliseconds: 375),
+              delay: const Duration(milliseconds: 75),
               position: index,
-              duration: const Duration(milliseconds: 375),
+              duration: const Duration(milliseconds: 75),
               child: SlideAnimation(
                 verticalOffset: 50.0,
                 child: FadeInAnimation(
