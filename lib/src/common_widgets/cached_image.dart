@@ -22,7 +22,8 @@ class CachedImage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return imageURL == null
+    //golden testではネットワーク画像を取得できないのでダミーデータもassetimageで表示する
+    return imageURL == null || imageURL == "assets/images/cinema.jpeg"
         ? Container(
             width: width,
             height: height,

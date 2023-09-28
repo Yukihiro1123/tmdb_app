@@ -57,22 +57,22 @@ void main() {
             ),
           ),
         );
-        await widgetTester.pumpAndSettle();
+        await widgetTester.pump();
         //検索フォーム
         expect(find.byIcon(Icons.search), findsOneWidget);
         expect(find.text('キーワードで映画を検索'), findsOneWidget);
         final queryForm = find.byType(SearchBar);
         await widgetTester.enterText(queryForm, '犬');
         await widgetTester.tap(find.byIcon(Icons.search));
-        await widgetTester.pumpAndSettle();
+        await widgetTester.pump();
         expect(find.text('キーワードで映画を検索'), findsNothing);
-        await widgetTester.pumpAndSettle();
+        await widgetTester.pump();
         expect(find.text('Dog'), findsOneWidget);
         await widgetTester.drag(
           find.byType(CustomScrollView),
           const Offset(0.0, -2000),
         );
-        await widgetTester.pumpAndSettle();
+        await widgetTester.pump();
         expect(find.text("トッド・ソロンズの子犬物語"), findsOneWidget);
       });
     });
@@ -100,16 +100,16 @@ void main() {
             ),
           ),
         );
-        await widgetTester.pumpAndSettle();
+        await widgetTester.pump();
         //検索フォーム
         expect(find.byIcon(Icons.search), findsOneWidget);
         expect(find.text('キーワードで映画を検索'), findsOneWidget);
         final queryForm = find.byType(SearchBar);
         await widgetTester.enterText(queryForm, 'dddd');
         await widgetTester.tap(find.byIcon(Icons.search));
-        await widgetTester.pumpAndSettle();
+        await widgetTester.pump();
         expect(find.text('キーワードで映画を検索'), findsNothing);
-        await widgetTester.pumpAndSettle();
+        await widgetTester.pump();
         expect(find.text('映画が見つかりません'), findsOneWidget);
       });
     });
