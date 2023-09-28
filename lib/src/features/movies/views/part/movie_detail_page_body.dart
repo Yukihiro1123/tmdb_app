@@ -47,7 +47,8 @@ class MovieDetailPageBody extends StatelessWidget {
                 Text(
                     "${AppLocalizations.of(context)!.releaseDate}:${movie.releaseDate}"),
                 const SizedBox(height: 10),
-                movie.productionCompanies == null
+                movie.productionCompanies == null ||
+                        movie.productionCompanies!.isEmpty
                     ? const SizedBox.shrink()
                     : Column(
                         children: [
@@ -60,8 +61,8 @@ class MovieDetailPageBody extends StatelessWidget {
                             children: [
                               CachedImage(
                                 boxFit: BoxFit.contain,
-                                imageURL:
-                                    "https://image.tmdb.org/t/p/w500${movie.productionCompanies![0]["logo_path"]}",
+                                imageURL: movie.productionCompanies![0]
+                                    ["logo_path"],
                                 width: 80,
                                 height: 80,
                                 isCircle: true,
@@ -103,7 +104,7 @@ class MovieDetailPageBody extends StatelessWidget {
   }
 
   Future<void> _openExternalSite(String? homepage) async {
-    if (homepage == null) {
+    if (homepage == null || homepage == "") {
       return;
     }
     final Uri url = Uri.parse(homepage);

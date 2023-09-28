@@ -1,9 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:tmdb_app/src/common_widgets/shimmer_widget.dart';
 
 class CachedImage extends ConsumerWidget {
-  final String imageURL;
+  final String? imageURL;
   final double width;
   final double height;
   final bool isCircle;
@@ -21,13 +22,20 @@ class CachedImage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return imageURL
-            .replaceFirst('https://image.tmdb.org/t/p/w500', '')
-            .startsWith('assets/images')
-        ? Image.asset(
-            imageURL.replaceFirst('https://image.tmdb.org/t/p/w500', ''))
+    return imageURL == null
+        ? Container(
+            width: width,
+            height: height,
+            decoration: BoxDecoration(
+              image: const DecorationImage(
+                fit: BoxFit.fill,
+                image: AssetImage("assets/images/cinema.jpeg"),
+              ),
+              shape: isCircle ? BoxShape.circle : BoxShape.rectangle,
+            ),
+          )
         : CachedNetworkImage(
-            imageUrl: imageURL,
+            imageUrl: 'https://image.tmdb.org/t/p/w500${imageURL!}',
             imageBuilder: (context, imageProvider) => Container(
               width: width,
               height: height,
@@ -42,13 +50,14 @@ class CachedImage extends ConsumerWidget {
                 ),
               ),
             ),
-            placeholder: (context, url) => Container(
-              width: width,
-              height: height,
-              decoration: BoxDecoration(
-                shape: isCircle ? BoxShape.circle : BoxShape.rectangle,
-              ),
-            ),
+            placeholder: (context, url) {
+              return isCircle == true
+                  ? ShimmerWidget.circular(
+                      width: width,
+                      height: height,
+                    )
+                  : ShimmerWidget.rectangular(height: height);
+            },
             errorWidget: (context, url, dynamic error) {
               debugPrint("エラー：$error, url: $imageURL");
               return Container(

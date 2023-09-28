@@ -10,9 +10,7 @@ class ReviewCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       leading: CachedImage(
-        imageURL: item.authorDetails["avatar_path"] != null
-            ? "https://image.tmdb.org/t/p/w500${item.authorDetails["avatar_path"]}"
-            : "assets/images/cinema.jpeg",
+        imageURL: item.authorDetails["avatar_path"],
         width: 50,
         height: 50,
         isCircle: true,

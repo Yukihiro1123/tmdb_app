@@ -42,9 +42,7 @@ class MovieDetailPage extends HookConsumerWidget {
                         ),
                         centerTitle: true,
                         background: CachedImage(
-                          imageURL: movie.backdropPath != null
-                              ? "https://image.tmdb.org/t/p/w500${movie.backdropPath!}"
-                              : "assets/images/cinema.jpeg",
+                          imageURL: movie.backdropPath,
                           width: double.infinity,
                           height: 200,
                           isCircle: false,
