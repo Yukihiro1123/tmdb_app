@@ -4,7 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:tmdb_app/src/features/movies/controller/movie_controller.dart';
 import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie/movie.dart';
-import 'package:tmdb_app/src/features/movies/views/component/movie_list.dart';
+import 'package:tmdb_app/src/features/movies/views/part/movie_list.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SearchMoviePage extends HookConsumerWidget {
@@ -49,6 +49,7 @@ class SearchMoviePage extends HookConsumerWidget {
     );
     return SafeArea(
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           title: const Text('TMDB'),
           centerTitle: true,
@@ -71,7 +72,6 @@ class SearchMoviePage extends HookConsumerWidget {
             ),
           ),
         ),
-        resizeToAvoidBottomInset: false,
         body: isSearching.value == false
             ? Center(
                 child: Column(

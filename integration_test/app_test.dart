@@ -15,7 +15,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tmdb_app/main.dart';
 import 'package:tmdb_app/src/features/movies/repository/movie_repository.dart';
 import 'package:tmdb_app/src/features/movies/views/component/movie_card.dart';
-import 'package:tmdb_app/src/features/movies/views/component/review_list.dart';
+import 'package:tmdb_app/src/features/movies/views/part/review_list.dart';
 // import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie/movie.dart';
 import 'package:tmdb_app/src/routing/app_router.dart';
 import 'package:tmdb_app/src/utils/database/database_provider.dart';

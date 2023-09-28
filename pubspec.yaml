@@ -59,7 +59,6 @@ dependencies:
   intl:
   dio:
   infinite_scroll_pagination:
-  flutter_rating_bar:
   url_launcher:
   shared_preferences:
   settings_ui:
