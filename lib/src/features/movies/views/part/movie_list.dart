@@ -37,7 +37,9 @@ class MovieList extends ConsumerWidget {
             position: index,
             child: SlideAnimation(
               verticalOffset: 100.0,
-              child: FadeInAnimation(child: MovieCard(item: item)),
+              child: FadeInAnimation(
+                child: MovieCard(item: item),
+              ),
             ),
           );
         },
