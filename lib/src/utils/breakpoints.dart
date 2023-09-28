@@ -9,7 +9,9 @@ int getColumnCount(double screenWidth) {
     return 1;
   } else if (screenWidth <= BreakPoints.tabletSize) {
     return 2;
-  } else {
+  } else if (screenWidth <= BreakPoints.desktopSize) {
     return 3;
+  } else {
+    return 4;
   }
 }

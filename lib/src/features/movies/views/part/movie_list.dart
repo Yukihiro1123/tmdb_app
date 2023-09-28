@@ -32,7 +32,19 @@ class MovieList extends ConsumerWidget {
           return noItemsFoundWidget;
         },
         firstPageProgressIndicatorBuilder: (context) {
-          return const MovieCardShimmer();
+          return SizedBox(
+            height: 300,
+            child: GridView.builder(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: getColumnCount(screenWidth),
+              ),
+              shrinkWrap: true,
+              itemCount: 8,
+              itemBuilder: (context, index) {
+                return const MovieCardShimmer();
+              },
+            ),
+          );
         },
         newPageProgressIndicatorBuilder: (context) {
           return const MovieCardShimmer();
