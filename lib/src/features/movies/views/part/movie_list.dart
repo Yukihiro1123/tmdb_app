@@ -39,7 +39,7 @@ class MovieList extends ConsumerWidget {
         },
         itemBuilder: (context, item, index) {
           return AnimationConfiguration.staggeredGrid(
-            duration: const Duration(milliseconds: 75),
+            duration: const Duration(milliseconds: 30),
             columnCount: getColumnCount(screenWidth),
             position: index,
             child: SlideAnimation(
