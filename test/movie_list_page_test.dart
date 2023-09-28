@@ -71,14 +71,14 @@ void main() {
           ),
         ),
       );
-      await widgetTester.pump();
+      await widgetTester.pumpAndSettle();
       expect(find.byType(MovieCard), findsWidgets);
       expect(find.text('バイオハザード：デスアイランド'), findsOneWidget);
       await widgetTester.drag(
         find.byType(CustomScrollView),
         const Offset(0.0, -2000),
       );
-      await widgetTester.pump();
+      await widgetTester.pumpAndSettle();
       expect(find.text('シン・エヴァンゲリオン劇場版'), findsOneWidget);
     });
   });
@@ -127,7 +127,7 @@ void main() {
         ),
       ),
     );
-    await tester.pump();
+    await tester.pumpAndSettle();
     await multiScreenGolden(tester, 'movie_list_page', devices: devices);
   });
 }
