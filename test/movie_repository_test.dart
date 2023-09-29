@@ -44,7 +44,7 @@ void main() {
   });
 
   group('insertAndReadMovieFromDB', () {
-    test('api呼び出後、データベースに取得したデータが保存されている', () async {
+    test('データベース読み込みメソッドがMovieResponse型のデータを返す', () async {
       when(() => mockDio.get(nowPlayingUrlPage1)).thenAnswer(
         (_) async => Response(
           statusCode: 200,
@@ -56,6 +56,7 @@ void main() {
           .read(movieRepositoryProvider.notifier)
           .insertAndReadMovieFromDB(
               storePath: "nowPlaying", response: mockNowPlayingResponsePage1);
+      expect(res, isA<MovieResponse>());
       expect(res, MovieResponse.fromJson(mockNowPlayingResponsePage1));
     });
   });
