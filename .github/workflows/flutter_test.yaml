@@ -41,10 +41,11 @@ jobs:
       #依存関係読み込み
       - name: Run Flutter Pub Get
         run: flutter pub get
-      - run: flutter gen-l10n
+      #ローカライズ用のコード生成
+      - name: Run Flutter Gen
+        run: flutter gen-l10n
       - name: Run Build Runner
         run: flutter pub run build_runner build --delete-conflicting-outputs
-      # - uses: vhanda/flutter-build-runner-action@v1
       #テスト
       - name: Run Flutter Test
         run: flutter test
@@ -89,10 +90,12 @@ jobs:
       #依存関係読み込み
       - name: Run Flutter Pub Get
         run: flutter pub get
+      #ローカライズ用のコード生成
+      - name: Run Flutter Gen
+        run: flutter gen-l10n
       #コードの自動生成
       - name: Run Build Runner
         run: flutter pub run build_runner build --delete-conflicting-outputs
-      # - uses: vhanda/flutter-build-runner-action@v1
       #統合テスト
       - name: Integration Test(ios)
         run: flutter test integration_test
