@@ -4,10 +4,6 @@ on:
   pull_request:
     types: [opened, synchronize]
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
-
 env:
   API_KEY: ${{secrets.API_KEY}}
 
