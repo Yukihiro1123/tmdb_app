@@ -39,9 +39,7 @@ class MovieCard extends StatelessWidget {
                     topLeft: Radius.circular(20),
                   ),
                   child: CachedImage(
-                    imageURL: item.backdropPath != null
-                        ? "https://image.tmdb.org/t/p/w500${item.backdropPath!}"
-                        : "assets/images/cinema.jpeg",
+                    imageURL: item.backdropPath,
                     width: double.infinity,
                     height: double.infinity,
                     isCircle: false,
