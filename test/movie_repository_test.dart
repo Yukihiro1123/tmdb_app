@@ -52,14 +52,11 @@ void main() {
           requestOptions: RequestOptions(baseUrl: nowPlayingUrlPage1),
         ),
       );
-      final store = StoreRef.main();
-      final record = store.record("nowPlaying");
-      await container
+      final res = await container
           .read(movieRepositoryProvider.notifier)
-          .getNowPlayingMovies(page: 1);
-      final dataFromDb = await record
-          .get(await container.read(databaseProvider)) as Map<String, dynamic>;
-      expect(dataFromDb, mockNowPlayingResponsePage1);
+          .insertAndReadMovieFromDB(
+              storePath: "nowPlaying", response: mockNowPlayingResponsePage1);
+      expect(res, MovieResponse.fromJson(mockNowPlayingResponsePage1));
     });
   });
   group('getNowPlayingMovies', () {
