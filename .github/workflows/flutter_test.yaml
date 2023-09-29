@@ -1,36 +1,61 @@
 name: Flutter_Test
 
-#on: [] で、[]が実行された際に
+#on: ワークフローの起動条件
 on:
+  #プルリク作成/更新時
   pull_request:
     types: [opened, synchronize]
-
+#環境変数読み込み
 env:
   API_KEY: ${{secrets.API_KEY}}
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+# 複数のジョブを定義
 jobs:
-  flutter_test:
-    #最新バージョンのubuntu環境を準備する
+  #unit test/golden test
+  flutter_test_macos:
+    name: Flutter Test (macos)
+    #ローカルと同じのmac環境を準備する
     runs-on: macos-13
     timeout-minutes: 10
-    steps:
     
-      #ソースコードを取得
-      - uses: actions/checkout@v3
-        with:
-          #fetch-depth を指定しないと、
-          #push 直前のコミットが取得できない
-          fetch-depth: 1
-      - uses: subosito/flutter-action@v2
-        with:
-          channel: 'stable'
-          cache: true
-      - run: flutter pub get
-      - run: flutter gen-l10n
-      - run: flutter pub run build_runner build --delete-conflicting-outputs
-      - uses: vhanda/flutter-build-runner-action@v1
-        with:
-          output_paths: |
-            lib/generated/
-            lib/**/*.g.dart
-      - run: flutter test
+    #ジョブの手順
+    steps:
+      #./flutter_setup パスにあるアクションを使用
+      - name: Setup Flutter
+        uses: ./setup_flutter
+      #テスト
+      - name: Run Flutter Test
+        run: flutter test
+  #integration test(ios)
+  flutter_integration_test_ios:
+    name: Flutter Integration Test (IOS)
+    runs-on: macos-latest
+    timeout-minutes: 20
+    strategy:
+      matrix:
+        device:
+          - "iPhone 14 Simulator (16.2)" 
+      fail-fast: false
+    steps:
+      - name: "List all simulators"
+        run: "xcrun xctrace list devices"
+      #grep "^${{ matrix.device }}"
+      #->matrix.deviceで指定されたデバイス名）に一致するデータを抽出
+      #grep -v "Apple Watch"
+      #->シミュレータの一覧からApple Watchを除外
+      #awk '{gsub(/[()]/,""); print $NF}':
+      #->括弧（()）を削除し、最後のフィールド（デバイスのUDID）を抽出
+      #xcrun simctl boot: 指定されたUDIDを持つiOSシミュレータを起動
+      - name: "Start Simulator"
+        run: |
+          UDID=$(xcrun xctrace list devices | grep "^${{ matrix.device }}" | grep -v "Apple Watch" | awk '{gsub(/[()]/,""); print $NF}')
+          echo $UDID
+          xcrun simctl boot "${UDID:?No Simulator with this name found}"
+      - name: Setup Flutter
+        uses: ./setup_flutter
+      - name: Integration Test(ios)
+      - run: flutter test integration_test
