@@ -42,6 +42,26 @@ void main() {
     reset(mockDatabase);
     container.dispose();
   });
+
+  group('insertAndReadMovieFromDB', () {
+    test('api呼び出後、データベースに取得したデータが保存されている', () async {
+      when(() => mockDio.get(nowPlayingUrlPage1)).thenAnswer(
+        (_) async => Response(
+          statusCode: 200,
+          data: mockNowPlayingResponsePage1,
+          requestOptions: RequestOptions(baseUrl: nowPlayingUrlPage1),
+        ),
+      );
+      final store = StoreRef.main();
+      final record = store.record("nowPlaying");
+      await container
+          .read(movieRepositoryProvider.notifier)
+          .getNowPlayingMovies(page: 1);
+      final dataFromDb = await record
+          .get(await container.read(databaseProvider)) as Map<String, dynamic>;
+      expect(dataFromDb, mockNowPlayingResponsePage1);
+    });
+  });
   group('getNowPlayingMovies', () {
     test('MovieResponse型のデータを返す.', () async {
       when(() => mockDio.get(nowPlayingUrlPage1)).thenAnswer(
