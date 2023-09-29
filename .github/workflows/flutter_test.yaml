@@ -91,7 +91,7 @@ jobs:
       #コードの自動生成
       - name: Run Build Runner
         run: flutter pub run build_runner build --delete-conflicting-outputs
-        uses: vhanda/flutter-build-runner-action@v1
+      - uses: vhanda/flutter-build-runner-action@v1
       #統合テスト
       - name: Integration Test(ios)
       - run: flutter test integration_test
