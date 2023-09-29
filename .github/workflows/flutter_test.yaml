@@ -24,6 +24,13 @@ jobs:
     
     #ジョブの手順
     steps:
+      - name: Checkout
+        #ソースコードを取得
+        uses: actions/checkout@v3
+        with:
+          #fetch-depth を指定しないと、
+          #push 直前のコミットが取得できない
+          fetch-depth: 1
       #./flutter_setup パスにあるアクションを使用
       - name: Setup Flutter
         uses: ./.github/actions/setup_flutter
@@ -55,6 +62,13 @@ jobs:
           UDID=$(xcrun xctrace list devices | grep "^${{ matrix.device }}" | grep -v "Apple Watch" | awk '{gsub(/[()]/,""); print $NF}')
           echo $UDID
           xcrun simctl boot "${UDID:?No Simulator with this name found}"
+      - name: Checkout
+        #ソースコードを取得
+        uses: actions/checkout@v3
+        with:
+          #fetch-depth を指定しないと、
+          #push 直前のコミットが取得できない
+          fetch-depth: 1
       - name: Setup Flutter
         uses: ./.github/actions/setup_flutter
       - name: Integration Test(ios)
