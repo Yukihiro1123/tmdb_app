@@ -35,7 +35,8 @@ jobs:
         run: flutter pub get
       #コードの自動生成
       - name: Run Build Runner
-        run: flutter pub run build_runner build -d
+        run: flutter pub run build_runner build --delete-conflicting-outputs
+        uses: vhanda/flutter-build-runner-action@v1
       #静的解析
       - name: Flutter Analyze
         run: flutter analyze
