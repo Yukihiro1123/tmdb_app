@@ -44,7 +44,7 @@ jobs:
       - run: flutter gen-l10n
       - name: Run Build Runner
         run: flutter pub run build_runner build --delete-conflicting-outputs
-        uses: vhanda/flutter-build-runner-action@v1
+      - uses: vhanda/flutter-build-runner-action@v1
       #テスト
       - name: Run Flutter Test
         run: flutter test
