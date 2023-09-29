@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
@@ -6,24 +7,23 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:sembast/sembast.dart';
 import 'package:sembast/sembast_memory.dart';
-import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie_response.dart';
-import 'package:tmdb_app/src/features/movies/repository/movie_repository.dart';
 import 'package:tmdb_app/src/features/movies/views/component/movie_card.dart';
 import 'package:tmdb_app/src/features/movies/views/movie_list_page.dart';
 import 'package:tmdb_app/src/utils/database/database_provider.dart';
+import 'package:tmdb_app/src/utils/dio/dio_provider.dart';
 import '../integration_test/helper/mock_response.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class MockMovieRepository extends AutoDisposeNotifier<StoreRef>
-    with Mock
-    implements MovieRepository {}
+import '../integration_test/helper/mock_url.dart';
+
+class MockDio extends AutoDisposeNotifier<Dio> with Mock implements Dio {}
 
 class MockDatabase extends AutoDisposeNotifier<Database>
     with Mock
     implements Database {}
 
 void main() {
-  late MockMovieRepository mockMovieRepository;
+  late MockDio mockDio;
   late MockDatabase mockDatabase;
   late Database mockDb;
 
@@ -33,12 +33,12 @@ void main() {
     TestWidgetsFlutterBinding.ensureInitialized();
     HttpOverrides.global = null;
     mockDb = await databaseFactoryMemory.openDatabase('database');
-    mockMovieRepository = MockMovieRepository();
+    mockDio = MockDio();
     mockDatabase = MockDatabase();
   });
 
   tearDownAll(() {
-    reset(mockMovieRepository);
+    reset(mockDio);
   });
 
   const devices = [
@@ -48,50 +48,76 @@ void main() {
   ];
 
   testWidgets('上映中の映画一覧が表示されること', (widgetTester) async {
-    when(() => mockMovieRepository.getNowPlayingMovies(page: 1)).thenAnswer(
+    when(() => mockDio.get(nowPlayingUrlPage1)).thenAnswer(
       (_) async {
-        return MovieResponse.fromJson(mockNowPlayingResponsePage1);
+        return Response(
+          statusCode: 200,
+          data: mockNowPlayingResponsePage1,
+          requestOptions: RequestOptions(baseUrl: nowPlayingUrlPage1),
+        );
       },
     );
-    await widgetTester.runAsync(() async {
-      await widgetTester.pumpWidget(
-        ProviderScope(
-          overrides: [
-            movieRepositoryProvider.overrideWith(() => mockMovieRepository),
-            databaseProvider.overrideWith((ref) => mockDatabase),
-            databaseProvider.overrideWithValue(mockDb),
-          ],
-          child: const MaterialApp(
-            localizationsDelegates: AppLocalizations.localizationsDelegates,
-            supportedLocales: AppLocalizations.supportedLocales,
-            locale: Locale('ja'),
-            home: Material(
-              child: MovieListPage(),
-            ),
-          ),
+    await widgetTester.pumpWidget(
+      ProviderScope(
+        overrides: [
+          databaseProvider.overrideWith((ref) => mockDatabase),
+          databaseProvider.overrideWithValue(mockDb),
+          dioProvider.overrideWith((ref) => mockDio),
+        ],
+        child: MaterialApp(
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          locale: const Locale('ja'),
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+              fontFamily: "Noto_Sans_JP",
+              useMaterial3: true,
+              textTheme: const TextTheme(
+                displayLarge: TextStyle(
+                  fontSize: 72.0,
+                  fontWeight: FontWeight.bold,
+                ),
+                titleLarge: TextStyle(fontSize: 36.0),
+                titleMedium: TextStyle(
+                  fontSize: 27.0,
+                  fontWeight: FontWeight.w400,
+                ),
+                bodyMedium: TextStyle(
+                  fontSize: 18.0,
+                ),
+              )),
+          home: const MovieListPage(),
         ),
-      );
-      await widgetTester.pumpAndSettle();
-      expect(find.byType(MovieCard), findsWidgets);
-      expect(find.text('バイオハザード：デスアイランド'), findsOneWidget);
-      await widgetTester.drag(
-        find.byType(CustomScrollView),
-        const Offset(0.0, -2000),
-      );
-      await widgetTester.pumpAndSettle();
-      expect(find.text('シン・エヴァンゲリオン劇場版'), findsOneWidget);
-    });
+      ),
+    );
+    await widgetTester.pumpAndSettle();
+    expect(find.byType(MovieCard), findsWidgets);
+    expect(find.text('バイオハザード：デスアイランド'), findsOneWidget);
+    await widgetTester.drag(
+      find.byType(CustomScrollView),
+      const Offset(0.0, -2000),
+    );
+    await widgetTester.pumpAndSettle();
+    expect(find.text('シン・エヴァンゲリオン劇場版'), findsOneWidget);
   });
 
   testGoldens('golden_test', (WidgetTester tester) async {
-    when(() => mockMovieRepository.getNowPlayingMovies(page: 1)).thenAnswer(
+    when(() => mockDio.get(nowPlayingUrlPage1)).thenAnswer(
       (_) async {
-        return MovieResponse.fromJson(mockNowPlayingResponsePage1);
+        return Response(
+          statusCode: 200,
+          data: mockNowPlayingResponsePage1,
+          requestOptions: RequestOptions(baseUrl: nowPlayingUrlPage1),
+        );
       },
     );
-    when(() => mockMovieRepository.getUpcomingMovies()).thenAnswer(
+    when(() => mockDio.get(upcomingUrl)).thenAnswer(
       (_) async {
-        return MovieResponse.fromJson(mockUpcomingResponse);
+        return Response(
+          statusCode: 200,
+          data: mockUpcomingResponse,
+          requestOptions: RequestOptions(baseUrl: upcomingUrl),
+        );
       },
     );
     await tester.pumpWidgetBuilder(
@@ -99,7 +125,7 @@ void main() {
         overrides: [
           databaseProvider.overrideWith((ref) => mockDatabase),
           databaseProvider.overrideWithValue(mockDb),
-          movieRepositoryProvider.overrideWith(() => mockMovieRepository),
+          dioProvider.overrideWith((ref) => mockDio),
         ],
         child: MaterialApp(
           localizationsDelegates: AppLocalizations.localizationsDelegates,
