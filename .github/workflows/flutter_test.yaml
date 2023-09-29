@@ -26,7 +26,7 @@ jobs:
     steps:
       #./flutter_setup パスにあるアクションを使用
       - name: Setup Flutter
-        uses: ./setup_flutter
+        uses: ./.github/actions/setup_flutter
       #テスト
       - name: Run Flutter Test
         run: flutter test
@@ -56,6 +56,6 @@ jobs:
           echo $UDID
           xcrun simctl boot "${UDID:?No Simulator with this name found}"
       - name: Setup Flutter
-        uses: ./setup_flutter
+        uses: ./.github/actions/setup_flutter
       - name: Integration Test(ios)
       - run: flutter test integration_test

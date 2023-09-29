@@ -13,7 +13,7 @@ jobs:
     timeout-minutes: 10
     steps:
       - name: Setup Flutter
-        uses: ./flutter_setup
+        uses: ./.github/actions/setup_flutter
       #静的解析
       - name: Flutter Analyze
         run: flutter analyze
