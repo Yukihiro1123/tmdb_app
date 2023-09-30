@@ -8,7 +8,7 @@ on:
 jobs:
   flutter_build_ios:
     # ジョブの表示名
-    name: Flutter Build for Android
+    name: Flutter Build for IOS
     # ジョブを実行するOS
     runs-on: ubuntu-latest
     # タイムアウト時間（分）
