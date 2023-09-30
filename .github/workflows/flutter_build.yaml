@@ -1,0 +1,53 @@
+name: Flutter Build
+
+# ワークフローの起動条件を定義する
+on:
+  push:
+    branches:
+      - main
+jobs:
+  flutter_build_ios:
+    # ジョブの表示名
+    name: Flutter Build for Android
+    # ジョブを実行するOS
+    runs-on: ubuntu-latest
+    # タイムアウト時間（分）
+    timeout-minutes: 15
+    # ジョブの手順
+    steps:
+      #ソースコードを取得
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          #fetch-depth を指定しないと、
+          #push 直前のコミットが取得できない
+          fetch-depth: 1
+      # セットアップ
+      - name: Flutter Setup
+        uses: ./.github/actions/build
+      # iOS Build
+      - name: Build for iOS
+      - run: flutter build ios --release --no-codesign
+
+  flutter_build_android:
+    # ジョブの表示名
+    name: Flutter Build for Android
+    # ジョブを実行するOS
+    runs-on: ubuntu-latest
+    # タイムアウト時間（分）
+    timeout-minutes: 15
+    # ジョブの手順
+    steps:
+      #ソースコードを取得
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          #fetch-depth を指定しないと、
+          #push 直前のコミットが取得できない
+          fetch-depth: 1
+      # セットアップ
+      - name: Flutter Setup
+        uses: ./.github/actions/build
+      # Android Release Build
+      - name: Build for Android
+        run: flutter build appbundle -t lib/main.dart --release
