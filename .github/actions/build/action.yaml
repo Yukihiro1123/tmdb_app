@@ -7,16 +7,15 @@ runs:
       with:
         channel: 'stable'
         cache: true
-      shell: bash
     #依存関係読み込み
     - name: Run Flutter Pub Get
-      run: flutter pub get
       shell: bash
+      run: flutter pub get
     #ローカライズ用のコード生成
     - name: Run Flutter Gen
-      run: flutter gen-l10n
       shell: bash
+      run: flutter gen-l10n
     #Build Runnerでコード自動生成
     - name: Run Build Runner
-      run: flutter pub run build_runner build --delete-conflicting-outputs
       shell: bash
+      run: flutter pub run build_runner build --delete-conflicting-outputs
