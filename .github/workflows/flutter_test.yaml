@@ -25,27 +25,8 @@ jobs:
     
     #ジョブの手順
     steps:
-      - name: Checkout
-        #ソースコードを取得
-        uses: actions/checkout@v3
-        with:
-          #fetch-depth を指定しないと、
-          #push 直前のコミットが取得できない
-          fetch-depth: 1
-      #Flutter SDK の設定
-      - name: Setup Flutter SDK
-        uses: subosito/flutter-action@v2
-        with:
-          channel: 'stable'
-          cache: true
-      #依存関係読み込み
-      - name: Run Flutter Pub Get
-        run: flutter pub get
-      #ローカライズ用のコード生成
-      - name: Run Flutter Gen
-        run: flutter gen-l10n
-      - name: Run Build Runner
-        run: flutter pub run build_runner build --delete-conflicting-outputs
+      - name: Flutter Setup
+        uses: ./.github/actions/build
       #テスト
       - name: Run Flutter Test
         run: flutter test
@@ -74,28 +55,8 @@ jobs:
           UDID=$(xcrun xctrace list devices | grep "^${{ matrix.device }}" | grep -v "Apple Watch" | awk '{gsub(/[()]/,""); print $NF}')
           echo $UDID
           xcrun simctl boot "${UDID:?No Simulator with this name found}"
-      - name: Checkout
-        #ソースコードを取得
-        uses: actions/checkout@v3
-        with:
-          #fetch-depth を指定しないと、
-          #push 直前のコミットが取得できない
-          fetch-depth: 1
-      #Flutter SDK の設定
-      - name: Setup Flutter SDK
-        uses: subosito/flutter-action@v2
-        with:
-          channel: 'stable'
-          cache: true
-      #依存関係読み込み
-      - name: Run Flutter Pub Get
-        run: flutter pub get
-      #ローカライズ用のコード生成
-      - name: Run Flutter Gen
-        run: flutter gen-l10n
-      #コードの自動生成
-      - name: Run Build Runner
-        run: flutter pub run build_runner build --delete-conflicting-outputs
+      - name: Flutter Setup
+        uses: ./.github/actions/build
       #統合テスト
       - name: Integration Test(ios)
         run: flutter test integration_test
