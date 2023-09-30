@@ -199,7 +199,7 @@ void main() {
       expect(find.text('The Resident Evil franchise keeps rolling long'),
           findsOneWidget);
       //レビュー
-      await tester.tap(find.byIcon(Icons.arrow_back_ios));
+      await tester.tap(find.byType(BackButton));
       await tester.pumpAndSettle();
       await tester.tap(find.byIcon(Icons.settings));
       await tester.pumpAndSettle();
@@ -222,7 +222,7 @@ void main() {
       await tester.tap(find.text("英語"));
       await tester.pumpAndSettle();
       expect(find.text("Japanese"), findsOneWidget);
-      await tester.tap(find.byIcon(Icons.arrow_back_ios));
+      await tester.tap(find.byType(BackButton));
       await tester.pumpAndSettle();
       expect(find.text("Language"), findsOneWidget);
       //ライトモード切り替えテスト
@@ -240,7 +240,7 @@ void main() {
       await tester.tap(find.text("Japanese"));
       await tester.pumpAndSettle();
       expect(find.text("日本語"), findsOneWidget);
-      await tester.tap(find.byIcon(Icons.arrow_back_ios));
+      await tester.tap(find.byType(BackButton));
       await tester.pumpAndSettle();
       expect(find.text("言語"), findsOneWidget);
     });
