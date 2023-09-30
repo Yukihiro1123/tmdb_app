@@ -82,7 +82,9 @@ jobs:
     strategy:
       matrix:
         api-level:
-          - 29
+          - 31
+        arch: x86_64
+        target: default
       fail-fast: true
     steps:
       #ソースコードを取得
