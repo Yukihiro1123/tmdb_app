@@ -36,7 +36,7 @@ jobs:
         uses: ./.github/actions/build
       # iOS Build
       - name: Build for iOS
-        run: flutter build ios --no-codesign
+        run: flutter build ios
 
   flutter_build_android:
     # ジョブの表示名
