@@ -13,6 +13,13 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
+      #ソースコードを取得
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          #fetch-depth を指定しないと、
+          #push 直前のコミットが取得できない
+          fetch-depth: 1
       - name: Flutter Setup
         uses: ./.github/actions/build
       #静的解析
