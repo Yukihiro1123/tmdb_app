@@ -36,7 +36,7 @@ jobs:
         uses: ./.github/actions/build
       # iOS Build
       - name: Build for iOS
-        run: flutter build ipa -t lib/main.dart --release
+        run: flutter build ios --dart-define-from-file=scripts/flavors/prod.json
 
   flutter_build_android:
     # ジョブの表示名
