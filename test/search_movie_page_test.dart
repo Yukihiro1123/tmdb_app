@@ -6,46 +6,51 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:sembast/sembast.dart';
-import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie_response.dart';
-import 'package:tmdb_app/src/features/movies/repository/movie_repository.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:tmdb_app/src/features/movies/views/search_movie_page.dart';
+import 'package:tmdb_app/src/utils/dio/dio_provider.dart';
 
 import '../integration_test/helper/mock_response.dart';
+import '../integration_test/helper/mock_url.dart';
 
 class MockDio extends AutoDisposeNotifier<Dio> with Mock implements Dio {}
 
-class MockMovieRepository extends AutoDisposeNotifier<StoreRef>
-    with Mock
-    implements MovieRepository {}
-
 void main() {
-  late MockDio dio;
-  late MockMovieRepository movieRepository;
+  late MockDio mockDio;
 
   setUp(() {
     HttpOverrides.global = null;
-    dio = MockDio();
-    movieRepository = MockMovieRepository();
+    mockDio = MockDio();
   });
 
   tearDownAll(() {
-    reset(dio);
-    reset(movieRepository);
+    reset(mockDio);
   });
   group('NowPlayingMovieList', () {
     testWidgets('検索結果がヒットして、映画リストが出てくる', (widgetTester) async {
-      when(() => movieRepository.searchMovie(query: "犬", page: 1)).thenAnswer(
+      when(() => mockDio.get(searchPage1Url)).thenAnswer(
         (_) async {
-          return MovieResponse.fromJson(mockSearchPage1Response);
+          return Response(
+            statusCode: 200,
+            data: mockSearchPage1Response,
+            requestOptions: RequestOptions(baseUrl: searchPage1Url),
+          );
+        },
+      );
+      when(() => mockDio.get(searchPage2Url)).thenAnswer(
+        (_) async {
+          return Response(
+            statusCode: 200,
+            data: mockSearchPage2Response,
+            requestOptions: RequestOptions(baseUrl: searchPage2Url),
+          );
         },
       );
       await widgetTester.runAsync(() async {
         await widgetTester.pumpWidget(
           ProviderScope(
             overrides: [
-              movieRepositoryProvider.overrideWith(() => movieRepository)
+              dioProvider.overrideWith((ref) => mockDio),
             ],
             child: const MaterialApp(
               localizationsDelegates: AppLocalizations.localizationsDelegates,
@@ -74,22 +79,29 @@ void main() {
         );
         await widgetTester.pumpAndSettle();
         expect(find.text("トッド・ソロンズの子犬物語"), findsOneWidget);
+        await widgetTester.drag(
+          find.byType(CustomScrollView),
+          const Offset(0.0, -2000),
+        );
+        await widgetTester.pumpAndSettle();
+        expect(find.text("天才犬ピーボ博士のタイムトラベル"), findsOneWidget);
       });
     });
 
     testWidgets('検索結果がヒットしなければ映画リストが出てこず、映画が見つかりませんと出る', (widgetTester) async {
-      when(() => movieRepository.searchMovie(query: "dddd", page: 1))
-          .thenAnswer(
+      when(() => mockDio.get(noResultUrl)).thenAnswer(
         (_) async {
-          return MovieResponse.fromJson(mockNoResultResponse);
+          return Response(
+            statusCode: 200,
+            data: mockNoResultResponse,
+            requestOptions: RequestOptions(baseUrl: searchPage1Url),
+          );
         },
       );
       await widgetTester.runAsync(() async {
         await widgetTester.pumpWidget(
           ProviderScope(
-            overrides: [
-              movieRepositoryProvider.overrideWith(() => movieRepository)
-            ],
+            overrides: [dioProvider.overrideWith((ref) => mockDio)],
             child: const MaterialApp(
               localizationsDelegates: AppLocalizations.localizationsDelegates,
               supportedLocales: AppLocalizations.supportedLocales,

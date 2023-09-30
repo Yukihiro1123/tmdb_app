@@ -13,7 +13,6 @@ import 'package:sembast/sembast.dart';
 import 'package:sembast/sembast_io.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tmdb_app/main.dart';
-import 'package:tmdb_app/src/features/movies/repository/movie_repository.dart';
 import 'package:tmdb_app/src/features/movies/views/component/movie_card.dart';
 import 'package:tmdb_app/src/features/movies/views/part/review_list.dart';
 // import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie/movie.dart';
@@ -35,10 +34,6 @@ class MockSharedPreferences extends AutoDisposeNotifier<SharedPreferences>
     with Mock
     implements SharedPreferences {}
 
-class MockMovieRepository extends AutoDisposeNotifier<StoreRef>
-    with Mock
-    implements MovieRepository {}
-
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
@@ -47,13 +42,12 @@ void main() {
     late MockDatabase mockDatabase;
     late MockSharedPreferences mockSharedPreferences;
     late ProviderContainer container;
-    late MockMovieRepository mockMovieRepository;
+
     setUp(() {
       HttpOverrides.global = null;
       mockDio = MockDio();
       mockDatabase = MockDatabase();
       mockSharedPreferences = MockSharedPreferences();
-      mockMovieRepository = MockMovieRepository();
       container = ProviderContainer();
       when(() => mockDio.get(upcomingUrl)).thenAnswer(
         (_) async {
@@ -122,7 +116,6 @@ void main() {
     tearDown(() {
       reset(mockDio);
       reset(mockDatabase);
-      reset(mockMovieRepository);
       reset(mockSharedPreferences);
       container.dispose();
     });
@@ -206,7 +199,7 @@ void main() {
       expect(find.text('The Resident Evil franchise keeps rolling long'),
           findsOneWidget);
       //レビュー
-      await tester.tap(find.byIcon(Icons.arrow_back_ios));
+      await tester.tap(find.byType(BackButton));
       await tester.pumpAndSettle();
       await tester.tap(find.byIcon(Icons.settings));
       await tester.pumpAndSettle();
@@ -229,7 +222,7 @@ void main() {
       await tester.tap(find.text("英語"));
       await tester.pumpAndSettle();
       expect(find.text("Japanese"), findsOneWidget);
-      await tester.tap(find.byIcon(Icons.arrow_back_ios));
+      await tester.tap(find.byType(BackButton));
       await tester.pumpAndSettle();
       expect(find.text("Language"), findsOneWidget);
       //ライトモード切り替えテスト
@@ -247,7 +240,7 @@ void main() {
       await tester.tap(find.text("Japanese"));
       await tester.pumpAndSettle();
       expect(find.text("日本語"), findsOneWidget);
-      await tester.tap(find.byIcon(Icons.arrow_back_ios));
+      await tester.tap(find.byType(BackButton));
       await tester.pumpAndSettle();
       expect(find.text("言語"), findsOneWidget);
     });
