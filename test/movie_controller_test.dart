@@ -7,6 +7,8 @@ import 'package:tmdb_app/src/features/movies/controller/movie_controller.dart';
 import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie_response.dart';
 import 'package:tmdb_app/src/features/movies/repository/movie_repository.dart';
 
+import '../integration_test/helper/mock_response.dart';
+
 class MockMovieRepository extends AutoDisposeNotifier<StoreRef>
     with Mock
     implements MovieRepository {}
@@ -30,18 +32,11 @@ void main() {
     });
 
     test('MovieResponse型のデータを返す', () async {
-      // Arrange: Prepare the test scenario
-      final mockResponse = MovieResponse(
-          page: 1,
-          results: [],
-          totalPages: 3,
-          totalResults: 20); // Replace with a sample response
       when(() => container
           .read(movieRepositoryProvider.notifier)
           .getNowPlayingMovies(page: 1)).thenAnswer(
-        (_) async => mockResponse,
+        (_) async => MovieResponse.fromJson(mockNowPlayingResponsePage1),
       );
-      // Act: Call the function you want to test
       MovieResponse? result;
       await container
           .read(movieControllerProvider.notifier)
@@ -52,18 +47,15 @@ void main() {
             },
             onError: (error) {},
           );
-      expect(result, equals(mockResponse));
+      expect(result, MovieResponse.fromJson(mockNowPlayingResponsePage1));
     });
 
     test('API呼び出しの際にエラーが出たら例外を返す', () async {
-      // Arrange: Prepare the test scenario to simulate an exception
-
       when(() => container
           .read(movieRepositoryProvider.notifier)
           .getNowPlayingMovies(page: 1)).thenThrow(
         (_) async => Exception(),
       );
-      // Act: Call the function you want to test
       String? result;
       await container
           .read(movieControllerProvider.notifier)
@@ -75,7 +67,7 @@ void main() {
             },
           );
       // Assert: Verify the expected behavior
-      expect(result, equals('error'));
+      expect(result, 'error');
     });
   });
 }
