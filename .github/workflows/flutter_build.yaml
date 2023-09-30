@@ -19,7 +19,7 @@ jobs:
     # ジョブの表示名
     name: Flutter Build for IOS
     # ジョブを実行するOS
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     # タイムアウト時間（分）
     timeout-minutes: 15
     # ジョブの手順
@@ -36,7 +36,7 @@ jobs:
         uses: ./.github/actions/build
       # iOS Build
       - name: Build for iOS
-        run: flutter build ios
+        run: flutter build ios --release --no-codesign
 
   flutter_build_android:
     # ジョブの表示名
