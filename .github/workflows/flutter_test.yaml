@@ -81,10 +81,9 @@ jobs:
     timeout-minutes: 20
     strategy:
       matrix:
-        api-level:
-          - 31
-        arch: x86_64
-        target: default
+        - api-level: 31
+          arch: x86_64
+          target: default
       fail-fast: true
     steps:
       #ソースコードを取得
@@ -129,7 +128,7 @@ jobs:
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: ${{ matrix.api-level }}
-          arch: x86_64
+          arch: ${{ matrix.arch }}
           profile: Nexus 6
           script: flutter test integration_test
     
