@@ -40,7 +40,7 @@ jobs:
   #integration test(ios)
   flutter_integration_test_ios:
     name: Flutter Integration Test (IOS)
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     timeout-minutes: 20
     strategy:
       matrix:
@@ -77,7 +77,7 @@ jobs:
   
   flutter_integration_test_android:
     name: Flutter Integration Test (Android)
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     timeout-minutes: 20
     strategy:
       matrix:
