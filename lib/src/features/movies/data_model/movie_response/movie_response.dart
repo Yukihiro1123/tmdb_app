@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie/movie.dart';
+import 'movie/movie.dart';
 
 part 'movie_response.freezed.dart';
 part 'movie_response.g.dart';

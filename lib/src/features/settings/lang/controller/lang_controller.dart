@@ -1,5 +1,5 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:tmdb_app/src/features/settings/lang/repository/lang_repository.dart';
+import '../repository/lang_repository.dart';
 
 part 'lang_controller.g.dart';
 
@@ -11,7 +11,7 @@ class LangController extends _$LangController {
   }
 
   Future<void> changeLang({required String lang}) async {
-    AsyncValue.guard(() async {
+    await AsyncValue.guard(() async {
       await ref.read(langRepositoryProvider.notifier).changeLang(lang: lang);
     });
   }

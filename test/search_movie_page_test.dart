@@ -2,11 +2,11 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 // import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:tmdb_app/src/features/movies/views/search_movie_page.dart';
 import 'package:tmdb_app/src/utils/dio/dio_provider.dart';
 
@@ -75,16 +75,16 @@ void main() {
         expect(find.text('Dog'), findsOneWidget);
         await widgetTester.drag(
           find.byType(CustomScrollView),
-          const Offset(0.0, -2000),
+          const Offset(0, -2000),
         );
         await widgetTester.pumpAndSettle();
-        expect(find.text("トッド・ソロンズの子犬物語"), findsOneWidget);
+        expect(find.text('トッド・ソロンズの子犬物語'), findsOneWidget);
         await widgetTester.drag(
           find.byType(CustomScrollView),
-          const Offset(0.0, -2000),
+          const Offset(0, -2000),
         );
         await widgetTester.pumpAndSettle();
-        expect(find.text("天才犬ピーボ博士のタイムトラベル"), findsOneWidget);
+        expect(find.text('天才犬ピーボ博士のタイムトラベル'), findsOneWidget);
       });
     });
 

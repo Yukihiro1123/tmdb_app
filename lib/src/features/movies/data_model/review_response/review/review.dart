@@ -9,12 +9,10 @@ class Review with _$Review {
     required String id,
     required String author,
     @JsonKey(name: 'author_details')
-        required Map<String, dynamic> authorDetails,
+    required Map<String, dynamic> authorDetails,
     required String content,
-    @JsonKey(name: 'created_at')
-        required DateTime createdAt,
-    @JsonKey(name: 'updated_at')
-        required DateTime updatedAt,
+    @JsonKey(name: 'created_at') required DateTime createdAt,
+    @JsonKey(name: 'updated_at') required DateTime updatedAt,
     required String url,
   }) = _Review;
 

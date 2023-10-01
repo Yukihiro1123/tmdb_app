@@ -1,6 +1,8 @@
 import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -11,9 +13,8 @@ import 'package:tmdb_app/src/features/movies/views/component/movie_card.dart';
 import 'package:tmdb_app/src/features/movies/views/movie_list_page.dart';
 import 'package:tmdb_app/src/utils/database/database_provider.dart';
 import 'package:tmdb_app/src/utils/dio/dio_provider.dart';
-import '../integration_test/helper/mock_response.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../integration_test/helper/mock_response.dart';
 import '../integration_test/helper/mock_url.dart';
 
 class MockDio extends AutoDisposeNotifier<Dio> with Mock implements Dio {}
@@ -70,22 +71,23 @@ void main() {
           locale: const Locale('ja'),
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
-              fontFamily: "Noto_Sans_JP",
-              useMaterial3: true,
-              textTheme: const TextTheme(
-                displayLarge: TextStyle(
-                  fontSize: 72.0,
-                  fontWeight: FontWeight.bold,
-                ),
-                titleLarge: TextStyle(fontSize: 36.0),
-                titleMedium: TextStyle(
-                  fontSize: 27.0,
-                  fontWeight: FontWeight.w400,
-                ),
-                bodyMedium: TextStyle(
-                  fontSize: 18.0,
-                ),
-              )),
+            fontFamily: 'Noto_Sans_JP',
+            useMaterial3: true,
+            textTheme: const TextTheme(
+              displayLarge: TextStyle(
+                fontSize: 72,
+                fontWeight: FontWeight.bold,
+              ),
+              titleLarge: TextStyle(fontSize: 36),
+              titleMedium: TextStyle(
+                fontSize: 27,
+                fontWeight: FontWeight.w400,
+              ),
+              bodyMedium: TextStyle(
+                fontSize: 18,
+              ),
+            ),
+          ),
           home: const MovieListPage(),
         ),
       ),
@@ -95,7 +97,7 @@ void main() {
     expect(find.text('バイオハザード：デスアイランド'), findsOneWidget);
     await widgetTester.drag(
       find.byType(CustomScrollView),
-      const Offset(0.0, -2000),
+      const Offset(0, -2000),
     );
     await widgetTester.pumpAndSettle();
     expect(find.text('シン・エヴァンゲリオン劇場版'), findsOneWidget);
@@ -133,22 +135,23 @@ void main() {
           locale: const Locale('ja'),
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
-              fontFamily: "Noto_Sans_JP",
-              useMaterial3: true,
-              textTheme: const TextTheme(
-                displayLarge: TextStyle(
-                  fontSize: 72.0,
-                  fontWeight: FontWeight.bold,
-                ),
-                titleLarge: TextStyle(fontSize: 36.0),
-                titleMedium: TextStyle(
-                  fontSize: 27.0,
-                  fontWeight: FontWeight.w400,
-                ),
-                bodyMedium: TextStyle(
-                  fontSize: 18.0,
-                ),
-              )),
+            fontFamily: 'Noto_Sans_JP',
+            useMaterial3: true,
+            textTheme: const TextTheme(
+              displayLarge: TextStyle(
+                fontSize: 72,
+                fontWeight: FontWeight.bold,
+              ),
+              titleLarge: TextStyle(fontSize: 36),
+              titleMedium: TextStyle(
+                fontSize: 27,
+                fontWeight: FontWeight.w400,
+              ),
+              bodyMedium: TextStyle(
+                fontSize: 18,
+              ),
+            ),
+          ),
           home: const MovieListPage(),
         ),
       ),

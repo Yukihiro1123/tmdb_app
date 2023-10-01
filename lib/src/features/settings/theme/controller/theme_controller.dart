@@ -1,5 +1,5 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:tmdb_app/src/features/settings/theme/repository/theme_repository.dart';
+import '../repository/theme_repository.dart';
 
 part 'theme_controller.g.dart';
 
@@ -10,9 +10,9 @@ class ThemeController extends _$ThemeController {
     return ref.watch(themeRepositoryProvider);
   }
 
-  void toggleTheme() {
-    AsyncValue.guard(() async {
-      return await ref.read(themeRepositoryProvider.notifier).toggleTheme();
+  Future<void> toggleTheme() async {
+    await AsyncValue.guard(() {
+      return ref.read(themeRepositoryProvider.notifier).toggleTheme();
     });
   }
 }

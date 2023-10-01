@@ -1,15 +1,15 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:sembast/sembast.dart';
-import 'package:tmdb_app/env.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:sembast/sembast.dart';
 
-import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie/movie.dart';
-import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie_response.dart';
-import 'package:tmdb_app/src/features/movies/data_model/review_response/review_response.dart';
-import 'package:tmdb_app/src/utils/database/database_provider.dart';
+import '../../../../env.dart';
+import '../../../utils/database/database_provider.dart';
+import '../../../utils/dio/dio_provider.dart';
+import '../data_model/movie_response/movie/movie.dart';
+import '../data_model/movie_response/movie_response.dart';
+import '../data_model/review_response/review_response.dart';
 
-import 'package:tmdb_app/src/utils/dio/dio_provider.dart';
 part 'movie_repository.g.dart';
 
 @riverpod
@@ -45,7 +45,7 @@ class MovieRepository extends _$MovieRepository {
     required int page,
   }) async {
     try {
-      final String url = Uri(
+      final url = Uri(
         scheme: 'https',
         host: 'api.themoviedb.org',
         path: '3/movie/now_playing',
@@ -57,11 +57,11 @@ class MovieRepository extends _$MovieRepository {
           'page': '$page',
         },
       ).toString();
-      debugPrint("now playing movie page$page");
+      debugPrint('now playing movie page$page');
       final response = await ref.read(dioProvider).get(url);
       if (response.statusCode == 200) {
         return await insertAndReadMovieFromDB(
-          storePath: "nowPlaying",
+          storePath: 'nowPlaying',
           response: response.data,
         );
       } else {
@@ -75,7 +75,7 @@ class MovieRepository extends _$MovieRepository {
 
   Future<MovieResponse> getUpcomingMovies() async {
     try {
-      final String url = Uri(
+      final url = Uri(
         scheme: 'https',
         host: 'api.themoviedb.org',
         path: '3/movie/upcoming',
@@ -99,8 +99,8 @@ class MovieRepository extends _$MovieRepository {
     required int page,
   }) async {
     try {
-      debugPrint("search page:${page.toString()}");
-      final String url = Uri(
+      debugPrint('search page:$page');
+      final url = Uri(
         scheme: 'https',
         host: 'api.themoviedb.org',
         path: '3/search/movie',
@@ -123,7 +123,7 @@ class MovieRepository extends _$MovieRepository {
 
   Future<Movie> getMovieDetail({required int movieId}) async {
     try {
-      final String url = Uri(
+      final url = Uri(
         scheme: 'https',
         host: 'api.themoviedb.org',
         path: '3/movie/$movieId',
@@ -145,7 +145,7 @@ class MovieRepository extends _$MovieRepository {
     required int movieId,
   }) async {
     try {
-      final String url = Uri(
+      final url = Uri(
         scheme: 'https',
         host: 'api.themoviedb.org',
         path: '3/movie/$movieId/reviews',
