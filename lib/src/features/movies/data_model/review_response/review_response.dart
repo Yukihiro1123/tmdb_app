@@ -2,7 +2,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:tmdb_app/src/features/movies/data_model/review_response/review/review.dart';
 
 part 'review_response.freezed.dart';
-part 'review_response.g.dart';
 
 @freezed
 class ReviewResponse with _$ReviewResponse {

@@ -1,12 +1,14 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: type=lint, implicit_dynamic_parameter, implicit_dynamic_type, implicit_dynamic_method, strict_raw_type
+
 part of 'movie_repository.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$movieRepositoryHash() => r'a41c65c6779d16bbfdd25e4f3524a3086b5e0395';
+String _$movieRepositoryHash() => r'5bbda922ba1038a521888a660baa0b6483cbf4ba';
 
 /// See also [MovieRepository].
 @ProviderFor(MovieRepository)
