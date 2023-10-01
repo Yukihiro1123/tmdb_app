@@ -179,9 +179,9 @@ void main() {
       await tester.pumpAndSettle();
       expect(find.byType(MovieCard), findsWidgets);
       //映画詳細ページに遷移
-      await tester.ensureVisible(find.text("バイオハザード：デスアイランド"));
+      await tester.ensureVisible(find.text('バイオハザード：デスアイランド'));
       await tester.pumpAndSettle();
-      await tester.tap(find.text("バイオハザード：デスアイランド"));
+      await tester.tap(find.text('バイオハザード：デスアイランド'));
       await tester.pumpAndSettle();
       expect(find.text('絡み合う運命。狂い出す世界。'), findsOneWidget);
       // await tester.drag(
@@ -196,53 +196,55 @@ void main() {
           matching: find.byType(Scrollable).at(2),
         ),
       );
-      expect(find.text('The Resident Evil franchise keeps rolling long'),
-          findsOneWidget);
+      expect(
+        find.text('The Resident Evil franchise keeps rolling long'),
+        findsOneWidget,
+      );
       //レビュー
       await tester.tap(find.byType(BackButton));
       await tester.pumpAndSettle();
       await tester.tap(find.byIcon(Icons.settings));
       await tester.pumpAndSettle();
       expect(find.text('設定'), findsOneWidget);
-      expect(find.text("言語"), findsOneWidget);
+      expect(find.text('言語'), findsOneWidget);
 
       ///設定画面テスト
       //ダークモード切り替えテスト
-      expect(find.text("ダークモード"), findsOneWidget);
-      await tester.tap(find.text("ダークモード"));
+      expect(find.text('ダークモード'), findsOneWidget);
+      await tester.tap(find.text('ダークモード'));
       await tester.pumpAndSettle();
       expect(
-        Theme.of(tester.element(find.text("ダークモード"))).brightness,
+        Theme.of(tester.element(find.text('ダークモード'))).brightness,
         equals(Brightness.dark),
       );
       //言語切り替えテスト
-      await tester.tap(find.text("言語"));
+      await tester.tap(find.text('言語'));
       await tester.pumpAndSettle();
-      expect(find.text("英語"), findsOneWidget);
-      await tester.tap(find.text("英語"));
+      expect(find.text('英語'), findsOneWidget);
+      await tester.tap(find.text('英語'));
       await tester.pumpAndSettle();
-      expect(find.text("Japanese"), findsOneWidget);
+      expect(find.text('Japanese'), findsOneWidget);
       await tester.tap(find.byType(BackButton));
       await tester.pumpAndSettle();
-      expect(find.text("Language"), findsOneWidget);
+      expect(find.text('Language'), findsOneWidget);
       //ライトモード切り替えテスト
-      expect(find.text("dark theme"), findsOneWidget);
-      await tester.tap(find.text("dark theme"));
+      expect(find.text('dark theme'), findsOneWidget);
+      await tester.tap(find.text('dark theme'));
       await tester.pumpAndSettle();
       expect(
-        Theme.of(tester.element(find.text("dark theme"))).brightness,
+        Theme.of(tester.element(find.text('dark theme'))).brightness,
         equals(Brightness.light),
       );
       //言語切り替えテスト
-      await tester.tap(find.text("Language"));
+      await tester.tap(find.text('Language'));
       await tester.pumpAndSettle();
-      expect(find.text("Japanese"), findsOneWidget);
-      await tester.tap(find.text("Japanese"));
+      expect(find.text('Japanese'), findsOneWidget);
+      await tester.tap(find.text('Japanese'));
       await tester.pumpAndSettle();
-      expect(find.text("日本語"), findsOneWidget);
+      expect(find.text('日本語'), findsOneWidget);
       await tester.tap(find.byType(BackButton));
       await tester.pumpAndSettle();
-      expect(find.text("言語"), findsOneWidget);
+      expect(find.text('言語'), findsOneWidget);
     });
   });
 }

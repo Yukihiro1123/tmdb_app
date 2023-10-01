@@ -1,7 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mocktail/mocktail.dart';
-
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:sembast/sembast.dart';
 import 'package:tmdb_app/src/features/movies/controller/movie_controller.dart';
 import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie_response.dart';
@@ -32,9 +31,11 @@ void main() {
     });
 
     test('MovieResponse型のデータを返す', () async {
-      when(() => container
-          .read(movieRepositoryProvider.notifier)
-          .getNowPlayingMovies(page: 1)).thenAnswer(
+      when(
+        () => container
+            .read(movieRepositoryProvider.notifier)
+            .getNowPlayingMovies(page: 1),
+      ).thenAnswer(
         (_) async => MovieResponse.fromJson(mockNowPlayingResponsePage1),
       );
       MovieResponse? result;
@@ -51,9 +52,11 @@ void main() {
     });
 
     test('API呼び出しの際にエラーが出たら例外を返す', () async {
-      when(() => container
-          .read(movieRepositoryProvider.notifier)
-          .getNowPlayingMovies(page: 1)).thenThrow(
+      when(
+        () => container
+            .read(movieRepositoryProvider.notifier)
+            .getNowPlayingMovies(page: 1),
+      ).thenThrow(
         (_) async => Exception(),
       );
       String? result;

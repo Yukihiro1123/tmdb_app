@@ -1,8 +1,8 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie/movie.dart';
-import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie_response.dart';
-import 'package:tmdb_app/src/features/movies/data_model/review_response/review_response.dart';
-import 'package:tmdb_app/src/features/movies/repository/movie_repository.dart';
+import '../data_model/movie_response/movie/movie.dart';
+import '../data_model/movie_response/movie_response.dart';
+import '../data_model/review_response/review_response.dart';
+import '../repository/movie_repository.dart';
 
 part 'movie_controller.g.dart';
 
@@ -40,7 +40,7 @@ class MovieController extends _$MovieController {
           .getMovieReview(movieId: movieId, page: page);
       onSuccess(response);
     } catch (e) {
-      onError('error');
+      onError('error $e');
     }
   }
 
@@ -56,7 +56,7 @@ class MovieController extends _$MovieController {
           .searchMovie(query: query, page: page);
       onSuccess(response);
     } catch (e) {
-      onError('error');
+      onError('error $e');
     }
   }
 }
@@ -66,13 +66,14 @@ Future<Movie> watchMovieDetailController(
   WatchMovieDetailControllerRef ref,
   int movieId,
 ) async {
-  return await ref
+  return ref
       .read(movieRepositoryProvider.notifier)
       .getMovieDetail(movieId: movieId);
 }
 
 @riverpod
 Future<MovieResponse> watchUpcomingMoviesController(
-    WatchUpcomingMoviesControllerRef ref) async {
-  return await ref.read(movieRepositoryProvider.notifier).getUpcomingMovies();
+  WatchUpcomingMoviesControllerRef ref,
+) async {
+  return ref.read(movieRepositoryProvider.notifier).getUpcomingMovies();
 }

@@ -1,15 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:tmdb_app/src/common_widgets/shimmer_widget.dart';
+import 'shimmer_widget.dart';
 
 class CachedImage extends ConsumerWidget {
-  final String? imageURL;
-  final double width;
-  final double height;
-  final bool isCircle;
-  final BoxFit? boxFit;
-  final ColorFilter? colorFilter;
   const CachedImage({
     super.key,
     required this.imageURL,
@@ -19,18 +13,24 @@ class CachedImage extends ConsumerWidget {
     this.boxFit,
     this.colorFilter,
   });
+  final String? imageURL;
+  final double width;
+  final double height;
+  final bool isCircle;
+  final BoxFit? boxFit;
+  final ColorFilter? colorFilter;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     //golden testではネットワーク画像を取得できないのでダミーデータもassetimageで表示する
-    return imageURL == null || imageURL == "assets/images/cinema.jpeg"
+    return imageURL == null || imageURL == 'assets/images/cinema.jpeg'
         ? Container(
             width: width,
             height: height,
             decoration: BoxDecoration(
               image: const DecorationImage(
                 fit: BoxFit.fill,
-                image: AssetImage("assets/images/cinema.jpeg"),
+                image: AssetImage('assets/images/cinema.jpeg'),
               ),
               shape: isCircle ? BoxShape.circle : BoxShape.rectangle,
             ),
@@ -47,12 +47,14 @@ class CachedImage extends ConsumerWidget {
                   image: imageProvider,
                   colorFilter: colorFilter ??
                       const ColorFilter.mode(
-                          Colors.transparent, BlendMode.srcATop),
+                        Colors.transparent,
+                        BlendMode.srcATop,
+                      ),
                 ),
               ),
             ),
             placeholder: (context, url) {
-              return isCircle == true
+              return isCircle
                   ? ShimmerWidget.circular(
                       width: width,
                       height: height,
@@ -60,14 +62,14 @@ class CachedImage extends ConsumerWidget {
                   : ShimmerWidget.rectangular(height: height);
             },
             errorWidget: (context, url, dynamic error) {
-              debugPrint("エラー：$error, url: $imageURL");
+              debugPrint('エラー：$error, url: $imageURL');
               return Container(
                 width: width,
                 height: height,
                 decoration: BoxDecoration(
                   image: const DecorationImage(
                     fit: BoxFit.fill,
-                    image: AssetImage("assets/images/cinema.jpeg"),
+                    image: AssetImage('assets/images/cinema.jpeg'),
                   ),
                   shape: isCircle ? BoxShape.circle : BoxShape.rectangle,
                 ),

@@ -1,23 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:tmdb_app/src/features/movies/controller/movie_controller.dart';
-import 'package:tmdb_app/src/features/movies/data_model/review_response/review/review.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:tmdb_app/src/features/movies/views/component/review_card.dart';
+import '../../controller/movie_controller.dart';
+import '../../data_model/review_response/review/review.dart';
+import '../component/review_card.dart';
 
 class ReviewList extends HookConsumerWidget {
-  final String movieId;
   const ReviewList({
     super.key,
     required this.movieId,
   });
+  final String movieId;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final PagingController<int, Review> pagingController =
-        PagingController(firstPageKey: 1);
+    final pagingController = PagingController<int, Review>(firstPageKey: 1);
     final isMounted = useIsMounted();
     final movieController = ref.watch(
       movieControllerProvider.notifier,
@@ -26,29 +25,30 @@ class ReviewList extends HookConsumerWidget {
       () {
         pagingController.addPageRequestListener((pageKey) {
           movieController.getMovieReview(
-              movieId: int.parse(movieId),
-              page: pageKey,
-              onSuccess: (data) {
-                if (isMounted()) {
-                  if (data.page == data.totalPages) {
-                    pagingController.appendLastPage(data.results);
-                  } else {
-                    pagingController.appendPage(data.results, pageKey + 1);
-                  }
+            movieId: int.parse(movieId),
+            page: pageKey,
+            onSuccess: (data) {
+              if (isMounted()) {
+                if (data.page == data.totalPages) {
+                  pagingController.appendLastPage(data.results);
+                } else {
+                  pagingController.appendPage(data.results, pageKey + 1);
                 }
-              },
-              onError: (error) {
-                // debugPrint(error);
-                pagingController.error = error;
-              });
+              }
+            },
+            onError: (error) {
+              // debugPrint(error);
+              pagingController.error = error;
+            },
+          );
         });
-        return () => pagingController.dispose();
+        return pagingController.dispose;
       },
       const [],
     );
     return RefreshIndicator(
       onRefresh: () => Future.sync(
-        () => pagingController.refresh(),
+        pagingController.refresh,
       ),
       child: PagedListView<int, Review>(
         shrinkWrap: true,
@@ -69,7 +69,7 @@ class ReviewList extends HookConsumerWidget {
               position: index,
               duration: const Duration(milliseconds: 75),
               child: SlideAnimation(
-                verticalOffset: 50.0,
+                verticalOffset: 50,
                 child: FadeInAnimation(
                   child: ReviewCard(item: item),
                 ),

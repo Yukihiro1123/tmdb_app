@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:tmdb_app/src/common_widgets/cached_image.dart';
-import 'package:tmdb_app/src/common_widgets/movie_detail_shimmer.dart';
-import 'package:tmdb_app/src/features/movies/controller/movie_controller.dart';
-import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie/movie.dart';
-import 'package:tmdb_app/src/features/movies/views/part/movie_detail_page_body.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import '../../../common_widgets/cached_image.dart';
+import '../../../common_widgets/movie_detail_shimmer.dart';
+import '../controller/movie_controller.dart';
+import '../data_model/movie_response/movie/movie.dart';
+import 'part/movie_detail_page_body.dart';
 
 class MovieDetailPage extends HookConsumerWidget {
-  final String movieId;
   const MovieDetailPage({
     super.key,
     required this.movieId,
   });
+  final String movieId;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return SafeArea(
@@ -38,7 +38,7 @@ class MovieDetailPage extends HookConsumerWidget {
                       flexibleSpace: FlexibleSpaceBar(
                         title: Text(
                           movie.title,
-                          style: const TextStyle(fontSize: 12.0),
+                          style: const TextStyle(fontSize: 12),
                         ),
                         centerTitle: true,
                         background: CachedImage(

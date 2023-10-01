@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:tmdb_app/src/features/movies/controller/movie_controller.dart';
-import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie/movie.dart';
-import 'package:tmdb_app/src/features/movies/views/part/movie_list.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '../controller/movie_controller.dart';
+import '../data_model/movie_response/movie/movie.dart';
+import 'part/movie_list.dart';
 
 class SearchMoviePage extends HookConsumerWidget {
   const SearchMoviePage({super.key});
@@ -18,7 +18,7 @@ class SearchMoviePage extends HookConsumerWidget {
     final movieController = ref.watch(
       movieControllerProvider.notifier,
     );
-    final TextEditingController searchController = useTextEditingController();
+    final searchController = useTextEditingController();
 
     useEffect(
       () {
@@ -27,23 +27,24 @@ class SearchMoviePage extends HookConsumerWidget {
         }
         pagingController.addPageRequestListener((pageKey) {
           movieController.searchMovie(
-              query: searchController.text,
-              page: pageKey,
-              onSuccess: (data) {
-                if (isMounted()) {
-                  if (data.page == data.totalPages) {
-                    pagingController.appendLastPage(data.results);
-                  } else {
-                    pagingController.appendPage(data.results, pageKey + 1);
-                  }
+            query: searchController.text,
+            page: pageKey,
+            onSuccess: (data) {
+              if (isMounted()) {
+                if (data.page == data.totalPages) {
+                  pagingController.appendLastPage(data.results);
+                } else {
+                  pagingController.appendPage(data.results, pageKey + 1);
                 }
-              },
-              onError: (error) {
-                // debugPrint(error);
-                pagingController.error = error;
-              });
+              }
+            },
+            onError: (error) {
+              // debugPrint(error);
+              pagingController.error = error;
+            },
+          );
         });
-        return () => pagingController.dispose();
+        return pagingController.dispose;
       },
       [isSearching.value],
     );
@@ -72,7 +73,7 @@ class SearchMoviePage extends HookConsumerWidget {
             ),
           ),
         ),
-        body: isSearching.value == false
+        body: !isSearching.value
             ? Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,

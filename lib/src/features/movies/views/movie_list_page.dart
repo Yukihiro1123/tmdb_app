@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:tmdb_app/src/features/movies/controller/movie_controller.dart';
-import 'package:tmdb_app/src/features/movies/data_model/movie_response/movie/movie.dart';
-import 'package:tmdb_app/src/features/movies/views/part/movie_list.dart';
-import 'package:tmdb_app/src/features/movies/views/part/upcoming_movie_list.dart';
+import '../controller/movie_controller.dart';
+import '../data_model/movie_response/movie/movie.dart';
+import 'part/movie_list.dart';
+import 'part/upcoming_movie_list.dart';
 
 class MovieListPage extends HookConsumerWidget {
   const MovieListPage({super.key});
@@ -17,9 +17,10 @@ class MovieListPage extends HookConsumerWidget {
     final movieController = ref.watch(
       movieControllerProvider.notifier,
     );
-    useEffect(() {
-      pagingController.addPageRequestListener((pageKey) {
-        movieController.getNowPlayingMovies(
+    useEffect(
+      () {
+        pagingController.addPageRequestListener((pageKey) {
+          movieController.getNowPlayingMovies(
             page: pageKey,
             onSuccess: (data) {
               if (isMounted()) {
@@ -33,10 +34,13 @@ class MovieListPage extends HookConsumerWidget {
             onError: (error) {
               debugPrint(error);
               pagingController.error = error;
-            });
-      });
-      return () => pagingController.dispose();
-    }, const []);
+            },
+          );
+        });
+        return pagingController.dispose;
+      },
+      const [],
+    );
 
     return SafeArea(
       child: Scaffold(
@@ -52,7 +56,7 @@ class MovieListPage extends HookConsumerWidget {
             MovieList(
               pagingController: pagingController,
               noItemsFoundWidget: const SizedBox.shrink(),
-            )
+            ),
           ],
         ),
       ),

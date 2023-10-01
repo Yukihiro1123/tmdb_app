@@ -27,21 +27,19 @@ void main() {
     container.dispose();
   });
 
-  group("toggle theme", () {
+  group('toggle theme', () {
     test('最初のテーマはfalse, 切り替え後にtrueになる', () async {
       const actual = false;
-      final bool firstState =
-          container.read(themeRepositoryProvider.notifier).state;
+      final firstState = container.read(themeRepositoryProvider.notifier).state;
       expect(firstState, actual);
       //切り替え後trueになる
       await container.read(themeRepositoryProvider.notifier).toggleTheme();
-      final bool secondState =
+      final secondState =
           container.read(themeRepositoryProvider.notifier).state;
       expect(secondState, !actual);
       //さらに切り替え後falseになる
       await container.read(themeRepositoryProvider.notifier).toggleTheme();
-      final bool thirdState =
-          container.read(themeRepositoryProvider.notifier).state;
+      final thirdState = container.read(themeRepositoryProvider.notifier).state;
       expect(thirdState, actual);
     });
   });
